@@ -8,7 +8,8 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>10.0.20506</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <RootNamespace></RootNamespace>
+    <RootNamespace>
+    </RootNamespace>
     <ProjectGuid>{078285B2-F754-D98F-460C-015E1EC32FFD}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
@@ -66,6 +67,8 @@
     <Compile Include="Assets\Scripts\Helpers\ListHelper.cs" />
     <Compile Include="Assets\Scripts\Terminal\Nodes\CodeNode.cs" />
     <Compile Include="Assets\Scripts\Terminal\Nodes\ICodeNode.cs" />
+    <Compile Include="Assets\Scripts\Terminal\Nodes\LoopRangeNode.cs" />
+    <Compile Include="Assets\Scripts\Terminal\Nodes\Types\IntegerNode.cs" />
     <Compile Include="Assets\Scripts\Test.cs" />
     <Reference Include="Unity.Timeline.Editor">
       <HintPath>C:/Users/abelt/Projects/Unity3DLearning/CodeBlox/Library/ScriptAssemblies/Unity.Timeline.Editor.dll</HintPath>

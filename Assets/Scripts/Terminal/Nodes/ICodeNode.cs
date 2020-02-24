@@ -4,10 +4,11 @@ using System.Collections.Generic;
 
 public interface ICodeNode 
 {
+    List<object> Parameters { get; set; }
     ICodeNode ParentNode { get; set; }
     List<ICodeNode> ChildNodes { get; set; }
-    Object ReturnValue { get; set; } // value to return on execute
-    Object Execute(params object[] parameters);
+    object ReturnValue { get; set; } // value to return on execute
+    object Execute();
     List<ICodeNode> NodesInScope { get; set; }
     List<ICodeNode> NodesInLevel { get; set; }
     void moveUp();
@@ -15,7 +16,12 @@ public interface ICodeNode
     void moveToParent();
     void moveToChild();
 
-    void OnExecuteAction(params object[] parameters);
-    void OnAfterExecuteAction(params object[] parameters);
+    void OnBeforeExecuteAction();
+    void OnAfterExecuteAction();
+
+    void OnBeforeChildNodesExecuteAction();
+    void OnAfterChildNodesExecuteAction();
+
+    void AddChildNode(ICodeNode childNode);
 
 }
