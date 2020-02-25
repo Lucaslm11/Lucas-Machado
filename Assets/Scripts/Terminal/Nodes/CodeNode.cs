@@ -4,8 +4,7 @@ using System.Collections.Generic;
 
 public class CodeNode : ICodeNode
 {
-    protected bool Loop { get; set; }
-
+    public virtual bool CanHaveChildren { get { return false; } }
     /// <summary>
     /// Represents the node that the current one is child of
     /// </summary>
@@ -34,28 +33,27 @@ public class CodeNode : ICodeNode
     /// <summary>
     /// Contains the value to be returned on Execute method
     /// </summary>
-    public object ReturnValue { get; set; }
+    public virtual object ReturnValue { get; set; }
     public List<object> Parameters { get; set; }
 
     public CodeNode()
     {
         ChildNodes = new List<ICodeNode>();
         NodesInScope = new List<ICodeNode>();
-        ParentNode = new CodeNode();
-        Loop = false;
+        ParentNode = new CodeNode(); 
         Parameters = new List<object>();
     }
 
     public object Execute()
     {
         OnBeforeExecuteAction();
-        while (Loop)
+        while (OnBeforeChildNodesExecuteAction())
         {
-            OnBeforeChildNodesExecuteAction();
-            foreach (ICodeNode childNode in ChildNodes)
-            {
-                childNode.Execute();
-            }
+            if(CanHaveChildren)
+                foreach (ICodeNode childNode in ChildNodes)
+                {
+                    childNode.Execute();
+                }
             OnAfterChildNodesExecuteAction();
         }
         OnAfterExecuteAction();
@@ -101,11 +99,13 @@ public class CodeNode : ICodeNode
 
     public void AddChildNode(ICodeNode childNode)
     {
-        ChildNodes.Add(childNode);
+        if(CanHaveChildren)
+            ChildNodes.Add(childNode);
     }
 
-    public virtual void OnBeforeChildNodesExecuteAction()
+    public virtual bool OnBeforeChildNodesExecuteAction()
     {
+        return false;
     }
 
     public virtual void OnAfterChildNodesExecuteAction()

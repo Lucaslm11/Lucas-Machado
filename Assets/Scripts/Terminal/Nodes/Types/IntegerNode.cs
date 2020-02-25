@@ -9,16 +9,36 @@ namespace Assets.Scripts.Terminal.Nodes.Types
     public class IntegerNode : CodeNode
     {
         public int Value { get; set; }
+        public override object ReturnValue { get { return Value; } set { } }
         public IntegerNode()
         {
-            Value = 0;
+            Value = 0; 
         }
-        public override void OnBeforeChildNodesExecuteAction()
+        public override bool OnBeforeChildNodesExecuteAction()
+        { 
+            return false;
+        } 
+
+        public static bool operator>=(IntegerNode val1, IntegerNode val2)
         {
-            ReturnValue = Value;
+            return val1.Value >= val2.Value;
         }
-        public override void OnAfterChildNodesExecuteAction()
+
+
+        public static bool operator<=(IntegerNode val1, IntegerNode val2)
         {
+            return val1.Value <= val2.Value;
+        }
+
+        public static bool operator>(IntegerNode val1, IntegerNode val2)
+        {
+            return val1.Value > val2.Value;
+        }
+
+
+        public static bool operator<(IntegerNode val1, IntegerNode val2)
+        {
+            return val1.Value < val2.Value;
         }
 
     }

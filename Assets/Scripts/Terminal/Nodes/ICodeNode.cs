@@ -4,6 +4,7 @@ using System.Collections.Generic;
 
 public interface ICodeNode 
 {
+    bool CanHaveChildren { get; }
     List<object> Parameters { get; set; }
     ICodeNode ParentNode { get; set; }
     List<ICodeNode> ChildNodes { get; set; }
@@ -19,7 +20,7 @@ public interface ICodeNode
     void OnBeforeExecuteAction();
     void OnAfterExecuteAction();
 
-    void OnBeforeChildNodesExecuteAction();
+    bool OnBeforeChildNodesExecuteAction();
     void OnAfterChildNodesExecuteAction();
 
     void AddChildNode(ICodeNode childNode);

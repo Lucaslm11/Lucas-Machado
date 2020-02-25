@@ -9,6 +9,7 @@ namespace Assets.Scripts.Terminal.Nodes
 {
     public class LoopRangeNode : CodeNode
     {
+        public override bool CanHaveChildren { get { return true; } }
         IntegerNode counter { get; set; }
         public int min { get; set; }
         public int max { get; set; }
@@ -23,9 +24,9 @@ namespace Assets.Scripts.Terminal.Nodes
             counter.Value = counter.Value + 1;
         }
 
-        public override void OnBeforeChildNodesExecuteAction()
+        public override bool OnBeforeChildNodesExecuteAction()
         {
-
+            return counter.Value >= min && counter.Value <= max;
         }
 
        
