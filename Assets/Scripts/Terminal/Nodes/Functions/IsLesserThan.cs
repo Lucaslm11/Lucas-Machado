@@ -8,14 +8,14 @@ using System.Threading.Tasks;
 
 namespace Assets.Scripts.Terminal.Nodes.Functions
 {
-    public class IsGreaterThan : BooleanFunctionNode
+    public class IsLesserThan : BooleanFunctionNode
     {
         IntegerNode Val1 { get; set; }
         IntegerNode Val2 { get; set; }
 
         public override void Function()
         {
-            Value = Val1 > Val2;
+            Value = Val1 < Val2;
         }
 
     }

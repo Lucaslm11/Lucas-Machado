@@ -16,7 +16,8 @@ public class CodeNode : ICodeNode
     /// <summary>
     /// Contains the nodes that belong to the same scope as the current
     /// </summary>
-    public List<ICodeNode> NodesInScope {
+    public List<ICodeNode> NodesInScope
+    {
         get; set;
     }
     /// <summary>
@@ -40,7 +41,7 @@ public class CodeNode : ICodeNode
     {
         ChildNodes = new List<ICodeNode>();
         NodesInScope = new List<ICodeNode>();
-        ParentNode = new CodeNode(); 
+        ParentNode = new CodeNode();
         Parameters = new List<object>();
     }
 
@@ -49,7 +50,7 @@ public class CodeNode : ICodeNode
         OnBeforeExecuteAction();
         while (OnBeforeChildNodesExecuteAction())
         {
-            if(CanHaveChildren)
+            if (CanHaveChildren)
                 foreach (ICodeNode childNode in ChildNodes)
                 {
                     childNode.Execute();
@@ -69,7 +70,7 @@ public class CodeNode : ICodeNode
         // Finds the index of the current node
         int currentIdx = NodesInLevel.IndexOf(this);
         // Swaps the current element with the previous, if the current one is not already the first
-        if(currentIdx > 0 && NodesInLevel.Count > 1)
+        if (currentIdx > 0 && NodesInLevel.Count > 1)
         {
             ListHelper.Swap<ICodeNode>(NodesInLevel, currentIdx - 1, currentIdx);
         }
@@ -99,8 +100,19 @@ public class CodeNode : ICodeNode
 
     public void AddChildNode(ICodeNode childNode)
     {
-        if(CanHaveChildren)
+        if (CanHaveChildren)
             ChildNodes.Add(childNode);
+    }
+
+    public void AddChildNode(ICodeNode childNode, int index)
+    {
+        if (CanHaveChildren)
+        {
+            index = Mathf.Clamp(index, 0, ChildNodes.Count - 1);
+            List<ICodeNode> lower = ChildNodes.GetRange(0, index);
+            List<ICodeNode> higher = ChildNodes.GetRange(index, ChildNodes.Count - index);
+            lower.Add(childNode);
+        }
     }
 
     public virtual bool OnBeforeChildNodesExecuteAction()
@@ -118,5 +130,19 @@ public class CodeNode : ICodeNode
 
     public virtual void OnAfterExecuteAction()
     {
+    }
+
+    /// <summary>
+    /// Sets this node to the begining of the new parent
+    /// </summary>
+    /// <param name="newParent"></param>
+    public void setParent(ICodeNode newParent)
+    {
+        if (newParent.CanHaveChildren)
+        {
+            this.ParentNode.ChildNodes.Remove(this);
+            this.ParentNode = newParent;
+            newParent.AddChildNode(newParent, 0);
+        }
     }
 }

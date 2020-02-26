@@ -14,8 +14,8 @@ public interface ICodeNode
     List<ICodeNode> NodesInLevel { get; set; }
     void moveUp();
     void moveDown();
-    void moveToParent();
-    void moveToChild();
+
+    void setParent(ICodeNode newParent);
 
     void OnBeforeExecuteAction();
     void OnAfterExecuteAction();
@@ -24,5 +24,6 @@ public interface ICodeNode
     void OnAfterChildNodesExecuteAction();
 
     void AddChildNode(ICodeNode childNode);
+    void AddChildNode(ICodeNode childNode, int index);
 
 }

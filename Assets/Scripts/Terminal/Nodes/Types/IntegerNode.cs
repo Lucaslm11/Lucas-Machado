@@ -24,7 +24,6 @@ namespace Assets.Scripts.Terminal.Nodes.Types
             return val1.Value >= val2.Value;
         }
 
-
         public static bool operator<=(IntegerNode val1, IntegerNode val2)
         {
             return val1.Value <= val2.Value;
@@ -34,12 +33,19 @@ namespace Assets.Scripts.Terminal.Nodes.Types
         {
             return val1.Value > val2.Value;
         }
-
-
         public static bool operator<(IntegerNode val1, IntegerNode val2)
         {
             return val1.Value < val2.Value;
         }
 
+        public static bool operator==(IntegerNode val1, IntegerNode val2)
+        {
+            return val1.Value == val2.Value;
+        }
+
+        public static bool operator !=(IntegerNode val1, IntegerNode val2)
+        {
+            return val1.Value != val2.Value;
+        }
     }
 }

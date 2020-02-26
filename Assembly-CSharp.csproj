@@ -66,11 +66,13 @@
   <ItemGroup>
     <Compile Include="Assets\Scripts\Helpers\ListHelper.cs" />
     <Compile Include="Assets\Scripts\Terminal\Nodes\CodeNode.cs" />
+    <Compile Include="Assets\Scripts\Terminal\Nodes\Functions\IsLesserThan.cs" />
     <Compile Include="Assets\Scripts\Terminal\Nodes\Functions\IsGreaterThan.cs" />
     <Compile Include="Assets\Scripts\Terminal\Nodes\FunctionTypes\BooleanFunctionNode.cs" />
     <Compile Include="Assets\Scripts\Terminal\Nodes\ICodeNode.cs" />
     <Compile Include="Assets\Scripts\Terminal\Nodes\IfNode.cs" />
     <Compile Include="Assets\Scripts\Terminal\Nodes\LoopRangeNode.cs" />
+    <Compile Include="Assets\Scripts\Terminal\Nodes\RootNode.cs" />
     <Compile Include="Assets\Scripts\Terminal\Nodes\Types\BooleanNode.cs" />
     <Compile Include="Assets\Scripts\Terminal\Nodes\Types\IntegerNode.cs" />
     <Compile Include="Assets\Scripts\Test.cs" />
