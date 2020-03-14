@@ -1,7 +1,7 @@
 Library/*
 Logs/*
 Packages/*
-ProjectSettings/*
+#ProjectSettings/*
 Temp/*
 .vs/*
 obj/*
