@@ -63,6 +63,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\Scripts\BloxUI\Blox.cs" />
+    <Compile Include="Assets\Scripts\BloxUI\IfBlox.cs" />
+    <Compile Include="Assets\Scripts\BloxUI\IntBlox.cs" />
     <Compile Include="Assets\Scripts\Helpers\ListHelper.cs" />
     <Compile Include="Assets\Scripts\Terminal\Nodes\CodeNode.cs" />
     <Compile Include="Assets\Scripts\Terminal\Nodes\Functions\IsGreaterThan.cs" />
