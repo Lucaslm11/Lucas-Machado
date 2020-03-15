@@ -64,6 +64,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Scripts\BloxUI\Blox.cs" />
+    <Compile Include="Assets\Scripts\BloxUI\FilterChar.cs" />
     <Compile Include="Assets\Scripts\BloxUI\IfBlox.cs" />
     <Compile Include="Assets\Scripts\BloxUI\IntBlox.cs" />
     <Compile Include="Assets\Scripts\Helpers\ListHelper.cs" />
