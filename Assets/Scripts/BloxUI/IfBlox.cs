@@ -35,4 +35,18 @@ public class IfBlox : Blox
         // For now accepts, but must validate if object is nestable
         return true;
     }
+
+    public override bool ValidateNestToBottom(GameObject objectToNest)
+    {
+        return true;
+    }
+    public override bool ValidateNestToBottomIdented(GameObject objectToNest)
+    {
+        return true;
+    }
+
+    public override bool ValidateNestToTheSide(GameObject objectToNest)
+    {
+        return true;
+    }
 }

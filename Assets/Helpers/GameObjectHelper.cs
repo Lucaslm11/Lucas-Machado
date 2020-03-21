@@ -1,5 +1,7 @@
 ﻿using UnityEngine;
 using UnityEditor;
+using UnityEngine.UI;
+using System;
 
 public class GameObjectHelper
 {
@@ -50,18 +52,19 @@ public class GameObjectHelper
 
     /// <summary>
     /// Gets the bounding box of a game object in GUI coordinates. 
-    /// We are assuming it has a RectTransform
+    /// We are assuming it has a RectTransform, and that the original scale of the objects is 1
     /// </summary>
     /// <param name="gameObject"></param>
     /// <returns></returns>
-    [System.Obsolete]
-    public static BoundingBox2D getBoundingBoxInGUI(GameObject gameObject)
+    public static BoundingBox2D getBoundingBoxInWorld(GameObject gameObject)
     {
         BoundingBox2D boundingBox2D;
         Vector2 position = gameObject.transform.position;
         RectTransform rectTransform = gameObject.GetComponent<RectTransform>();
-        float width = rectTransform.rect.width;
-        float height = rectTransform.rect.height;
+        // This scale varies from screen size to screensize and we need the object real size
+        Vector2 lossyScale = rectTransform.localToWorldMatrix.lossyScale; 
+        float width = rectTransform.rect.width * lossyScale.x;
+        float height = rectTransform.rect.height * lossyScale.y;
 
         Vector2 top = position;
         Vector2 bottom = position;
@@ -73,10 +76,10 @@ public class GameObjectHelper
         left.x -= width / 2;
         right.x += width / 2;
 
-        boundingBox2D.top = point2DFromWorldToGUI(top);
-        boundingBox2D.bottom = point2DFromWorldToGUI(bottom);
-        boundingBox2D.left = point2DFromWorldToGUI(left);
-        boundingBox2D.right = point2DFromWorldToGUI(right);
+        boundingBox2D.top = top;
+        boundingBox2D.bottom = bottom;
+        boundingBox2D.left = left;
+        boundingBox2D.right = right;
 
         return boundingBox2D;
     }
@@ -99,5 +102,35 @@ public class GameObjectHelper
     public static Vector2 point3DFromWorldToGUI(Vector3 point)
     {
         return Camera.main.WorldToScreenPoint(new Vector3(point.x, point.y, point.z));
+    }
+
+    public static GameObject GetChildByName(GameObject gameObject, string name)
+    {
+        GameObject childObject = null;
+        if(gameObject.transform.childCount > 0) 
+            for(int i = 0; i < gameObject.transform.childCount && childObject == null; i++)
+            {
+                Transform child = gameObject.transform.GetChild(i);
+                if (child.name == name)
+                    childObject = child.gameObject;
+            }
+        return childObject;
+    }
+
+    public static string GetDropdownSelectedTextValue(Dropdown dropdown)
+    {
+        return dropdown.options[dropdown.value].text;
+    }
+
+
+    public static bool HasComponent<T>(GameObject gameObject)
+    {
+        bool hasComponent = false;
+        try
+        {
+            hasComponent = gameObject.GetComponent<T>() != null;
+        }
+        catch (Exception){}
+        return hasComponent;
     }
 }

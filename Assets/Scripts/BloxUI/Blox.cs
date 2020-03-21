@@ -9,32 +9,44 @@ using static GameObjectHelper;
 /// </summary>
 public abstract class Blox : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler 
 {
+    protected Blox ParentBlox;
+    protected List<Blox> ChildBloxes = new List<Blox>();
+    protected List<Blox> BloxParams = new List<Blox>();
+
     protected Collider2D lastCollisionInfo;
     private RectTransform bloxTransform;
 
-       
+    #region Dragging events
     public void OnBeginDrag(PointerEventData eventData)
     {
-        bloxTransform = GetComponent<RectTransform>();
-        print("Begin Dragging"); 
+        bloxTransform = GetComponent<RectTransform>(); 
     }
 
     public void OnDrag(PointerEventData eventData)
     {
         bloxTransform.position = eventData.position;
     }
-
-
+    
     public virtual void OnEndDrag(PointerEventData eventData)
     {
         print("End dragging");
+        if (lastCollisionInfo != null)
+        {
+            GameObject collidedObject = lastCollisionInfo.gameObject;
+
+            Blox blox = collidedObject.GetComponent<Blox>();
+            if (blox != null)
+            {
+                blox.NestObject(this.gameObject);
+            }
+        }
     }
 
+    #endregion
 
-
+    #region Collision events
     private void OnTriggerEnter2D(Collider2D collision)
-    {
-        
+    { 
         print(gameObject.name + " collided with " + collision.name);
         lastCollisionInfo = collision;
     }
@@ -43,131 +55,161 @@ public abstract class Blox : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
     {
         lastCollisionInfo = null;
     }
+    #endregion
+
+
+    #region Nesting Handling
 
     public void NestObject(GameObject secondObject)
     {
         if (secondObject.GetComponent<Blox>()!=null && secondObject!=null && ValidateNesting(secondObject))
         {
-            Vector2 thisObjectPosition = this.gameObject.transform.localPosition;
-            Vector2 secondObjectPosition = secondObject.transform.localPosition;
-            RectTransform gameObjectTransform = this.gameObject.GetComponent<RectTransform>();
-            RectTransform collidedObjectTransform = secondObject.GetComponent<RectTransform>();
- 
-            BoundingBox2D thisBBox = GameObjectHelper.getBoundingBox(this.gameObject);
-            BoundingBox2D secondObjBBox = GameObjectHelper.getBoundingBox(secondObject);
-
-
-            float thisObjectWidth = GameObjectHelper.getWidthFromBBox(thisBBox);
-            float secondObjectWidth = GameObjectHelper.getWidthFromBBox(secondObjBBox);
-
-            float thisObjectHeight = GameObjectHelper.getHeightFromBBox(thisBBox);
-            float secondObjectHeight = GameObjectHelper.getHeightFromBBox(secondObjBBox); 
-
-            // Checks if it is to nest the secondObject to the bottom of this one
-            // The condition will be true when the second object is bellow this one
-            // and if the left boundaries are near each other
-            if (secondObjectPosition.y < thisObjectPosition.y
-                && MathHelper.IsNearby(secondObjBBox.left.x, thisBBox.left.x, thisObjectWidth / 4))
-            {
-                // Nest to the bottom
-                Vector3 collidedObjectNewPosition = gameObjectTransform.localPosition;
-                collidedObjectNewPosition.y = collidedObjectNewPosition.y - (gameObjectTransform.rect.height) / 2 - collidedObjectTransform.rect.height;
-                // Both objects are aligned by their centers, but we want to align them by their lefts
-                float alignmentFactor = (collidedObjectTransform.rect.width - gameObjectTransform.rect.width)/2;
-                collidedObjectNewPosition.x += alignmentFactor;
-                collidedObjectTransform.localPosition = collidedObjectNewPosition;
-            }
-            // Checks if the left parth of the second object is near the right part of the first, and verifies if they are kind of aligned
-            else if (MathHelper.IsNearby(secondObjBBox.left.y, thisBBox.right.y, thisObjectHeight/4) 
-                && MathHelper.IsNearby(secondObjBBox.left.x, thisBBox.right.x, thisObjectWidth/4))
-            {
-                // Nest side to side
-                Vector3 collidedObjectNewPosition = gameObjectTransform.localPosition;
-                collidedObjectNewPosition.x += (thisObjectWidth) / 2 + secondObjectWidth / 2;
-                
-                collidedObjectTransform.localPosition = collidedObjectNewPosition;
-                print("WIIIIDTH " + collidedObjectTransform.rect.width);
-            }
-            else if (secondObjectPosition.y < thisObjectPosition.y
-                && MathHelper.IsNearby(secondObjBBox.left.x, thisBBox.bottom.x, thisObjectWidth / 4))
-            {
-                //Nest to the bottom but idented
-                // Nest to the bottom
-                Vector3 collidedObjectNewPosition = gameObjectTransform.localPosition;
-                collidedObjectNewPosition.y = collidedObjectNewPosition.y - (gameObjectTransform.rect.height) / 2 - collidedObjectTransform.rect.height;
-                // Both objects are aligned by their centers, but we want to align them by their lefts
-                float alignmentFactor = collidedObjectTransform.rect.width/4;
-                collidedObjectNewPosition.x += alignmentFactor;
-                collidedObjectTransform.localPosition = collidedObjectNewPosition;
-            }
-          
-            
-        }
-    }
-
-
-    public void NestObject2(GameObject secondObject)
-    {
-        if (secondObject.GetComponent<Blox>() != null && secondObject != null && ValidateNesting(secondObject))
-        {
+            Blox secondObjectBlox = secondObject.GetComponent<Blox>();
             Vector2 thisObjectPosition = this.gameObject.transform.position;
             Vector2 secondObjectPosition = secondObject.transform.position;
             RectTransform gameObjectTransform = this.gameObject.GetComponent<RectTransform>();
             RectTransform collidedObjectTransform = secondObject.GetComponent<RectTransform>();
-            //double thisObjectWidth = this.gameObject.GetComponent<Rect>().width;
-            double thisObjectWidth = gameObjectTransform.rect.width;
-            double secondObjectWidth = collidedObjectTransform.rect.width;
-            //double thisObjectHeight = this.gameObject.GetComponent<Rect>().width;
-            double thisObjectHeight = gameObjectTransform.rect.width;
-            double secondObjectHeight = collidedObjectTransform.rect.width;
-            BoundingBox2D thisBBox = GameObjectHelper.getBoundingBox(this.gameObject);
-            BoundingBox2D secondObjBBox = GameObjectHelper.getBoundingBox(secondObject);
+            //TODO VER UMA FORMA DE OBTER AS DIMENSÕES SEM SER PELO RECT
+            BoundingBox2D thisBBox = GameObjectHelper.getBoundingBoxInWorld(this.gameObject);
+            BoundingBox2D secondObjBBox = GameObjectHelper.getBoundingBoxInWorld(secondObject);
+
+            // TODO : substitute this for Rect obtention of width and height
+            float thisObjectWidth = GameObjectHelper.getWidthFromBBox(thisBBox);
+            float secondObjectWidth = GameObjectHelper.getWidthFromBBox(secondObjBBox);
+
+            float thisObjectHeight = GameObjectHelper.getHeightFromBBox(thisBBox);
+            float secondObjectHeight = GameObjectHelper.getHeightFromBBox(secondObjBBox);
+
+            Vector3 collidedObjectNewPosition = gameObjectTransform.position;
 
             // Checks if it is to nest the secondObject to the bottom of this one
             // The condition will be true when the second object is bellow this one
             // and if the left boundaries are near each other
-            if (secondObjectPosition.y < thisObjectPosition.y
+            if (ValidateNestToBottom(secondObject) && secondObjectPosition.y < thisObjectPosition.y
                 && MathHelper.IsNearby(secondObjBBox.left.x, thisBBox.left.x, thisObjectWidth / 4))
             {
-                // Nest to the bottom
-                Vector3 collidedObjectNewPosition = gameObjectTransform.position;
-                collidedObjectNewPosition.y = collidedObjectNewPosition.y - (gameObjectTransform.rect.height) / 2 - collidedObjectTransform.rect.height;
+                // Nest to the bottom 
+                collidedObjectNewPosition.y = collidedObjectNewPosition.y - (thisObjectHeight) / 2 - secondObjectHeight;
                 // Both objects are aligned by their centers, but we want to align them by their lefts
-                float alignmentFactor = collidedObjectTransform.rect.width - gameObjectTransform.rect.width;
+                float alignmentFactor = (secondObjectWidth - thisObjectWidth) /2;
                 collidedObjectNewPosition.x += alignmentFactor;
-                collidedObjectTransform.position = collidedObjectNewPosition;
+                AddToBottom(secondObjectBlox);
             }
             // Checks if the left parth of the second object is near the right part of the first, and verifies if they are kind of aligned
-            else if (MathHelper.IsNearby(secondObjBBox.left.y, thisBBox.right.y, thisObjectHeight / 4)
-                && MathHelper.IsNearby(secondObjBBox.left.x, thisBBox.right.x, thisObjectWidth / 4))
+            else if (ValidateNestToTheSide(secondObject) && MathHelper.IsNearby(secondObjBBox.left.y, thisBBox.right.y, thisObjectHeight/4) 
+                && MathHelper.IsNearby(secondObjBBox.left.x, thisBBox.right.x, thisObjectWidth/4))
             {
-                // Nest side to side
-                Vector3 collidedObjectNewPosition = gameObjectTransform.position;
-                collidedObjectNewPosition.x += (gameObjectTransform.rect.width) / 2 + collidedObjectTransform.rect.width / 2;
-
-                collidedObjectTransform.position = collidedObjectNewPosition;
-                print("WIIIIDTH " + collidedObjectTransform.rect.width);
+                // Nest side to side 
+                collidedObjectNewPosition.x += (thisObjectWidth) / 2 + secondObjectWidth / 2; 
             }
-            else if (secondObjectPosition.y < thisObjectPosition.y
+            else if (ValidateNestToBottomIdented(secondObject) && secondObjectPosition.y < thisObjectPosition.y
                 && MathHelper.IsNearby(secondObjBBox.left.x, thisBBox.bottom.x, thisObjectWidth / 4))
             {
-                //Nest to the bottom but idented
-
+                //Nest to the bottom but idented 
+                collidedObjectNewPosition.y = collidedObjectNewPosition.y - (thisObjectHeight) / 2 - secondObjectHeight;
+                // Both objects are aligned by their centers, but we want to ident
+                float alignmentFactor = secondObjectWidth/4;
+                collidedObjectNewPosition.x += alignmentFactor;
+                AddToBottomIdented(secondObjectBlox);
             }
+            else
+            {
+                collidedObjectNewPosition = collidedObjectTransform.position;
+            }
+            collidedObjectTransform.position = collidedObjectNewPosition;
 
 
         }
     }
 
-
     /// <summary>
-    /// This method must be overriden if the blox acepts nesting
+    /// Called before attempting to nest at all. 
+    /// Nesting is not possible when this returns false
     /// </summary>
     /// <param name="objectToNest"></param>
     /// <returns></returns>
     public virtual bool ValidateNesting(GameObject objectToNest)
     {
+        return true;
+    }
+
+    /// <summary>
+    /// Called before attempting to nest a blox to the bottom of the current blox.
+    /// Nesting to the bottom is not possible when this returns false
+    /// </summary>
+    /// <param name="objectToNest"></param>
+    /// <returns></returns>
+    public virtual bool ValidateNestToBottom(GameObject objectToNest)
+    {
+        return true;
+    }
+
+    /// <summary>
+    /// Called before attempting to nest a blox to the bottom, but idented, of the current blox.
+    /// Nesting to the buttom (idented) is not possible when this returns false
+    /// </summary>
+    /// <param name="objectToNest"></param>
+    /// <returns></returns>
+    public virtual bool ValidateNestToBottomIdented(GameObject objectToNest)
+    {
         return false;
     }
+
+    /// <summary>
+    /// Called before attempting to nest a blox to the side of the current blox.
+    /// Nesting to the side is not possible when this returns false
+    /// </summary>
+    /// <param name="objectToNest"></param>
+    /// <returns></returns>
+    public virtual bool ValidateNestToTheSide(GameObject objectToNest)
+    {
+        return false;
+    }
+
+
+    // Reoders the nodes
+    public void OrderNodes()
+    {
+
+    }
+    #endregion
+
+
+    #region ChildrenHandling
+        
+    /// <summary>
+    /// Adds a blox next to this one in parent children
+    /// </summary>
+    /// <param name="blox">Blox to add</param>
+    protected void AddToBottom(Blox blox)
+    {
+        RemoveFromParent(blox);
+        // Gets the index of this blox in parent
+        int thisBloxIndex = this.ParentBlox.ChildBloxes.IndexOf(this);
+        this.ParentBlox.ChildBloxes.Insert(thisBloxIndex + 1, blox);
+        blox.ParentBlox = this.ParentBlox;
+
+
+
+    }
+
+    protected void AddToBottomIdented(Blox blox)
+    {
+        RemoveFromParent(blox);
+        this.ChildBloxes.Insert(0, blox);
+        blox.ParentBlox = this;
+    }
+
+
+    protected void RemoveFromParent(Blox blox)
+    {
+        Blox originalParent = blox.ParentBlox;
+        if (originalParent != null)
+        {
+            originalParent.ChildBloxes.Remove(blox);
+            originalParent.BloxParams.Remove(blox);
+        }
+    }
+    #endregion
 
 }

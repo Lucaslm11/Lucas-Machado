@@ -16,21 +16,11 @@ public class IntBlox : Blox
     {
         
     }
-     
 
 
-    public override void OnEndDrag(PointerEventData eventData)
+    public override bool ValidateNestToTheSide(GameObject objectToNest)
     {
-        base.OnEndDrag(eventData);
-        if (lastCollisionInfo != null)
-        {
-            GameObject collidedObject = lastCollisionInfo.gameObject;
-
-            Blox blox = collidedObject.GetComponent<Blox>();
-            if (blox != null)
-            {
-                blox.NestObject(this.gameObject);
-            }
-        }
+        // Only allows nesting a component to the side of this if it is an ArithmeticOperator
+        return GameObjectHelper.HasComponent<ArithmeticOperatorBlox>(objectToNest);
     }
 }
