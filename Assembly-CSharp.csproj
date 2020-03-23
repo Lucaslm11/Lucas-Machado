@@ -68,6 +68,7 @@
     <Compile Include="Assets\Helpers\MathHelper.cs" />
     <Compile Include="Assets\Scripts\BloxUI\ArithmeticOperatorBlox.cs" />
     <Compile Include="Assets\Scripts\BloxUI\Blox.cs" />
+    <Compile Include="Assets\Scripts\BloxUI\BloxBag.cs" />
     <Compile Include="Assets\Scripts\BloxUI\BloxTerminal.cs" />
     <Compile Include="Assets\Scripts\BloxUI\FilterChar.cs" />
     <Compile Include="Assets\Scripts\BloxUI\IfBlox.cs" />

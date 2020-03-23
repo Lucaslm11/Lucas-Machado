@@ -5,18 +5,7 @@ using UnityEngine.EventSystems;
 
 public class IntBlox : Blox
 {
-
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
+ 
 
     public override bool ValidateNestToTheSide(GameObject objectToNest)
     {

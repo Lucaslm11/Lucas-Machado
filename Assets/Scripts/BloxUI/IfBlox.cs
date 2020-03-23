@@ -8,19 +8,6 @@ public class IfBlox : Blox
     // Saves a game object to next side to side with this one
     GameObject objectToNest;
    
-   
-    // Start is called before the first frame update
-    void Start()
-    {
-        print("HIIII");
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
 
     public override void OnEndDrag(PointerEventData eventData)
     {

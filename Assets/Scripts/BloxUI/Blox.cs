@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using static GameObjectHelper;
@@ -10,6 +11,7 @@ using static GameObjectHelper;
 /// </summary>
 public abstract class Blox : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
 {
+    private bool InsideBloxBag = false;
     public bool IsBeingDragged = false;
     protected RootBlox rootBlox = null;
 
@@ -28,10 +30,46 @@ public abstract class Blox : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
     protected List<Collider2D> collidedObjects = new List<Collider2D>();
     private RectTransform bloxTransform;
 
+    #region start and update
+    protected virtual void Start()
+    {
+        if (CheckIfInsideBloxBag())
+        {
+            InsideBloxBag = true;
+        }
+        else
+            InsideBloxBag = false;
+    }
+
+    bool CheckIfInsideBloxBag()
+    {
+        bool validation = false;
+        try
+        {
+            Transform parent = this.transform.parent.parent.parent; //Content, then Viewport then BloxBag
+            validation = GameObjectHelper.HasComponent<BloxBag>(parent.gameObject);
+        }
+        catch (Exception ex) { }
+        return validation;
+    }
+
+    #endregion
+
+
     #region Dragging events
     public void OnBeginDrag(PointerEventData eventData)
     {
         bloxTransform = GetComponent<RectTransform>();
+
+        // When attempting to drag a Blox that is inside the blox bag, 
+        // instead of just dragging we create a new instance and set
+        // the current one as not inside
+        if (InsideBloxBag)
+        {
+            Blox newInstance = Instantiate(this, this.transform.parent);
+            this.transform.parent = this.transform.parent.parent.parent.parent; //Content, then Viewport then BloxBag then Canvas
+            this.InsideBloxBag = false;
+        }
     }
 
     public void OnDrag(PointerEventData eventData)
@@ -58,15 +96,17 @@ public abstract class Blox : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
 
         if (collidedObjects.Count > 0)
         {
-            foreach (Collider2D collider in collidedObjects)
+            // Although we are saving all the simultaneous collisions 
+            // We only want this object to nest with the highest one
+            float maxY = collidedObjects.Max(c => c.transform.position.y);
+            GameObject collidedObject = collidedObjects.Where(c => c.transform.position.y == maxY).FirstOrDefault().gameObject;
+
+            Blox blox = collidedObject.GetComponent<Blox>();
+            if (blox != null)
             {
-                GameObject collidedObject = collider.gameObject;
-                Blox blox = collidedObject.GetComponent<Blox>();
-                if (blox != null)
-                {
-                    blox.NestObject(this.gameObject);
-                }
+                blox.NestObject(this.gameObject);
             }
+
         }
         else
             SetAllBloxesPositionsOnScreen();
@@ -78,7 +118,8 @@ public abstract class Blox : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
     private void OnTriggerEnter2D(Collider2D collision)
     {
         print(gameObject.name + " collided with " + collision.name);
-        collidedObjects.Add(collision);
+        if (GameObjectHelper.HasComponent<Blox>(collision.gameObject))
+            collidedObjects.Add(collision);
     }
 
     private void OnTriggerExit2D(Collider2D collision)
@@ -110,8 +151,6 @@ public abstract class Blox : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
                 float thisObjectHeight = GameObjectHelper.getHeightFromBBox(thisBBox);
                 float secondObjectHeight = GameObjectHelper.getHeightFromBBox(secondObjBBox);
 
-                Vector3 collidedObjectNewPosition = gameObjectTransform.position;
-
                 //checks if second object top is bellow this object center
                 if (secondObjBBox.top.y < thisObjectPosition.y)
                 {
@@ -123,10 +162,7 @@ public abstract class Blox : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
                     {
                         AddToBottomIdented(secondObjectBlox);
                     }
-                    else
-                    {
-                        collidedObjectNewPosition = collidedObjectTransform.position;
-                    }
+
                 }
                 else //if it is above
                 {
@@ -137,13 +173,7 @@ public abstract class Blox : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
                         // Nest side to side 
                         AddParam(secondObjectBlox);
                     }
-                    else
-                    {
-                        collidedObjectNewPosition = collidedObjectTransform.position;
-                    }
                 }
-
-                collidedObjectTransform.position = collidedObjectNewPosition;
 
                 SetAllBloxesPositionsOnScreen();
             }
