@@ -10,11 +10,15 @@ using static GameObjectHelper;
 /// </summary>
 public abstract class Blox : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
 {
+    protected RootBlox rootBlox;
+
     public struct BloxIdent
     {
         public Blox blox;
         public int ident;
     }
+
+    protected bool NestingActive = true; // Disables any nesting if false
 
     protected Blox ParentBlox;
     protected List<Blox> ChildBloxes = new List<Blox>();
@@ -32,21 +36,37 @@ public abstract class Blox : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
     public void OnDrag(PointerEventData eventData)
     {
         bloxTransform.position = eventData.position;
+
+        RootBlox rootBlox = GetRootBlox();
+        if (rootBlox != null)
+        {
+            float bloxVerticalSpacing = GetVerticalSpacing(rootBlox);
+            float identSpacing = GetIdentSpacing(rootBlox);
+            float paramSpacing = GetParamSpacing(rootBlox);
+            // Sets the child blox and params position while dragging, for them to follow this blox
+            // Those bloxes nesting is temporarily disabled 
+            SetChildBloxesPositionOnScreen(this, bloxVerticalSpacing, identSpacing, paramSpacing, false);
+        }
     }
 
     public virtual void OnEndDrag(PointerEventData eventData)
     {
         print("End dragging");
 
-        foreach(Collider2D collider in collidedObjects)
+        if (collidedObjects.Count > 0)
         {
-            GameObject collidedObject = collider.gameObject;
-            Blox blox = collidedObject.GetComponent<Blox>();
-            if (blox != null)
+            foreach (Collider2D collider in collidedObjects)
             {
-                blox.NestObject(this.gameObject);
+                GameObject collidedObject = collider.gameObject;
+                Blox blox = collidedObject.GetComponent<Blox>();
+                if (blox != null)
+                {
+                    blox.NestObject(this.gameObject);
+                }
             }
         }
+        else
+            SetAllBloxesPositionsOnScreen();
     }
 
     #endregion
@@ -69,7 +89,7 @@ public abstract class Blox : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
     public void NestObject(GameObject secondObject)
     {
         RootBlox rootBlox = GetRootBlox();
-        if (rootBlox != null)
+        if (rootBlox != null && NestingActive)
         {
             if (secondObject.GetComponent<Blox>() != null && secondObject != null && ValidateNesting(secondObject))
             {
@@ -89,31 +109,15 @@ public abstract class Blox : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
 
                 Vector3 collidedObjectNewPosition = gameObjectTransform.position;
 
-                //checks if second object is bellow this
-                if (secondObjectPosition.y < thisObjectPosition.y)
+                //checks if second object top is bellow this object center
+                if (secondObjBBox.top.y < thisObjectPosition.y)
                 {
-                    // Checks if it is to nest the secondObject to the bottom of this one
-                    // The condition will be true when the second object is bellow this one
-                    // and if the left boundaries are near each other
                     if (ValidateNestToBottom(secondObject) && MathHelper.IsNearby(secondObjBBox.left.x, thisBBox.left.x, thisObjectWidth / 4))
                     {
-                        // Nest to the bottom 
-                        /*collidedObjectNewPosition.y = collidedObjectNewPosition.y - (thisObjectHeight) / 2 - secondObjectHeight;
-                        // Both objects are aligned by their centers, but we want to align them by their lefts
-                        float alignmentFactor = (secondObjectWidth - thisObjectWidth) / 2;
-                        collidedObjectNewPosition.x += alignmentFactor;*/
                         AddToBottom(secondObjectBlox);
                     }
                     else if (ValidateNestToBottomIdented(secondObject) && MathHelper.IsNearby(secondObjBBox.left.x, thisBBox.bottom.x, thisObjectWidth / 4))
                     {
-
-                       /* float identSpacing = rootBlox.GetIdentSpacing(rootBlox);
-
-                        //Nest to the bottom but idented 
-                        collidedObjectNewPosition.y = collidedObjectNewPosition.y - (thisObjectHeight) / 2 - secondObjectHeight;
-                        // Both objects are aligned by their centers, but we want to ident
-                        float alignmentFactor = (secondObjectWidth - thisObjectWidth) / 2 + identSpacing;
-                        collidedObjectNewPosition.x += alignmentFactor;*/
                         AddToBottomIdented(secondObjectBlox);
                     }
                     else
@@ -128,17 +132,17 @@ public abstract class Blox : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
                     && MathHelper.IsNearby(secondObjBBox.left.x, thisBBox.right.x, thisObjectWidth / 4))
                     {
                         // Nest side to side 
-                        collidedObjectNewPosition.x += (thisObjectWidth) / 2 + secondObjectWidth / 2;
+                        AddParam(secondObjectBlox);
                     }
                     else
                     {
                         collidedObjectNewPosition = collidedObjectTransform.position;
                     }
                 }
-                 
+
                 collidedObjectTransform.position = collidedObjectNewPosition;
 
-                SetBloxPositionOnScreen();
+                SetAllBloxesPositionsOnScreen();
             }
         }
     }
@@ -187,23 +191,32 @@ public abstract class Blox : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
         return false;
     }
 
-    /// <summary>
-    /// Sets the bloxes positions based on their hierarchy
-    /// </summary>
-    public void SetBloxPositionOnScreen()
+
+    public void SetAllBloxesPositionsOnScreen()
     {
         RootBlox rootBlox = GetRootBlox();
-        Vector2 rootBloxPosition = rootBlox.transform.position;
-        BoundingBox2D rootBBox = GameObjectHelper.getBoundingBoxInWorld(rootBlox.gameObject);
-        float rootBloxWidth = GameObjectHelper.getWidthFromBBox(rootBBox);
-        Vector2 rootBloxLeft = rootBBox.left;
-
         float bloxVerticalSpacing = GetVerticalSpacing(rootBlox);
         float identSpacing = GetIdentSpacing(rootBlox);
+        float paramSpacing = GetParamSpacing(rootBlox);
+        SetChildBloxesPositionOnScreen(rootBlox, bloxVerticalSpacing, identSpacing, paramSpacing);
+    }
 
-        // Gets all the nodes (except the ones nested to the side and root)
-        List<BloxIdent> bloxIdentList = rootBlox.GetBloxListInVerticalOrder();
-        Blox previousBlox = rootBlox;
+
+    /// <summary>
+    /// Sets the position of child bloxes and param bloxes of parent 
+    /// </summary>
+    protected void SetChildBloxesPositionOnScreen(Blox parentBlox, float bloxVerticalSpacing, float identSpacing, float paramSpacing, bool nestingActive = true)
+    {
+        BoundingBox2D parentBBox = GameObjectHelper.getBoundingBoxInWorld(parentBlox.gameObject);
+        Vector2 parentBloxLeft = parentBBox.left;
+
+        // Gets all the nodes (except the ones nested to the side and parent)
+        List<BloxIdent> bloxIdentList = parentBlox.GetChildBloxListInVerticalOrder();
+        Blox previousBlox = parentBlox;
+
+        // Sets the parent blox params
+        SetBloxParamsPositionOnScreen(parentBlox, paramSpacing, nestingActive);
+
 
         foreach (BloxIdent bloxIdent in bloxIdentList)
         {
@@ -222,15 +235,47 @@ public abstract class Blox : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
             newPosition.y = previousBloxPosition.y - verticalOffset;
 
             // Determines the horizontal offset of this blox based on its ident
-            newPosition.x = (rootBloxPosition.x - rootBloxWidth / 2) + bloxWidth/2 + ident * identSpacing;
-
+            newPosition.x = parentBloxLeft.x + bloxWidth / 2 + ident * identSpacing;
             blox.transform.position = newPosition;
+
+            // Sets the params bloxes positions
+
+            SetBloxParamsPositionOnScreen(blox, paramSpacing, nestingActive);
+            Blox previousBloxInLine = blox;
 
             previousBlox = blox;
         }
-
-
     }
+
+    /// <summary>
+    /// Positions the blox params on screen
+    /// </summary>
+    /// <param name="blox"></param>
+    protected void SetBloxParamsPositionOnScreen(Blox blox, float paramSpacing, bool nestingActive = true)
+    {
+        Blox previousBloxInLine = blox;
+        BoundingBox2D bloxBBox = GameObjectHelper.getBoundingBoxInWorld(blox.gameObject);
+        float bloxWidth = GameObjectHelper.getWidthFromBBox(bloxBBox);
+        foreach (Blox param in blox.BloxParams)
+        {
+            param.SetNestingState(nestingActive);
+            BoundingBox2D paramBBox = GameObjectHelper.getBoundingBoxInWorld(param.gameObject);
+            float paramWidth = GameObjectHelper.getWidthFromBBox(paramBBox);
+            Vector2 paramPosition = previousBloxInLine.transform.position;
+            paramPosition.x += (bloxWidth + paramWidth) / 2 + paramSpacing;
+            param.transform.position = paramPosition;
+            previousBloxInLine = param;
+        }
+    }
+
+
+    protected void SetNestingState(bool active)
+    {
+        NestingActive = active;
+    }
+
+
+
     #endregion
 
     #region ChildrenHandling
@@ -246,11 +291,12 @@ public abstract class Blox : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
         int thisBloxIndex = this.ParentBlox.ChildBloxes.IndexOf(this);
         this.ParentBlox.ChildBloxes.Insert(thisBloxIndex + 1, blox);
         blox.ParentBlox = this.ParentBlox;
-
-
-
     }
 
+    /// <summary>
+    /// Adds blox as a child of this blox
+    /// </summary>
+    /// <param name="blox"></param>
     protected void AddToBottomIdented(Blox blox)
     {
         RemoveFromParent(blox);
@@ -258,6 +304,12 @@ public abstract class Blox : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
         blox.ParentBlox = this;
     }
 
+    protected void AddParam(Blox param)
+    {
+        RemoveFromParent(param);
+        BloxParams.Add(param);
+        param.ParentBlox = this;
+    }
 
     protected void RemoveFromParent(Blox blox)
     {
@@ -276,7 +328,7 @@ public abstract class Blox : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
     {
         BoundingBox2D rootBBox = GameObjectHelper.getBoundingBoxInWorld(rootBlox.gameObject);
         float rootBloxHeight = GameObjectHelper.getHeightFromBBox(rootBBox);
-        float bloxVerticalSpacing = rootBloxHeight / 2;
+        float bloxVerticalSpacing = 2 * rootBloxHeight / 3;
         return bloxVerticalSpacing;
     }
 
@@ -286,6 +338,14 @@ public abstract class Blox : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
         float rootBloxWidth = GameObjectHelper.getWidthFromBBox(rootBBox);
         float bloxIdentSpacing = rootBloxWidth / 4;
         return bloxIdentSpacing;
+    }
+
+    private float GetParamSpacing(RootBlox rootBlox)
+    {
+        BoundingBox2D rootBBox = GameObjectHelper.getBoundingBoxInWorld(rootBlox.gameObject);
+        float rootBloxWidth = GameObjectHelper.getWidthFromBBox(rootBBox);
+        float bloxParamSpacing = rootBloxWidth / 10;
+        return bloxParamSpacing;
     }
 
     protected RootBlox GetRootBlox()
@@ -300,13 +360,14 @@ public abstract class Blox : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
     }
 
     /// <summary>
-    /// Gets a list of bloxes in their vertical order plus their number of idents, no matter parent child relation they have.
-    /// Ignores the ones that are nested to the right side of others. 
-    /// Does not include root blox
+    /// Grabs all the child and n-grand child bloxes, and puts them in a list, ordered by their vertical order
+    /// and associates each one with an indent value.
+    /// Does not contain param bloxes. 
+    /// Does not include this blox.
     /// Call this method from root blox to have the whole list
     /// </summary>
     /// <returns></returns>
-    protected List<BloxIdent> GetBloxListInVerticalOrder(int ident = 1)
+    protected List<BloxIdent> GetChildBloxListInVerticalOrder(int ident = 1)
     {
         List<BloxIdent> bloxList = new List<BloxIdent>();
         foreach (Blox child in ChildBloxes)
@@ -314,10 +375,10 @@ public abstract class Blox : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
             BloxIdent childIdent;
             childIdent.blox = child;
             childIdent.ident = ident;
-            
+
 
             bloxList.Add(childIdent);
-            bloxList.AddRange(child.GetBloxListInVerticalOrder(ident+1));
+            bloxList.AddRange(child.GetChildBloxListInVerticalOrder(ident + 1));
         }
         return bloxList;
     }
