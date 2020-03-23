@@ -10,7 +10,8 @@ using static GameObjectHelper;
 /// </summary>
 public abstract class Blox : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
 {
-    protected RootBlox rootBlox;
+    public bool IsBeingDragged = false;
+    protected RootBlox rootBlox = null;
 
     public struct BloxIdent
     {
@@ -35,6 +36,7 @@ public abstract class Blox : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
 
     public void OnDrag(PointerEventData eventData)
     {
+        IsBeingDragged = true;
         bloxTransform.position = eventData.position;
 
         RootBlox rootBlox = GetRootBlox();
@@ -51,6 +53,7 @@ public abstract class Blox : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
 
     public virtual void OnEndDrag(PointerEventData eventData)
     {
+        IsBeingDragged = false;
         print("End dragging");
 
         if (collidedObjects.Count > 0)
@@ -195,10 +198,13 @@ public abstract class Blox : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
     public void SetAllBloxesPositionsOnScreen()
     {
         RootBlox rootBlox = GetRootBlox();
-        float bloxVerticalSpacing = GetVerticalSpacing(rootBlox);
-        float identSpacing = GetIdentSpacing(rootBlox);
-        float paramSpacing = GetParamSpacing(rootBlox);
-        SetChildBloxesPositionOnScreen(rootBlox, bloxVerticalSpacing, identSpacing, paramSpacing);
+        if (rootBlox != null)
+        {
+            float bloxVerticalSpacing = GetVerticalSpacing(rootBlox);
+            float identSpacing = GetIdentSpacing(rootBlox);
+            float paramSpacing = GetParamSpacing(rootBlox);
+            SetChildBloxesPositionOnScreen(rootBlox, bloxVerticalSpacing, identSpacing, paramSpacing);
+        }
     }
 
 
