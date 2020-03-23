@@ -101,10 +101,17 @@ public abstract class Blox : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
             float maxY = collidedObjects.Max(c => c.transform.position.y);
             GameObject collidedObject = collidedObjects.Where(c => c.transform.position.y == maxY).FirstOrDefault().gameObject;
 
-            Blox blox = collidedObject.GetComponent<Blox>();
-            if (blox != null)
+            //If the collided object is a blox, attempts nesting
+            if (GameObjectHelper.HasComponent<Blox>(collidedObject))
             {
+                Blox blox = collidedObject.GetComponent<Blox>();
                 blox.NestObject(this.gameObject);
+            }
+            //If the collied object is the trashbin, destroys it
+            else if (GameObjectHelper.HasComponent<Trashbin>(collidedObject))
+            {
+                RemoveFromParent(this);
+                Destroy(this.gameObject);
             }
 
         }
@@ -118,7 +125,7 @@ public abstract class Blox : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
     private void OnTriggerEnter2D(Collider2D collision)
     {
         print(gameObject.name + " collided with " + collision.name);
-        if (GameObjectHelper.HasComponent<Blox>(collision.gameObject))
+        if (GameObjectHelper.HasComponent<Blox>(collision.gameObject) || GameObjectHelper.HasComponent<Trashbin>(collision.gameObject))
             collidedObjects.Add(collision);
     }
 
@@ -347,6 +354,10 @@ public abstract class Blox : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
         param.ParentBlox = this;
     }
 
+    /// <summary>
+    /// Takes a blox and removes any reference inside it's parent
+    /// </summary>
+    /// <param name="blox"></param>
     protected void RemoveFromParent(Blox blox)
     {
         Blox originalParent = blox.ParentBlox;
@@ -355,6 +366,7 @@ public abstract class Blox : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
             originalParent.ChildBloxes.Remove(blox);
             originalParent.BloxParams.Remove(blox);
         }
+        blox.ParentBlox = null;
     }
     #endregion
 
