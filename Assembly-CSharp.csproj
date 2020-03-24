@@ -70,6 +70,7 @@
     <Compile Include="Assets\Scripts\BloxUI\Blox.cs" />
     <Compile Include="Assets\Scripts\BloxUI\BloxBag.cs" />
     <Compile Include="Assets\Scripts\BloxUI\BloxTerminal.cs" />
+    <Compile Include="Assets\Scripts\BloxUI\BoolBlox.cs" />
     <Compile Include="Assets\Scripts\BloxUI\FieldSwitcher.cs" />
     <Compile Include="Assets\Scripts\BloxUI\FilterChar.cs" />
     <Compile Include="Assets\Scripts\BloxUI\IBloxVariable.cs" />
@@ -78,6 +79,7 @@
     <Compile Include="Assets\Scripts\BloxUI\LogicalOperatorBlox.cs" />
     <Compile Include="Assets\Scripts\BloxUI\OperatorBlox.cs" />
     <Compile Include="Assets\Scripts\BloxUI\RootBlox.cs" />
+    <Compile Include="Assets\Scripts\BloxUI\TrueFalseTextSwitcher.cs" />
     <Compile Include="Assets\Scripts\Terminal\Nodes\CodeNode.cs" />
     <Compile Include="Assets\Scripts\Terminal\Nodes\Functions\IsGreaterThan.cs" />
     <Compile Include="Assets\Scripts\Terminal\Nodes\Functions\IsLesserThan.cs" />

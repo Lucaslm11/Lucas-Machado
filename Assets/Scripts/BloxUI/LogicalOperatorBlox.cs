@@ -1,24 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 
-public class LogicalOperatorBlox : Blox
+public class LogicalOperatorBlox : OperatorBlox
 {
-    private const string OPERATOR_DROPDOWN_NAME = "Operator";
-    // Start is called before the first frame update
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
-
-    public string GetOperator()
-    {
-        GameObject childObject = GameObjectHelper.GetChildByName(this.gameObject, OPERATOR_DROPDOWN_NAME);
-        Dropdown operatorDropdown = childObject.GetComponent<Dropdown>();
-        return GameObjectHelper.GetDropdownSelectedTextValue(operatorDropdown);
-    }
+ 
 }
