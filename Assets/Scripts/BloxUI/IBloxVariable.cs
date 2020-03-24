@@ -10,4 +10,12 @@ public interface IBloxVariable
 {
     string GetName();
     string GetValue();
+    VariableType GetType();
+}
+
+public enum VariableType
+{
+    INT,
+    STRING,
+    BOOL
 }

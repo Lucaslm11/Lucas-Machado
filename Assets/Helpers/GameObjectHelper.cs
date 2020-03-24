@@ -150,4 +150,18 @@ public class GameObjectHelper
         catch (Exception){}
         return hasComponent;
     }
+
+    public static bool CanBeCastedAs<T>(object component)
+    {
+        bool canBeCasted = false;
+        try
+        {
+            T val = (T)component;
+            canBeCasted = true;
+        }catch(Exception ex)
+        {
+
+        }
+        return canBeCasted;
+    }
 }

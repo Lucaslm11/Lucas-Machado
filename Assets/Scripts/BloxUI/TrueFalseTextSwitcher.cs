@@ -9,7 +9,7 @@ public class TrueFalseTextSwitcher : MonoBehaviour
     private const string TRUE_TEXT = "true";
     
     [SerializeField] bool DefaultState = false;
-    private bool state;
+    public bool state { get; private set; }
     [SerializeField] Text TextComponent;
 
     private void Start()
@@ -23,5 +23,7 @@ public class TrueFalseTextSwitcher : MonoBehaviour
         state = !state;
         TextComponent.text = state ? TRUE_TEXT : FALSE_TEXT;
     }
+
+
 
 }

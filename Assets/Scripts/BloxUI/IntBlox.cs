@@ -23,4 +23,9 @@ public class IntBlox : Blox, IBloxVariable
         // Only allows nesting a component to the side of this if it is an ArithmeticOperator
         return GameObjectHelper.HasComponent<ArithmeticOperatorBlox>(objectToNest) && BloxParams.Count == 0;
     }
+
+    VariableType IBloxVariable.GetType()
+    {
+        return VariableType.INT;
+    }
 }

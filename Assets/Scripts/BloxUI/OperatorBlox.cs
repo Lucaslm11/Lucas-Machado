@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using System.Linq;
 
 /// <summary>
 /// Handles an operator blox. 
@@ -79,7 +80,7 @@ public class OperatorBlox : Blox
 
     private void FillFieldDropdownWithVariables()
     {
-        List<IBloxVariable> varList = GetVariablesInBloxScope(this);
+        List<IBloxVariable> varList = GetVariablesInBloxScope(this).Where(v=>v.GetType()==VariableType.INT).ToList(); //Operator bloxes only accepts numbers
         Dropdown field1 = Value1Switcher.getField2().GetComponent<Dropdown>();
         Dropdown field2 = Value2Switcher.getField2().GetComponent<Dropdown>();
         GameObjectHelper.PushVariablesIntoDropdown(field1, varList);

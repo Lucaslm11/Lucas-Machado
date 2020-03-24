@@ -459,7 +459,7 @@ public abstract class Blox : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
                 // Gets all the bloxes above this one, that are variables
                 // Although pure Blox objects cannot be cast as IBloxVariable,
                 // objects of classes that inherit from Blox, and implement IBloxVariable, can
-                variablesInScope = bloxList.GetRange(0, indexOfBlox).Where(b=>((IBloxVariable)b.blox) !=null).Select(b=>(IBloxVariable)b.blox).ToList();                 
+                variablesInScope = bloxList.GetRange(0, indexOfBlox).Where(b=>GameObjectHelper.CanBeCastedAs<IBloxVariable>(b.blox)).Select(b=>(IBloxVariable)b.blox).ToList();                 
             }
 
         }
