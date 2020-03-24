@@ -11,8 +11,11 @@ using static GameObjectHelper;
 /// </summary>
 public abstract class Blox : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
 {
-    private bool InsideBloxBag = false;
-    public bool IsBeingDragged = false;
+    //Indicates if the blox will be only intended to be used as a PARAM
+    protected virtual bool IsParam { get { return false; } }
+
+    [NonSerialized] public bool InsideBloxBag = false;
+    [NonSerialized]public bool IsBeingDragged = false;
     protected RootBlox rootBlox = null;
 
     public struct BloxIdent
@@ -33,12 +36,7 @@ public abstract class Blox : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
     #region start and update
     protected virtual void Start()
     {
-        if (CheckIfInsideBloxBag())
-        {
-            InsideBloxBag = true;
-        }
-        else
-            InsideBloxBag = false;
+        InsideBloxBag = CheckIfInsideBloxBag();
     }
 
     bool CheckIfInsideBloxBag()
@@ -430,6 +428,44 @@ public abstract class Blox : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
         }
         return bloxList;
     }
+
+
+    /// <summary>
+    /// Gets all the variable bloxes on the scope of a blox
+    /// </summary>
+    /// <param name="blox"></param>
+    /// <returns></returns>
+    public List<IBloxVariable> GetVariablesInBloxScope(Blox blox)
+    {
+        List<IBloxVariable> variablesInScope = new List<IBloxVariable>(); 
+        RootBlox rootBlox = GetRootBlox();
+        if (rootBlox != null)
+        {
+            List<BloxIdent> bloxList = rootBlox.GetChildBloxListInVerticalOrder();
+            //Params are not loaded in GetChildBloxListInVerticalOrder() method, so we evaluate according to the parent index
+            //on that case
+            BloxIdent bloxIdent = bloxList.Find(b=>b.blox == (blox.IsParam ? blox.ParentBlox : blox)); 
+            BloxIdent bloxIdent2 = bloxList.Where(b=>b.blox == (blox.IsParam ? blox.ParentBlox : blox)).FirstOrDefault(); 
+
+            int indexOfBlox = -1;
+            try
+            {
+                indexOfBlox = bloxList.IndexOf(bloxIdent);
+            }
+            catch(Exception ex) { }
+
+            if(indexOfBlox >= 0)
+            {
+                // Gets all the bloxes above this one, that are variables
+                // Although pure Blox objects cannot be cast as IBloxVariable,
+                // objects of classes that inherit from Blox, and implement IBloxVariable, can
+                variablesInScope = bloxList.GetRange(0, indexOfBlox).Where(b=>((IBloxVariable)b.blox) !=null).Select(b=>(IBloxVariable)b.blox).ToList();                 
+            }
+
+        }
+        return variablesInScope;
+    }
+
 
 
 

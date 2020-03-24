@@ -2,6 +2,8 @@
 using UnityEditor;
 using UnityEngine.UI;
 using System;
+using System.Linq;
+using System.Collections.Generic;
 
 public class GameObjectHelper
 {
@@ -122,6 +124,21 @@ public class GameObjectHelper
         return dropdown.options[dropdown.value].text;
     }
 
+    public static void PushVariablesIntoDropdown(Dropdown dropdown, List<IBloxVariable> variables)
+    {
+        string selectedValue = GetDropdownSelectedTextValue(dropdown);
+       
+        dropdown.ClearOptions();
+        dropdown.options.Add(new Dropdown.OptionData() { text = String.Empty });
+        dropdown.AddOptions(variables.Select(v=>v.GetName()).ToList());
+        
+        Dropdown.OptionData valueToSelect = dropdown.options.Where(a => a.text == selectedValue).FirstOrDefault();
+        if(valueToSelect != null)
+        {
+            int indexOfValueToSelect = dropdown.options.IndexOf(valueToSelect);
+            dropdown.value = indexOfValueToSelect;
+        }
+    }
 
     public static bool HasComponent<T>(GameObject gameObject)
     {
