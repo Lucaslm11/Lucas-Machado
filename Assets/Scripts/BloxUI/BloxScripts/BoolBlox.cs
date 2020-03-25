@@ -4,19 +4,22 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class IntBlox : Blox, IBloxVariable
+public class BoolBlox : Blox, IBloxVariable
 {
-    private const string VAR_INPUT = "Var Input";
-    private const string VALUE_INPUT = "Value Input";
+    [SerializeField] InputField VarNameField;
+   // [SerializeField] Button ValueField;
+    [SerializeField] TrueFalseTextSwitcher ValueField;
+
     public string GetName()
     {
-        return this.transform.Find(VAR_INPUT).gameObject.GetComponent<InputField>().text;
+        return VarNameField.text;
     }
 
     public string GetValue()
     {
-        return this.transform.Find(VALUE_INPUT).gameObject.GetComponent<InputField>().text; 
+        return ValueField.state.ToString();
     }
+ 
 
     public override bool ValidateNestToTheSide(GameObject objectToNest)
     {
@@ -26,6 +29,6 @@ public class IntBlox : Blox, IBloxVariable
 
     VariableType IBloxVariable.GetType()
     {
-        return VariableType.INT;
+        return VariableType.BOOL;
     }
 }

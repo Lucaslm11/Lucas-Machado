@@ -480,6 +480,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3920642d4ed3a1a40ada92bcc25f82dd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  VarNameField: {fileID: 6271380379398442718}
+  ValueField: {fileID: 8252641788520483982}
 --- !u!1 &6271380378633725996
 GameObject:
   m_ObjectHideFlags: 0
