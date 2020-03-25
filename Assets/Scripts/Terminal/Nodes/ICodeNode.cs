@@ -6,7 +6,7 @@ using Assets.Scripts.Terminal.Nodes;
 public interface ICodeNode 
 {
     bool CanHaveChildren { get; }
-    public string NodeName { get; set; }
+    string NodeName { get; set; }
     List<object> Parameters { get; set; }
     ICodeNode ParentNode { get; set; }
     List<ICodeNode> ChildNodes { get; set; }
