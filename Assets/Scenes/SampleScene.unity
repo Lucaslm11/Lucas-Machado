@@ -242,6 +242,18 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 300}
   m_Pivot: {x: 0, y: 1}
+--- !u!114 &669364732 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7967787482376711826, guid: c657a0f42b4480445954474e0195fa6e,
+    type: 3}
+  m_PrefabInstance: {fileID: 5211980941954001970}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: abc3254f60646734b8c4271f43cc910e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &672565574
 GameObject:
   m_ObjectHideFlags: 0
@@ -1819,7 +1831,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 60541d07d91629b4281b951c5ea69c05, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  RootBlox: {fileID: 0}
+  RootBlox: {fileID: 669364732}
 --- !u!61 &1725086266
 BoxCollider2D:
   m_ObjectHideFlags: 0

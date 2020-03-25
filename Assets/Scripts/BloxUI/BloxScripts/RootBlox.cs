@@ -1,9 +1,11 @@
-﻿using System.Collections;
+﻿using Assets.Scripts.Terminal.Nodes;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class RootBlox : ABlox
+public class RootBlox : ABlox, ICompilableBlox
 {
+    RootNode rootNode = null;
     // Start is called before the first frame update
     void Start()
     {
@@ -24,5 +26,20 @@ public class RootBlox : ABlox
     public override bool ValidateNestToBottomIdented(GameObject objectToNest)
     {
         return true;
+    }
+
+    public List<BloxValidationError> Validate()
+    {
+        throw new System.NotImplementedException();
+    }
+
+    public void ToNodes(ICodeNode parentNode)
+    {
+        //Root blox is not supposed to have a parent, so parentNode is assumed as being null
+        
+        //Creates the instance of this node, that will be saved in RootBlox
+        rootNode = new RootNode();
+        //Compiles the children
+        CompileChildrenToNodes(rootNode);
     }
 }

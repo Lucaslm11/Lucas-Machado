@@ -5,6 +5,8 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using Assets.Scripts.Terminal.Nodes;
+using Assets.Scripts.Terminal.Nodes.Functions;
+using Assets.Scripts.Terminal.Nodes.Types;
 
 public class IfBlox : ABlox, ICompilableBlox
 {
@@ -56,7 +58,38 @@ public class IfBlox : ABlox, ICompilableBlox
 
     public void ToNodes(ICodeNode parentNode)
     {
+        RootNode rootNode = parentNode.GetRootNode();
+        IfNode ifNode = null;
+
+        // IfNode can receive either a bool variable (chosen in dropdown) or a LogicalOperatorBlox as param
+        // If it has received a param (LogicalOperatorBlox), creates a LogicalOperationNode
+        // and instantiates ifNode with it
+        if (BloxParams.Count > 0)
+        { 
+            LogicalOperatorBlox blox = BloxParams[0].GetComponent<LogicalOperatorBlox>();
+            LogicalOperationNode logicOpNode = blox.CreateNode(rootNode);
+            ifNode = new IfNode(logicOpNode);
+        }
+        // If a variable was chosen, will search for an existing BooleanNode with that same name
+        else
+        {
+            // Gets the selected boolean variable
+            string selectedBoolVarName = GameObjectHelper.GetDropdownSelectedTextValue(this.booleanVariablesDropdown);
+            ICodeNode foundNode = rootNode.SearchChildByName(selectedBoolVarName);
+            if(foundNode!= null && GameObjectHelper.CanBeCastedAs<BooleanNode>(foundNode))
+            {
+                BooleanNode boolNode = (BooleanNode)foundNode;
+                ifNode = new IfNode(boolNode);
+            }
+            else
+            {
+                throw new System.Exception("Expected " + selectedBoolVarName + " to be a boolean node");
+            }
+        }
         
-        throw new System.NotImplementedException();
+        parentNode.AddChildNode(ifNode);
+
+        CompileChildrenToNodes(ifNode);
+
     }
 }

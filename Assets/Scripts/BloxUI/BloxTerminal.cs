@@ -31,7 +31,7 @@ public class BloxTerminal : MonoBehaviour
         if (isBloxAndIsBeingDragged)
         {
             Transform contentTransform = this.transform.Find(ContentComponentName);
-            collidedObject.transform.parent = contentTransform;
+            collidedObject.transform.SetParent(contentTransform);
         }
     }
 

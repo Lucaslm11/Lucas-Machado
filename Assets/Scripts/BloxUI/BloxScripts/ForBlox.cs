@@ -59,14 +59,8 @@ public class ForBlox : ABlox, IBloxVariable, ICompilableBlox
         ForNode forNode = new ForNode(counter, int.Parse(FromField.text), int.Parse(ToField.text));
         parentNode.AddChildNode(forNode);
 
-        foreach (ABlox child in ChildBloxes)
-        {
-            if (GameObjectHelper.CanBeCastedAs<ICompilableBlox>(child))
-            {
-                //Creates nodes for each child. Each child will add the forNode as a parent
-                ((ICompilableBlox)child).ToNodes(forNode);
-            }
-        }
+        //This node has child nodes. Ensures that child nodes are created from child bloxes
+        CompileChildrenToNodes(forNode);
     }
     #endregion
 }

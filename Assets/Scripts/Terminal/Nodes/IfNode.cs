@@ -16,6 +16,11 @@ namespace Assets.Scripts.Terminal.Nodes
 
         public override bool CanHaveChildren { get { return true; } }
 
+        public IfNode(BooleanNode condition)
+        {
+            Condition = condition;
+        }
+
         public override bool OnBeforeChildNodesExecuteAction()
         {
             bool evalResult = Condition.Value && execute;

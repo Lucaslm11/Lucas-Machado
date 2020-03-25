@@ -471,4 +471,19 @@ public abstract class ABlox : MonoBehaviour, IBeginDragHandler, IDragHandler, IE
 
     #endregion
 
+    #region Blox Compilation helpers
+
+    protected void CompileChildrenToNodes(ICodeNode parentNode)
+    {
+        foreach (ABlox child in ChildBloxes)
+        {
+            if (GameObjectHelper.CanBeCastedAs<ICompilableBlox>(child))
+            {
+                //Creates nodes for each child. Each child will add parentNode as a parent
+                ((ICompilableBlox)child).ToNodes(parentNode);
+            }
+        }
+    }
+
+    #endregion
 }
