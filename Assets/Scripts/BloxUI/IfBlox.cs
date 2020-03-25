@@ -1,13 +1,18 @@
 ﻿using System.Collections;
+using System.Linq;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 public class IfBlox : Blox
 {
-    // Saves a game object to next side to side with this one
-    GameObject objectToNest;
-   
+    [SerializeField] Dropdown booleanVariablesDropdown;
+
+    private void Update()
+    {
+        UpdateVariableList();
+    }
 
     public override void OnEndDrag(PointerEventData eventData)
     {
@@ -34,6 +39,12 @@ public class IfBlox : Blox
 
     public override bool ValidateNestToTheSide(GameObject objectToNest)
     {
-        return true;
+        return GameObjectHelper.HasComponent<LogicalOperatorBlox>(objectToNest);
+    }
+
+    private void UpdateVariableList()
+    {
+        List<IBloxVariable> varList = GetVariablesInBloxScope(this).Where(v => v.GetType() == VariableType.BOOL).ToList();
+        GameObjectHelper.PushVariablesIntoDropdown(booleanVariablesDropdown, varList);
     }
 }
