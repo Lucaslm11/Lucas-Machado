@@ -4,8 +4,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
+using Assets.Scripts.Terminal.Nodes;
 
-public class IfBlox : ABlox
+public class IfBlox : ABlox, ICompilableBlox
 {
     [SerializeField] Dropdown booleanVariablesDropdown;
 
@@ -39,12 +40,23 @@ public class IfBlox : ABlox
 
     public override bool ValidateNestToTheSide(GameObject objectToNest)
     {
-        return GameObjectHelper.HasComponent<LogicalOperatorBlox>(objectToNest);
+        return GameObjectHelper.HasComponent<LogicalOperatorBlox>(objectToNest) && BloxParams.Count == 0; //Only allows one
     }
 
     private void UpdateVariableList()
     {
         List<IBloxVariable> varList = GetVariablesInBloxScope(this).Where(v => v.GetType() == VariableType.BOOL).ToList();
         GameObjectHelper.PushVariablesIntoDropdown(booleanVariablesDropdown, varList);
+    }
+
+    public List<BloxValidationError> Validate()
+    {
+        throw new System.NotImplementedException();
+    }
+
+    public void ToNodes(ICodeNode parentNode)
+    {
+        
+        throw new System.NotImplementedException();
     }
 }
