@@ -14,9 +14,9 @@ namespace Assets.Scripts.Terminal.Nodes
         public int min { get; set; }
         public int max { get; set; }
 
-        public LoopRangeNode()
+        public LoopRangeNode(IntegerNode counter, int min, int max)
         {
-            counter = new IntegerNode();
+            counter = new IntegerNode(min);
         }
  
         public override void OnAfterChildNodesExecuteAction()

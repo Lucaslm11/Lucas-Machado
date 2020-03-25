@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class BoolBlox : Blox, IBloxVariable
+public class BoolBlox : ABlox, IBloxVariable
 {
     [SerializeField] InputField VarNameField;
    // [SerializeField] Button ValueField;

@@ -9,6 +9,10 @@ namespace Assets.Scripts.Terminal.Nodes.FunctionTypes
 {
     public class BooleanFunctionNode : BooleanNode
     {
+        public BooleanFunctionNode(bool value = false):base(value) { 
+             
+        }
+
 
         public override bool OnBeforeChildNodesExecuteAction()
         {

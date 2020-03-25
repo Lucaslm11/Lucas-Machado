@@ -10,7 +10,7 @@ using System.Linq;
 /// Value1, Value2 and Operator
 /// Value1and Value2 can be either an input number or a dropdown choice
 /// </summary>
-public class OperatorBlox : Blox
+public class OperatorBlox : ABlox
 {
     protected override bool IsParam { get { return true; } }
 

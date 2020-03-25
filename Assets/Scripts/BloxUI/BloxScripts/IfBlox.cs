@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class IfBlox : Blox
+public class IfBlox : ABlox
 {
     [SerializeField] Dropdown booleanVariablesDropdown;
 

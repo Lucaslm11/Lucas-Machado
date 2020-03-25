@@ -9,7 +9,7 @@ using UnityEngine.EventSystems;
 /// </summary>
 public class BloxTerminal : MonoBehaviour
 {
-    [SerializeField] Blox RootBlox;
+    [SerializeField] ABlox RootBlox;
     private const string ContentComponentName = "Viewport/Content";
     // Start is called before the first frame update
     void Start()
@@ -50,10 +50,10 @@ public class BloxTerminal : MonoBehaviour
     private bool IsBloxAndIsBeingDragged(GameObject gameObject)
     {
         bool validation = false;
-        bool isBlox = GameObjectHelper.HasComponent<Blox>(gameObject);
+        bool isBlox = GameObjectHelper.HasComponent<ABlox>(gameObject);
         if (isBlox)
         {
-            Blox collidedBlox = gameObject.GetComponent<Blox>();
+            ABlox collidedBlox = gameObject.GetComponent<ABlox>();
             bool isBeingDragged = collidedBlox.IsBeingDragged;
             validation = isBlox && isBeingDragged;
         }

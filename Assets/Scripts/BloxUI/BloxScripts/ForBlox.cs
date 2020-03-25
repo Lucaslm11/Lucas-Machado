@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class ForBlox : Blox, IBloxVariable
+public class ForBlox : ABlox, IBloxVariable
 {
     [SerializeField] InputField CounterNameField;
     [SerializeField] InputField FromField;

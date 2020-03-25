@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class StringBlox : Blox, IBloxVariable
+public class StringBlox : ABlox, IBloxVariable
 {
     [SerializeField] InputField VarNameField;
     [SerializeField] InputField ValueField;

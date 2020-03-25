@@ -10,9 +10,9 @@ namespace Assets.Scripts.Terminal.Nodes.Types
     {
         public bool Value { get; set; }
         public override object ReturnValue { get { return Value; } set { } }
-        public BooleanNode()
+        public BooleanNode(bool value)
         {
-            Value = false; 
+            Value = value; 
         }
         public override bool OnBeforeChildNodesExecuteAction()
         { 

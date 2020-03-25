@@ -4,6 +4,7 @@ using System.Collections.Generic;
 
 public class CodeNode : ICodeNode
 {
+    public string NodeName { get; set; }
     public virtual bool CanHaveChildren { get { return false; } }
     /// <summary>
     /// Represents the node that the current one is child of

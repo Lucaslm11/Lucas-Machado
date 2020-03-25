@@ -8,17 +8,36 @@ namespace Assets.Scripts.Terminal.Nodes.Types
 {
     public class IntegerNode : CodeNode
     {
+        
         public int Value { get; set; }
         public override object ReturnValue { get { return Value; } set { } }
-        public IntegerNode()
+        public IntegerNode(int value=0)
         {
-            Value = 0; 
+            Value = value;
         }
         public override bool OnBeforeChildNodesExecuteAction()
         { 
             return false;
-        } 
+        }
 
+
+        public static int operator +(IntegerNode val1, IntegerNode val2)
+        {
+            return val1.Value + val2.Value;
+        }
+
+        public static int operator -(IntegerNode val1, IntegerNode val2)
+        {
+            return val1.Value - val2.Value;
+        }
+        public static int operator *(IntegerNode val1, IntegerNode val2)
+        {
+            return val1.Value * val2.Value;
+        }
+        public static int operator /(IntegerNode val1, IntegerNode val2)
+        {
+            return val1.Value / val2.Value;
+        }
         public static bool operator>=(IntegerNode val1, IntegerNode val2)
         {
             return val1.Value >= val2.Value;
@@ -47,5 +66,7 @@ namespace Assets.Scripts.Terminal.Nodes.Types
         {
             return val1.Value != val2.Value;
         }
+
+
     }
 }
