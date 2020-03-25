@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using Assets.Scripts.Terminal.Nodes;
 
 public class CodeNode : ICodeNode
 {
@@ -36,14 +37,16 @@ public class CodeNode : ICodeNode
     /// Contains the value to be returned on Execute method
     /// </summary>
     public virtual object ReturnValue { get; set; }
-    public List<object> Parameters { get; set; }
+    public List<ICodeNode> Parameters { get; set; }
+    List<object> ICodeNode.Parameters { get => throw new System.NotImplementedException(); set => throw new System.NotImplementedException(); }
 
     public CodeNode()
     {
         ChildNodes = new List<ICodeNode>();
         NodesInScope = new List<ICodeNode>();
         ParentNode = new CodeNode();
-        Parameters = new List<object>();
+        Parameters = new List<ICodeNode>();
+        NodeName = UnityEditor.GUID.Generate().ToString();
     }
 
     public object Execute()
@@ -102,19 +105,23 @@ public class CodeNode : ICodeNode
     public void AddChildNode(ICodeNode childNode)
     {
         if (CanHaveChildren)
+        {
+            childNode.ParentNode = this;
             ChildNodes.Add(childNode);
+        }
     }
 
-    public void AddChildNode(ICodeNode childNode, int index)
+    public void AddChildNodes(List<ICodeNode> childNodes)
     {
         if (CanHaveChildren)
         {
-            index = Mathf.Clamp(index, 0, ChildNodes.Count - 1);
-            List<ICodeNode> lower = ChildNodes.GetRange(0, index);
-            List<ICodeNode> higher = ChildNodes.GetRange(index, ChildNodes.Count - index);
-            lower.Add(childNode);
+            ChildNodes.ForEach(child =>
+            {
+                AddChildNode(child);
+            }); 
         }
     }
+
 
     public virtual bool OnBeforeChildNodesExecuteAction()
     {
@@ -133,17 +140,30 @@ public class CodeNode : ICodeNode
     {
     }
 
-    /// <summary>
-    /// Sets this node to the begining of the new parent
-    /// </summary>
-    /// <param name="newParent"></param>
-    public void setParent(ICodeNode newParent)
+
+    public ICodeNode SearchChildByName(string NodeName)
     {
-        if (newParent.CanHaveChildren)
+        if (this.NodeName == NodeName)
+            return this;
+        else
         {
-            this.ParentNode.ChildNodes.Remove(this);
-            this.ParentNode = newParent;
-            newParent.AddChildNode(newParent, 0);
+            foreach(ICodeNode codeNode in ChildNodes)
+            {
+                ICodeNode foundNode = codeNode.SearchChildByName(NodeName);
+                if (foundNode != null)
+                    return foundNode;
+            }
         }
+
+        return null;
+    }
+
+ 
+    public RootNode GetRootNode()
+    {
+        if (GameObjectHelper.CanBeCastedAs<RootNode>(this))
+            return (RootNode)this;
+        else
+            return ParentNode.GetRootNode();
     }
 }

@@ -1,14 +1,18 @@
-﻿using System.Collections;
+﻿using Assets.Scripts.Terminal.Nodes;
+using Assets.Scripts.Terminal.Nodes.Functions;
+using Assets.Scripts.Terminal.Nodes.Types;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class IntBlox : ABlox, IBloxVariable
+public class IntBlox : ABlox, IBloxVariable, ICompilableBlox
 {
     [SerializeField] InputField VarNameField;
     [SerializeField] InputField ValueField;
-     
+
+    #region IBloxVariable region
     public string GetName()
     {
         return VarNameField.text;
@@ -18,10 +22,19 @@ public class IntBlox : ABlox, IBloxVariable
     {
         return ValueField.text;
     }
+
+    public int GetValueAsInt()
+    {
+        return int.Parse(GetValue());
+    }
+
     VariableType IBloxVariable.GetType()
     {
         return VariableType.INT;
     }
+    #endregion
+
+
 
     public override bool ValidateNestToTheSide(GameObject objectToNest)
     {
@@ -29,5 +42,27 @@ public class IntBlox : ABlox, IBloxVariable
         return GameObjectHelper.HasComponent<ArithmeticOperatorBlox>(objectToNest) && BloxParams.Count == 0;
     }
 
-
+    public List<BloxValidationError> Validate()
+    {
+        throw new System.NotImplementedException();
+    }
+     
+    public void ToNodes(ICodeNode parentNode)
+    {
+        RootNode rootNode = parentNode.GetRootNode();
+        //Checks if this blox has a param if it has creates an ArithmeticOperationNode instead of an Integer node
+        if(this.BloxParams.Count > 0)
+        {
+            ArithmeticOperatorBlox arithOpBlox = BloxParams[0].GetComponent<ArithmeticOperatorBlox>();
+            ArithmeticOperationNode arithOpNode = arithOpBlox.CreateNode(rootNode);
+            arithOpNode.NodeName = this.GetName();
+            parentNode.AddChildNode(arithOpNode);
+        }
+        else
+        {
+            IntegerNode intNode = new IntegerNode(GetValueAsInt());
+            intNode.NodeName = this.GetName();
+            parentNode.AddChildNode(intNode);
+        }
+    }
 }

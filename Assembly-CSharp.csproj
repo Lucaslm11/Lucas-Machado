@@ -74,10 +74,10 @@
     <Compile Include="Assets\Scripts\BloxUI\BloxScripts\ArithmeticOperatorBlox.cs" />
     <Compile Include="Assets\Scripts\BloxUI\BloxScripts\BoolBlox.cs" />
     <Compile Include="Assets\Scripts\BloxUI\BloxScripts\ForBlox.cs" />
-    <Compile Include="Assets\Scripts\BloxUI\BloxScripts\IBloxVariable.cs" />
-    <Compile Include="Assets\Scripts\BloxUI\BloxScripts\ICompilable.cs" />
     <Compile Include="Assets\Scripts\BloxUI\BloxScripts\IfBlox.cs" />
     <Compile Include="Assets\Scripts\BloxUI\BloxScripts\IntBlox.cs" />
+    <Compile Include="Assets\Scripts\BloxUI\BloxScripts\Interfaces\IBloxVariable.cs" />
+    <Compile Include="Assets\Scripts\BloxUI\BloxScripts\Interfaces\ICompilable.cs" />
     <Compile Include="Assets\Scripts\BloxUI\BloxScripts\LogicalOperatorBlox.cs" />
     <Compile Include="Assets\Scripts\BloxUI\BloxScripts\OperatorBlox.cs" />
     <Compile Include="Assets\Scripts\BloxUI\BloxScripts\RootBlox.cs" />
@@ -85,6 +85,7 @@
     <Compile Include="Assets\Scripts\BloxUI\BloxTerminal.cs" />
     <Compile Include="Assets\Scripts\BloxUI\Trashbin.cs" />
     <Compile Include="Assets\Scripts\Terminal\Nodes\CodeNode.cs" />
+    <Compile Include="Assets\Scripts\Terminal\Nodes\ForNode.cs" />
     <Compile Include="Assets\Scripts\Terminal\Nodes\Functions\ArithmeticOperationNode.cs" />
     <Compile Include="Assets\Scripts\Terminal\Nodes\Functions\IsGreaterThan.cs" />
     <Compile Include="Assets\Scripts\Terminal\Nodes\Functions\IsLesserThan.cs" />
@@ -93,7 +94,6 @@
     <Compile Include="Assets\Scripts\Terminal\Nodes\FunctionTypes\IntegerFunctionNode.cs" />
     <Compile Include="Assets\Scripts\Terminal\Nodes\ICodeNode.cs" />
     <Compile Include="Assets\Scripts\Terminal\Nodes\IfNode.cs" />
-    <Compile Include="Assets\Scripts\Terminal\Nodes\LoopRangeNode.cs" />
     <Compile Include="Assets\Scripts\Terminal\Nodes\RootNode.cs" />
     <Compile Include="Assets\Scripts\Terminal\Nodes\Types\BooleanNode.cs" />
     <Compile Include="Assets\Scripts\Terminal\Nodes\Types\IntegerNode.cs" />

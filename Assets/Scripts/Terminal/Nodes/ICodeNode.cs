@@ -1,10 +1,12 @@
 ﻿using UnityEngine;
 using UnityEditor;
 using System.Collections.Generic;
+using Assets.Scripts.Terminal.Nodes;
 
 public interface ICodeNode 
 {
     bool CanHaveChildren { get; }
+    public string NodeName { get; set; }
     List<object> Parameters { get; set; }
     ICodeNode ParentNode { get; set; }
     List<ICodeNode> ChildNodes { get; set; }
@@ -12,10 +14,8 @@ public interface ICodeNode
     object Execute();
     List<ICodeNode> NodesInScope { get; set; }
     List<ICodeNode> NodesInLevel { get; set; }
-    void moveUp();
-    void moveDown();
-
-    void setParent(ICodeNode newParent);
+ 
+ 
 
     void OnBeforeExecuteAction();
     void OnAfterExecuteAction();
@@ -23,7 +23,9 @@ public interface ICodeNode
     bool OnBeforeChildNodesExecuteAction();
     void OnAfterChildNodesExecuteAction();
 
-    void AddChildNode(ICodeNode childNode);
-    void AddChildNode(ICodeNode childNode, int index);
+    void AddChildNode(ICodeNode childNode); 
 
+    ICodeNode SearchChildByName(string NodeName);
+
+    RootNode GetRootNode(); 
 }

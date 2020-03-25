@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Assets.Scripts.Terminal.Nodes
 { 
-    public class IfNode : CodeNode
+    public class IfNode : CodeNode, ICompilableBlox
     {
         private bool execute = true;
 
@@ -22,5 +22,14 @@ namespace Assets.Scripts.Terminal.Nodes
             return evalResult;
         }
 
+        public List<BloxValidationError> Validate()
+        {
+            throw new NotImplementedException();
+        }
+         
+        public void ToNodes(ICodeNode parentNode)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

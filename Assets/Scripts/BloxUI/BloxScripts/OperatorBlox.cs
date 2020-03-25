@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using System.Linq;
+using Assets.Scripts.Terminal.Nodes.Types;
+using Assets.Scripts.Terminal.Nodes;
 
 /// <summary>
 /// Handles an operator blox. 
@@ -54,6 +56,8 @@ public class OperatorBlox : ABlox
         return getSwitcherValue(Value2Switcher);
     }
 
+
+
     /// <summary>
     /// Gets a value from the active field of a field switcher
     /// </summary>
@@ -86,5 +90,54 @@ public class OperatorBlox : ABlox
         GameObjectHelper.PushVariablesIntoDropdown(field1, varList);
         GameObjectHelper.PushVariablesIntoDropdown(field2, varList);
     }
+
+    #region Blox Compiler helpers
+    
+    protected IntegerNode GetField1Node(RootNode rootNode)
+    {
+        return FieldToNode(getSwitcherValue(Value1Switcher), rootNode);
+    }
+
+    protected IntegerNode GetField2Node(RootNode rootNode)
+    {
+        return FieldToNode(getSwitcherValue(Value2Switcher), rootNode);
+    }
+
+    /// <summary>
+    /// Converts a field choice to a node.
+    /// If field is variable, instead of creating a new node, returns an existing
+    /// </summary>
+    /// <param name="field"></param>
+    /// <param name="rootNode"></param>
+    /// <returns></returns>
+    protected IntegerNode FieldToNode(FieldChoice field, RootNode rootNode)
+    {
+        IntegerNode fieldNode = null;
+        // If it is a variable, the variable has already been created
+        // so we are going to search for it
+        if (field.isVariable)
+        {
+            // When it is a variable, value will have its name
+            ICodeNode variable = rootNode.SearchChildByName(field.value);
+            if(variable!=null && GameObjectHelper.CanBeCastedAs<IntegerNode>(variable))
+            {
+                fieldNode =(IntegerNode)variable;
+            }
+            else
+            {
+                throw new System.Exception("Expected " + field.value + " to be an integer node");
+            }
+        }
+        // User has input a numeric value
+        else
+        {
+            int value = int.Parse(field.value);
+            fieldNode = new IntegerNode(value);
+        }
+        return fieldNode;
+    }
+
+
+    #endregion
 
 }
