@@ -31,7 +31,7 @@ public class BoolBlox : ABlox, IBloxVariable, ICompilableBlox
     public void ToNodes(ICodeNode parentNode)
     {
         RootNode rootNode = parentNode.GetRootNode();
-        //Checks if this blox has a param if it has creates an LogicalOperationNode instead of an Integer node
+        //Checks if this blox has a param if it has creates an LogicalOperationNode instead of an BOOLeger node
         if (this.BloxParams.Count > 0)
         {
             LogicalOperatorBlox logicOpBlox = BloxParams[0].GetComponent<LogicalOperatorBlox>();
@@ -49,7 +49,45 @@ public class BoolBlox : ABlox, IBloxVariable, ICompilableBlox
 
     public List<BloxValidationError> Validate()
     {
-        throw new System.NotImplementedException();
+        List<BloxValidationError> errors = new List<BloxValidationError>();
+
+        // If BOOLBlox has no name
+        if (string.IsNullOrWhiteSpace(GetName()))
+        {
+            errors.Add(new BloxValidationError()
+            {
+                ErrorMessage = BloxErrors.BOOL_BLOX_NO_NAME,
+                TargetBlox = this
+            });
+        }
+
+        // If a variable with the same name exists, no matter the type
+        if (VariableExistsInBloxScope(this, GetName()))
+        {
+            errors.Add(new BloxValidationError()
+            {
+                ErrorMessage = BloxErrors.BLOX_REPEATED_NAME,
+                TargetBlox = this
+            });
+        }
+
+        // If BOOLBloxHas no value
+        if (BloxParams.Count == 0 && string.IsNullOrWhiteSpace(GetValue()))
+        {
+            errors.Add(new BloxValidationError()
+            {
+                ErrorMessage = BloxErrors.BOOL_BLOX_NO_NAME,
+                TargetBlox = this
+            });
+        }
+
+        //If it has params, validates the param
+        if (BloxParams.Count > 0 && GameObjectHelper.CanBeCastedAs<ICompilableBlox>(BloxParams[0]))
+        {
+            errors.AddRange(((ICompilableBlox)BloxParams[0]).Validate());
+        }
+
+        return errors;
     }
 
     public override bool ValidateNestToTheSide(GameObject objectToNest)

@@ -45,10 +45,7 @@ public class IntBlox : ABlox, IBloxVariable, ICompilableBlox
     public List<BloxValidationError> Validate()
     {
         List<BloxValidationError> errors = new List<BloxValidationError>();
- 
-
-        //If it has params, validates the param
-
+  
         // If IntBlox has no name
         if (string.IsNullOrWhiteSpace(GetName()))
         {
@@ -69,7 +66,6 @@ public class IntBlox : ABlox, IBloxVariable, ICompilableBlox
             });
         }
 
-
         // If IntBloxHas no value
         if (BloxParams.Count == 0 && string.IsNullOrWhiteSpace(GetValue())){
             errors.Add(new BloxValidationError()
@@ -79,12 +75,12 @@ public class IntBlox : ABlox, IBloxVariable, ICompilableBlox
             });
         }
 
-        if(BloxParams.Count > 0 && GameObjectHelper.CanBeCastedAs<ICompilableBlox>(BloxParams[0]))
+        //If it has params, validates the param
+        if (BloxParams.Count > 0 && GameObjectHelper.CanBeCastedAs<ICompilableBlox>(BloxParams[0]))
         {
             errors.AddRange(((ICompilableBlox)BloxParams[0]).Validate());
         }
-
-
+         
         return errors;
     }
      
