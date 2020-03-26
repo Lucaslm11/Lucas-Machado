@@ -44,7 +44,31 @@ public class ForBlox : ABlox, IBloxVariable, ICompilableBlox
     #region ICompilable region
     public List<BloxValidationError> Validate()
     {
-        throw new System.NotImplementedException();
+        List<BloxValidationError> errors = new List<BloxValidationError>();
+         
+        // if counter has no name 
+        if (string.IsNullOrWhiteSpace(GetName()))
+        {
+            errors.Add(new BloxValidationError()
+            {
+                ErrorMessage = BloxValidationErrorMessages.FOR_BLOX_NO_NAME,
+                TargetBlox = this
+            });
+        }
+
+        // if ToField or FromField not filled
+        if(string.IsNullOrWhiteSpace(FromField.text) || string.IsNullOrWhiteSpace(ToField.text))
+        {
+            errors.Add(new BloxValidationError()
+            {
+                ErrorMessage = BloxValidationErrorMessages.FOR_BLOX_NO_VALUES,
+                TargetBlox = this
+            });
+        }
+         
+        // Validate children
+        ValidateBloxList(ChildBloxes);
+        return errors;
     }
 
     public void ToNodes(ICodeNode parentNode)

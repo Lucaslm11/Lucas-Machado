@@ -27,8 +27,8 @@ public class OperatorBlox : ABlox
         public string value;
     }
 
-    [SerializeField] FieldSwitcher Value1Switcher;
-    [SerializeField] FieldSwitcher Value2Switcher;
+    [SerializeField] protected FieldSwitcher Value1Switcher;
+    [SerializeField] protected FieldSwitcher Value2Switcher;
 
     private const string OPERATOR_DROPDOWN_NAME = "Operator";
 
@@ -63,7 +63,7 @@ public class OperatorBlox : ABlox
     /// </summary>
     /// <param name="fs"></param>
     /// <returns></returns>
-    private FieldChoice getSwitcherValue(FieldSwitcher fs)
+    protected FieldChoice getSwitcherValue(FieldSwitcher fs)
     {
         GameObject activeField = fs.GetActiveField();
         FieldChoice fieldChoice;
@@ -137,7 +137,24 @@ public class OperatorBlox : ABlox
         return fieldNode;
     }
 
+    public List<BloxValidationError> ValidateOperator()
+    {
+        List<BloxValidationError> errors = new List<BloxValidationError>();
+        FieldChoice field1 = getSwitcherValue(Value1Switcher);
+        FieldChoice field2 = getSwitcherValue(Value2Switcher);
 
+        // if one of the fields is empty
+        if (string.IsNullOrWhiteSpace(field1.value) || string.IsNullOrWhiteSpace(field2.value))
+        {
+            errors.Add(new BloxValidationError()
+            {
+                ErrorMessage = BloxValidationErrorMessages.OPERATOR_BLOX_NO_VALUE,
+                TargetBlox = this
+            });
+        }
+
+        return errors;
+    }
     #endregion
 
 }

@@ -30,7 +30,7 @@ public class RootBlox : ABlox, ICompilableBlox
 
     public List<BloxValidationError> Validate()
     {
-        throw new System.NotImplementedException();
+        return ValidateBloxList(ChildBloxes);
     }
 
     public void ToNodes(ICodeNode parentNode)

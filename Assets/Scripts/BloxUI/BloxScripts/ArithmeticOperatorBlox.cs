@@ -13,7 +13,7 @@ public class ArithmeticOperatorBlox : OperatorBlox, ICompilableBlox
     #region Compiler helpers
     public List<BloxValidationError> Validate()
     {
-        throw new System.NotImplementedException();
+        return ValidateOperator();
     }
 
     public ArithmeticOperationNode.ArithmeticOperation GetOperation(string op)

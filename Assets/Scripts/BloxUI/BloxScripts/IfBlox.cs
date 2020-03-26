@@ -85,10 +85,9 @@ public class IfBlox : ABlox, ICompilableBlox
 
         // validates params
         errors.AddRange(ValidateBloxList(BloxParams));
-        
 
 
-        throw new System.NotImplementedException();
+        return errors;
     }
 
     public void ToNodes(ICodeNode parentNode)
