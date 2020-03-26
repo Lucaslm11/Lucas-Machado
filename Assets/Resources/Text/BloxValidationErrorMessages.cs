@@ -11,6 +11,7 @@ public class BloxValidationErrorMessages
 
     public const string IF_BLOX_NO_VAR = "O bloco IF não possui uma variável ou um operador lógico associado";
     public const string IF_BLOX_NO_CHILDREN = "O bloco IF não possui blocos filhos";
+    public const string FOR_BLOX_NO_CHILDREN = "O bloco FOR não possui blocos filhos";
 
     public const string INT_BLOX_NO_NAME = "O bloco INT não possui nome";
     public const string BOOL_BLOX_NO_NAME = "O bloco BOOL não possui nome";

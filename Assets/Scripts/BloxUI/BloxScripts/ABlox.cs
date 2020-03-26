@@ -463,7 +463,7 @@ public abstract class ABlox : MonoBehaviour, IBeginDragHandler, IDragHandler, IE
     {
         // This is the recursion stop condition
         if (blox == null || GameObjectHelper.CanBeCastedAs<RootBlox>(blox))
-            return new List<ABlox>() { this };
+            return new List<ABlox>() { blox };
 
         ABlox auxBlox = blox.IsParam ? blox.ParentBlox : blox; //if blox is a param,considers its parent
 

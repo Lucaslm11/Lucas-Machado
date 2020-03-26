@@ -78,7 +78,7 @@ public class IfBlox : ABlox, ICompilableBlox
                 ErrorMessage = BloxValidationErrorMessages.IF_BLOX_NO_CHILDREN,
                 TargetBlox = this
             });
-        }
+        }        
         
         // validates existing children 
         errors.AddRange(ValidateBloxList(ChildBloxes));

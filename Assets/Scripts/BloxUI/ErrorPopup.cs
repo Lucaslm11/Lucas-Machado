@@ -25,10 +25,7 @@ public class ErrorPopup : MonoBehaviour
     /// <param name="errorList"></param>
     public void LoadErrors(List<BloxValidationError> errorList)
     {
-        // Destroys existing error messages
-        ErrorMessagesOnScene.ForEach(em=> { Destroy(em.gameObject); });
-        //Resets the list
-        ErrorMessagesOnScene = new List<ErrorMessage>();
+        CleanErrors();
 
         ErrorList = errorList;
         RectTransform templateRectTrf = ErrorMessageTemplate.GetComponent<RectTransform>();
@@ -49,8 +46,18 @@ public class ErrorPopup : MonoBehaviour
             newMessage.gameObject.SetActive(true);
             i++;
         }
+    }
 
+    /// <summary>
+    /// Cleans the error display
+    /// </summary>
+    public void CleanErrors()
+    {
+        // Destroys existing error messages
+        ErrorMessagesOnScene.ForEach(em => { Destroy(em.gameObject); });
+        //Resets the list
+        ErrorMessagesOnScene = new List<ErrorMessage>();
 
     }
-     
+
 }

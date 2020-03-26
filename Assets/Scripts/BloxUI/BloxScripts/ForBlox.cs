@@ -65,9 +65,20 @@ public class ForBlox : ABlox, IBloxVariable, ICompilableBlox
                 TargetBlox = this
             });
         }
-         
+
+        // If no children
+        if (ChildBloxes.Count == 0)
+        {
+            errors.Add(new BloxValidationError()
+            {
+                ErrorMessage = BloxValidationErrorMessages.FOR_BLOX_NO_CHILDREN,
+                TargetBlox = this
+            });
+        }
+
+
         // Validate children
-        ValidateBloxList(ChildBloxes);
+        errors.AddRange(ValidateBloxList(ChildBloxes));
         return errors;
     }
 

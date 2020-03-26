@@ -76,6 +76,7 @@ public class BloxTerminal : MonoBehaviour
         }
         else
         {
+            ErrorPopup.CleanErrors();
             // Root blox does not have a parent, so Root node also does not
             RootBlox.ToNodes(null); // Compiles the bloxes bellow root to nodes
             RootNode rootNode = RootBlox.rootNode;
