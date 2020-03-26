@@ -24,7 +24,6 @@ public interface ICompilableBlox
  
 public struct BloxValidationError
 {
-    public string BloxName;
     public string ErrorMessage;
     public ABlox TargetBlox;
 }

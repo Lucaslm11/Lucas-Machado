@@ -67,6 +67,7 @@
     <Compile Include="Assets\Helpers\GameObjectHelper.cs" />
     <Compile Include="Assets\Helpers\ListHelper.cs" />
     <Compile Include="Assets\Helpers\MathHelper.cs" />
+    <Compile Include="Assets\Resources\Text\BloxErrors.cs" />
     <Compile Include="Assets\Scripts\BloxUI\BloxBag.cs" />
     <Compile Include="Assets\Scripts\BloxUI\BloxComponentScripts\FieldSwitcher.cs" />
     <Compile Include="Assets\Scripts\BloxUI\BloxComponentScripts\FilterChar.cs" />

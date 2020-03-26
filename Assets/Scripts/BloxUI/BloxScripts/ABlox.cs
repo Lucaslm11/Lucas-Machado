@@ -15,7 +15,7 @@ public abstract class ABlox : MonoBehaviour, IBeginDragHandler, IDragHandler, IE
     protected virtual bool IsParam { get { return false; } }
 
     [NonSerialized] public bool InsideBloxBag = false;
-    [NonSerialized]public bool IsBeingDragged = false;
+    [NonSerialized] public bool IsBeingDragged = false;
     protected RootBlox rootBlox = null;
 
     public struct BloxIdent
@@ -97,10 +97,10 @@ public abstract class ABlox : MonoBehaviour, IBeginDragHandler, IDragHandler, IE
             // Although we are saving all the simultaneous collisions 
             // We only want this object to nest with the highest ones
             float maxY = collidedObjects.Max(c => c.transform.position.y);
-            List<GameObject> highestObjects = collidedObjects.Where(c => c.transform.position.y == maxY).Select(a=>a.gameObject).ToList();
+            List<GameObject> highestObjects = collidedObjects.Where(c => c.transform.position.y == maxY).Select(a => a.gameObject).ToList();
 
 
-            foreach(GameObject collidedObject in highestObjects)
+            foreach (GameObject collidedObject in highestObjects)
             {
                 //If the collided object is a blox, attempts nesting
                 if (GameObjectHelper.HasComponent<ABlox>(collidedObject))
@@ -434,42 +434,124 @@ public abstract class ABlox : MonoBehaviour, IBeginDragHandler, IDragHandler, IE
 
 
     /// <summary>
-    /// Gets all the variable bloxes on the scope of a blox
+    /// From the current blox, gets all the bloxes in scope, in vertical order
+    /// The first one in list will be the closest to this one, and the last the root
+    /// Does not consider param bloxes
+    /// Example:
+    /// What are the bloxes in scope of c.2.2?
+    /// root
+    /// -a
+    /// --a.1
+    /// ---a.1.1
+    /// -b
+    /// --b.1
+    /// --b.2
+    /// -c
+    /// --c.1
+    /// ---c.1.1
+    /// --c.2
+    /// ---c.2.1
+    /// ---c.2.2 [c.2.2.p1]
+    /// ---c.2.3
+    /// 
+    /// Answer: [c.2.1, c.2, c.1, c, b, a, root]
+    ///          The answer shall be the same for c.2.2.p1 (which is a param for c.2.2)
     /// </summary>
     /// <param name="blox"></param>
     /// <returns></returns>
+    protected List<ABlox> GetBloxesInScope(ABlox blox)
+    {
+        // This is the recursion stop condition
+        if (blox == null || GameObjectHelper.CanBeCastedAs<RootBlox>(blox))
+            return new List<ABlox>() { this };
+
+        ABlox auxBlox = blox.IsParam ? blox.ParentBlox : blox; //if blox is a param,considers its parent
+
+        List<ABlox> scope = new List<ABlox>();
+        ABlox parentBlox = auxBlox.ParentBlox;
+        int indexOfBloxInParent = parentBlox.ChildBloxes.IndexOf(auxBlox);
+        for (int i = indexOfBloxInParent - 1; i >= 0; i--)
+        {
+            scope.Add(parentBlox.ChildBloxes[i]);
+        }
+        scope.Add(parentBlox);
+        scope.AddRange(GetBloxesInScope(parentBlox));
+
+        return scope;
+    }
+
+    /// <summary>
+    /// Gets all the variable bloxes on the scope of a blox. They are presented in the following order: 
+    /// the one closest to blox, to the one closest to root.
+    /// </summary>
+    /// <param name="blox"></param>
+    /// <returns></returns>
+
     public List<IBloxVariable> GetVariablesInBloxScope(ABlox blox)
     {
-        List<IBloxVariable> variablesInScope = new List<IBloxVariable>(); 
+        List<IBloxVariable> variablesInScope = new List<IBloxVariable>();
+
+        RootBlox rootBlox = GetRootBlox();
+        if (rootBlox != null)
+        {
+            List<ABlox> bloxesInScope = blox.GetBloxesInScope(blox);
+            variablesInScope = bloxesInScope.Where(b => GameObjectHelper.CanBeCastedAs<IBloxVariable>(b)).Select(b => (IBloxVariable)b).ToList();
+        }
+        return variablesInScope;
+    }
+
+    [Obsolete]
+    public List<IBloxVariable> GetVariablesInBloxScope2(ABlox blox)
+    {
+        List<IBloxVariable> variablesInScope = new List<IBloxVariable>();
+
+
         RootBlox rootBlox = GetRootBlox();
         if (rootBlox != null)
         {
             List<BloxIdent> bloxList = rootBlox.GetChildBloxListInVerticalOrder();
             //Params are not loaded in GetChildBloxListInVerticalOrder() method, so we evaluate according to the parent index
             //on that case
-            BloxIdent bloxIdent = bloxList.Find(b=>b.blox == (blox.IsParam ? blox.ParentBlox : blox)); 
-            BloxIdent bloxIdent2 = bloxList.Where(b=>b.blox == (blox.IsParam ? blox.ParentBlox : blox)).FirstOrDefault(); 
+            BloxIdent bloxIdent = bloxList.Find(b => b.blox == (blox.IsParam ? blox.ParentBlox : blox));
+            BloxIdent bloxIdent2 = bloxList.Where(b => b.blox == (blox.IsParam ? blox.ParentBlox : blox)).FirstOrDefault();
 
             int indexOfBlox = -1;
             try
             {
                 indexOfBlox = bloxList.IndexOf(bloxIdent);
             }
-            catch(Exception ex) { }
+            catch (Exception ex) { }
 
-            if(indexOfBlox >= 0)
+            if (indexOfBlox >= 0)
             {
                 // Gets all the bloxes above this one, that are variables
                 // Although pure Blox objects cannot be cast as IBloxVariable,
                 // objects of classes that inherit from Blox, and implement IBloxVariable, can
-                variablesInScope = bloxList.GetRange(0, indexOfBlox).Where(b=>GameObjectHelper.CanBeCastedAs<IBloxVariable>(b.blox)).Select(b=>(IBloxVariable)b.blox).ToList();                 
+                variablesInScope = bloxList.GetRange(0, indexOfBlox).Where(b => GameObjectHelper.CanBeCastedAs<IBloxVariable>(b.blox)).Select(b => (IBloxVariable)b.blox).ToList();
             }
 
         }
         return variablesInScope;
     }
 
-
+    /// <summary>
+    /// Verifies if in a blox scope there is already a variable with a given name.
+    /// Ignores null or whitespace (returns false when name is null or empty)
+    /// </summary>
+    /// <param name="blox"></param>
+    /// <param name="name"></param>
+    /// <returns></returns>
+    public bool VariableExistsInBloxScope(ABlox blox, string name)
+    {
+        if (string.IsNullOrWhiteSpace(name))
+        {
+            return false;
+        }
+        // From the list of variables available in scope, gets the ones that are not null or empty,
+        // and counts the number of corresponding cases, and returns true if it is bigger than zero
+        return GetVariablesInBloxScope(blox).Where(a => !String.IsNullOrWhiteSpace(a.GetName())
+                                                        && a.GetName().ToLower() == name.ToLower()).Count() > 0;
+    }
 
 
     #endregion
