@@ -53,6 +53,41 @@ public class IfBlox : ABlox, ICompilableBlox
 
     public List<BloxValidationError> Validate()
     {
+        List<BloxValidationError> errors = new List<BloxValidationError>();
+
+        // Validations:  
+        // --Must validate also child nodes
+        // --Must validate params
+        string selectedBoolVarName = GameObjectHelper.GetDropdownSelectedTextValue(this.booleanVariablesDropdown);
+
+        // If no params and no var selected
+        if (BloxParams.Count == 0 && string.IsNullOrWhiteSpace(selectedBoolVarName))
+        {
+            errors.Add(new BloxValidationError()
+            {
+                ErrorMessage = BloxValidationErrorMessages.IF_BLOX_NO_VAR,
+                TargetBlox = this
+            });
+        }
+
+        // If no children
+        if(ChildBloxes.Count == 0)
+        {
+            errors.Add(new BloxValidationError()
+            {
+                ErrorMessage = BloxValidationErrorMessages.IF_BLOX_NO_CHILDREN,
+                TargetBlox = this
+            });
+        }
+        
+        // validates existing children 
+        errors.AddRange(ValidateBloxList(ChildBloxes));
+
+        // validates params
+        errors.AddRange(ValidateBloxList(BloxParams));
+        
+
+
         throw new System.NotImplementedException();
     }
 

@@ -56,7 +56,7 @@ public class BoolBlox : ABlox, IBloxVariable, ICompilableBlox
         {
             errors.Add(new BloxValidationError()
             {
-                ErrorMessage = BloxErrors.BOOL_BLOX_NO_NAME,
+                ErrorMessage = BloxValidationErrorMessages.BOOL_BLOX_NO_NAME,
                 TargetBlox = this
             });
         }
@@ -66,7 +66,7 @@ public class BoolBlox : ABlox, IBloxVariable, ICompilableBlox
         {
             errors.Add(new BloxValidationError()
             {
-                ErrorMessage = BloxErrors.BLOX_REPEATED_NAME,
+                ErrorMessage = BloxValidationErrorMessages.BLOX_REPEATED_NAME,
                 TargetBlox = this
             });
         }
@@ -76,16 +76,13 @@ public class BoolBlox : ABlox, IBloxVariable, ICompilableBlox
         {
             errors.Add(new BloxValidationError()
             {
-                ErrorMessage = BloxErrors.BOOL_BLOX_NO_NAME,
+                ErrorMessage = BloxValidationErrorMessages.BOOL_BLOX_NO_NAME,
                 TargetBlox = this
             });
         }
-
+         
         //If it has params, validates the param
-        if (BloxParams.Count > 0 && GameObjectHelper.CanBeCastedAs<ICompilableBlox>(BloxParams[0]))
-        {
-            errors.AddRange(((ICompilableBlox)BloxParams[0]).Validate());
-        }
+        errors.AddRange(ValidateBloxList(BloxParams));
 
         return errors;
     }

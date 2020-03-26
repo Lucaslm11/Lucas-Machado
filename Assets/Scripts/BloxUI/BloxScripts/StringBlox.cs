@@ -35,7 +35,7 @@ public class StringBlox : ABlox, IBloxVariable, ICompilableBlox
         {
             errors.Add(new BloxValidationError()
             {
-                ErrorMessage = BloxErrors.STRING_BLOX_NO_NAME,
+                ErrorMessage = BloxValidationErrorMessages.STRING_BLOX_NO_NAME,
                 TargetBlox = this
             });
         }
@@ -45,7 +45,7 @@ public class StringBlox : ABlox, IBloxVariable, ICompilableBlox
         {
             errors.Add(new BloxValidationError()
             {
-                ErrorMessage = BloxErrors.BLOX_REPEATED_NAME,
+                ErrorMessage = BloxValidationErrorMessages.BLOX_REPEATED_NAME,
                 TargetBlox = this
             });
         }
@@ -55,7 +55,7 @@ public class StringBlox : ABlox, IBloxVariable, ICompilableBlox
         {
             errors.Add(new BloxValidationError()
             {
-                ErrorMessage = BloxErrors.STRING_BLOX_NO_NAME,
+                ErrorMessage = BloxValidationErrorMessages.STRING_BLOX_NO_NAME,
                 TargetBlox = this
             });
         }

@@ -570,5 +570,19 @@ public abstract class ABlox : MonoBehaviour, IBeginDragHandler, IDragHandler, IE
         }
     }
 
+    protected List<BloxValidationError> ValidateBloxList(List<ABlox> bloxList)
+    {
+        List<BloxValidationError> errors = new List<BloxValidationError>();
+        foreach (ABlox child in bloxList)
+        {
+            if (GameObjectHelper.CanBeCastedAs<ICompilableBlox>(child))
+            {
+               errors.AddRange( ((ICompilableBlox)child).Validate());
+            }
+
+        }
+        return errors;
+    }
+
     #endregion
 }
