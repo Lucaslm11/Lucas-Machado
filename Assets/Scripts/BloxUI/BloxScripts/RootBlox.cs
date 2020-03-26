@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class RootBlox : ABlox, ICompilableBlox
 {
@@ -9,7 +10,7 @@ public class RootBlox : ABlox, ICompilableBlox
     // Start is called before the first frame update
     void Start()
     {
-        
+        //this.GetComponent<Button>().colors.;
     }
 
     // Update is called once per frame
