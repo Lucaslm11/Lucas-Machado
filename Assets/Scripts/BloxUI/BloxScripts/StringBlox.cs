@@ -28,7 +28,39 @@ public class StringBlox : ABlox, IBloxVariable, ICompilableBlox
 
     public List<BloxValidationError> Validate()
     {
-        throw new System.NotImplementedException();
+        List<BloxValidationError> errors = new List<BloxValidationError>();
+
+        // If STRINGBlox has no name
+        if (string.IsNullOrWhiteSpace(GetName()))
+        {
+            errors.Add(new BloxValidationError()
+            {
+                ErrorMessage = BloxErrors.STRING_BLOX_NO_NAME,
+                TargetBlox = this
+            });
+        }
+
+        // If a variable with the same name exists, no matter the type
+        if (VariableExistsInBloxScope(this, GetName()))
+        {
+            errors.Add(new BloxValidationError()
+            {
+                ErrorMessage = BloxErrors.BLOX_REPEATED_NAME,
+                TargetBlox = this
+            });
+        }
+
+        // If STRINGBloxHas no value
+        if (string.IsNullOrWhiteSpace(GetValue()))
+        {
+            errors.Add(new BloxValidationError()
+            {
+                ErrorMessage = BloxErrors.STRING_BLOX_NO_NAME,
+                TargetBlox = this
+            });
+        }
+
+        return errors;
     }
 
     VariableType IBloxVariable.GetType()
