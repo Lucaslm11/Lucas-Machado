@@ -63,6 +63,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\ErrorMessage.cs" />
     <Compile Include="Assets\Helpers\GameObjectHelper.cs" />
     <Compile Include="Assets\Helpers\ListHelper.cs" />
     <Compile Include="Assets\Helpers\MathHelper.cs" />
@@ -78,11 +79,13 @@
     <Compile Include="Assets\Scripts\BloxUI\BloxScripts\IntBlox.cs" />
     <Compile Include="Assets\Scripts\BloxUI\BloxScripts\Interfaces\IBloxVariable.cs" />
     <Compile Include="Assets\Scripts\BloxUI\BloxScripts\Interfaces\ICompilable.cs" />
+    <Compile Include="Assets\Scripts\BloxUI\BloxScripts\Interfaces\IHighlightableBlox.cs" />
     <Compile Include="Assets\Scripts\BloxUI\BloxScripts\LogicalOperatorBlox.cs" />
     <Compile Include="Assets\Scripts\BloxUI\BloxScripts\OperatorBlox.cs" />
     <Compile Include="Assets\Scripts\BloxUI\BloxScripts\RootBlox.cs" />
     <Compile Include="Assets\Scripts\BloxUI\BloxScripts\StringBlox.cs" />
     <Compile Include="Assets\Scripts\BloxUI\BloxTerminal.cs" />
+    <Compile Include="Assets\Scripts\BloxUI\ErrorPopup.cs" />
     <Compile Include="Assets\Scripts\BloxUI\Trashbin.cs" />
     <Compile Include="Assets\Scripts\Terminal\Nodes\CodeNode.cs" />
     <Compile Include="Assets\Scripts\Terminal\Nodes\ForNode.cs" />

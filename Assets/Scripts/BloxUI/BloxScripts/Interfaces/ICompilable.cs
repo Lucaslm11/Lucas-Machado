@@ -26,5 +26,5 @@ public struct BloxValidationError
 {
     public string BloxName;
     public string ErrorMessage;
-    public GameObject TargetObject;
+    public ABlox TargetBlox;
 }
