@@ -65,7 +65,7 @@ public abstract class ABlox : MonoBehaviour, IBeginDragHandler, IDragHandler, IE
         if (InsideBloxBag)
         {
             ABlox newInstance = Instantiate(this, this.transform.parent);
-            this.transform.parent = this.transform.parent.parent.parent.parent; //Content, then Viewport then BloxBag then Canvas
+            this.transform.SetParent(this.transform.parent.parent.parent.parent); //Content, then Viewport then BloxBag then Canvas
             this.InsideBloxBag = false;
         }
     }
@@ -95,23 +95,26 @@ public abstract class ABlox : MonoBehaviour, IBeginDragHandler, IDragHandler, IE
         if (collidedObjects.Count > 0)
         {
             // Although we are saving all the simultaneous collisions 
-            // We only want this object to nest with the highest one
+            // We only want this object to nest with the highest ones
             float maxY = collidedObjects.Max(c => c.transform.position.y);
-            GameObject collidedObject = collidedObjects.Where(c => c.transform.position.y == maxY).FirstOrDefault().gameObject;
+            List<GameObject> highestObjects = collidedObjects.Where(c => c.transform.position.y == maxY).Select(a=>a.gameObject).ToList();
 
-            //If the collided object is a blox, attempts nesting
-            if (GameObjectHelper.HasComponent<ABlox>(collidedObject))
-            {
-                ABlox blox = collidedObject.GetComponent<ABlox>();
-                blox.NestObject(this.gameObject);
-            }
-            //If the collied object is the trashbin, destroys it
-            else if (GameObjectHelper.HasComponent<Trashbin>(collidedObject))
-            {
-                RemoveFromParent(this);
-                Destroy(this.gameObject);
-            }
 
+            foreach(GameObject collidedObject in highestObjects)
+            {
+                //If the collided object is a blox, attempts nesting
+                if (GameObjectHelper.HasComponent<ABlox>(collidedObject))
+                {
+                    ABlox blox = collidedObject.GetComponent<ABlox>();
+                    blox.NestObject(this.gameObject);
+                }
+                //If the collied object is the trashbin, destroys it
+                else if (GameObjectHelper.HasComponent<Trashbin>(collidedObject))
+                {
+                    RemoveFromParent(this);
+                    Destroy(this.gameObject);
+                }
+            }
         }
         else
             SetAllBloxesPositionsOnScreen();

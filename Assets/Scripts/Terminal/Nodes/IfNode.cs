@@ -23,6 +23,7 @@ namespace Assets.Scripts.Terminal.Nodes
 
         public override bool OnBeforeChildNodesExecuteAction()
         {
+            Condition.Execute(); 
             bool evalResult = Condition.Value && execute;
             execute = !execute; //This helps to prevent the continuation of the loop in CodeNode, and to execute this verification again when passing over this a next time
             return evalResult;

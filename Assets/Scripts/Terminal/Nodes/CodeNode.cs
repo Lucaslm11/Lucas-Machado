@@ -44,7 +44,8 @@ public class CodeNode : ICodeNode
     {
         ChildNodes = new List<ICodeNode>();
         NodesInScope = new List<ICodeNode>();
-        ParentNode = new CodeNode();
+        //Parent node default is null. Don't do a new on this one, or will enter in infinite recursion
+        ParentNode = null; 
         Parameters = new List<ICodeNode>();
         NodeName = UnityEditor.GUID.Generate().ToString();
     }

@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using Assets.Scripts.Terminal.Nodes;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -9,7 +10,7 @@ using UnityEngine.EventSystems;
 /// </summary>
 public class BloxTerminal : MonoBehaviour
 {
-    [SerializeField] ABlox RootBlox;
+    [SerializeField] RootBlox RootBlox;
     private const string ContentComponentName = "Viewport/Content";
     // Start is called before the first frame update
     void Start()
@@ -60,4 +61,12 @@ public class BloxTerminal : MonoBehaviour
         return validation;
     }
 
+
+    public void Play()
+    {
+        // Root blox does not have a parent, so Root node also does not
+        RootBlox.ToNodes(null); // Compiles the bloxes bellow root to nodes
+        RootNode rootNode = RootBlox.rootNode;
+        rootNode.Execute();
+    }
 }

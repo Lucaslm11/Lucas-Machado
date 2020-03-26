@@ -10,23 +10,25 @@ namespace Assets.Scripts.Terminal.Nodes
     public class ForNode : CodeNode
     {
         public override bool CanHaveChildren { get { return true; } }
-        IntegerNode counter { get; set; }
-        public int min { get; set; }
-        public int max { get; set; }
+        IntegerNode Counter { get; set; }
+        public int Min { get; set; }
+        public int Max { get; set; }
 
         public ForNode(IntegerNode counter, int min, int max)
         {
-            counter = new IntegerNode(min);
+            Counter = counter;
+            Min = min;
+            Max = max;
         }
  
         public override void OnAfterChildNodesExecuteAction()
         {
-            counter.Value = counter.Value + 1;
+            Counter.Value = Counter.Value + 1;
         }
 
         public override bool OnBeforeChildNodesExecuteAction()
         {
-            return counter.Value >= min && counter.Value <= max;
+            return Counter.Value >= Min && Counter.Value <= Max;
         }
 
        
