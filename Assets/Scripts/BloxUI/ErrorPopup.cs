@@ -9,7 +9,7 @@ public class ErrorPopup : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-
+        ErrorMessageTemplate.gameObject.SetActive(false);
     }
 
     // Update is called once per frame
@@ -35,6 +35,7 @@ public class ErrorPopup : MonoBehaviour
             float newY = templateY + i * (templateRectTrf.rect.height + errorMessageVerticalSpacing);
             ErrorMessage newMessage = Instantiate(ErrorMessageTemplate, templateRectTrf.parent);
             newMessage.SetErrorMessage(error);
+            newMessage.gameObject.SetActive(true);
             i++;
         }
     }

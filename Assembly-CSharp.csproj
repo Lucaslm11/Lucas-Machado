@@ -85,6 +85,7 @@
     <Compile Include="Assets\Scripts\BloxUI\BloxScripts\RootBlox.cs" />
     <Compile Include="Assets\Scripts\BloxUI\BloxScripts\StringBlox.cs" />
     <Compile Include="Assets\Scripts\BloxUI\BloxTerminal.cs" />
+    <Compile Include="Assets\Scripts\BloxUI\DisplayErrorsButton.cs" />
     <Compile Include="Assets\Scripts\BloxUI\ErrorPopup.cs" />
     <Compile Include="Assets\Scripts\BloxUI\Trashbin.cs" />
     <Compile Include="Assets\Scripts\Terminal\Nodes\CodeNode.cs" />

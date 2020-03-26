@@ -11,6 +11,7 @@ using UnityEngine.EventSystems;
 public class BloxTerminal : MonoBehaviour
 {
     [SerializeField] RootBlox RootBlox;
+    [SerializeField] ErrorPopup ErrorPopup;
     private const string ContentComponentName = "Viewport/Content";
     // Start is called before the first frame update
     void Start()

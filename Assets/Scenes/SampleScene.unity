@@ -767,7 +767,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &435863981
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1465,8 +1465,9 @@ GameObject:
   - component: {fileID: 847838096}
   - component: {fileID: 847838095}
   - component: {fileID: 847838094}
+  - component: {fileID: 847838097}
   m_Layer: 5
-  m_Name: Button
+  m_Name: DisplayErrorsButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1534,7 +1535,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 847838095}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 847838097}
+        m_MethodName: SwitchDisplayState
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &847838095
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1571,6 +1583,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 847838092}
   m_CullTransparentMesh: 0
+--- !u!114 &847838097
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 847838092}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c741e62791cd1204dbc2a16919111e13, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ErrorPopup: {fileID: 385157581}
 --- !u!1 &869774581
 GameObject:
   m_ObjectHideFlags: 0
@@ -3104,6 +3129,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   RootBlox: {fileID: 669364732}
+  ErrorPopup: {fileID: 385157581}
 --- !u!61 &1725086266
 BoxCollider2D:
   m_ObjectHideFlags: 0
