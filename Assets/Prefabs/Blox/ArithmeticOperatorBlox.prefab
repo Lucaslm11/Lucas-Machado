@@ -3803,6 +3803,7 @@ GameObject:
   - component: {fileID: 1009782855986084743}
   - component: {fileID: 1009782855986084472}
   - component: {fileID: 1009782856784390158}
+  - component: {fileID: 650091931}
   m_Layer: 5
   m_Name: ArithmeticOperatorBlox
   m_TagString: Untagged
@@ -3817,7 +3818,7 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1009782856784390144}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.7878108, y: 0.67991006, z: 1}
   m_Children:
@@ -3976,6 +3977,24 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Value1Switcher: {fileID: 1381410907349116189}
   Value2Switcher: {fileID: 1381410907187729514}
+--- !u!114 &650091931
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1009782856784390144}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 598f9fad12c87b344a04ac34365bb1e1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Button: {fileID: 1009782856784390157}
+  None: {r: 1, g: 1, b: 1, a: 1}
+  Success: {r: 0, g: 1, b: 0, a: 1}
+  Warning: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
+  Error: {r: 1, g: 0, b: 0, a: 1}
+  Info: {r: 0, g: 0, b: 1, a: 1}
 --- !u!1001 &1009782855355359961
 PrefabInstance:
   m_ObjectHideFlags: 0

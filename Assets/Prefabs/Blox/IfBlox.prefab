@@ -34,7 +34,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -11.620001, y: 1.35}
+  m_AnchoredPosition: {x: -11.620001, y: 0.032502174}
   m_SizeDelta: {x: -26.76, y: 2.7}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &3798432425720382133
@@ -501,6 +501,7 @@ GameObject:
   - component: {fileID: 6995701601642133580}
   - component: {fileID: 6995701601642133579}
   - component: {fileID: 6995701601642133578}
+  - component: {fileID: 1619856405}
   m_Layer: 5
   m_Name: IfBlox
   m_TagString: Untagged
@@ -668,6 +669,24 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!114 &1619856405
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6995701601642133585}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 598f9fad12c87b344a04ac34365bb1e1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Button: {fileID: 6995701601642133583}
+  None: {r: 1, g: 1, b: 1, a: 1}
+  Success: {r: 0, g: 1, b: 0, a: 1}
+  Warning: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
+  Error: {r: 1, g: 0, b: 0, a: 1}
+  Info: {r: 0, g: 0, b: 1, a: 1}
 --- !u!1 &6995701602736923519
 GameObject:
   m_ObjectHideFlags: 0

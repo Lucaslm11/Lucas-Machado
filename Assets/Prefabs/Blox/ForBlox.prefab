@@ -1013,6 +1013,7 @@ GameObject:
   - component: {fileID: 4190137228542012399}
   - component: {fileID: 4190137228542012385}
   - component: {fileID: 4190137228542012398}
+  - component: {fileID: 1879020932}
   m_Layer: 5
   m_Name: ForBlox
   m_TagString: Untagged
@@ -1131,7 +1132,7 @@ Rigidbody2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4190137228542012388}
-  m_BodyType: 2
+  m_BodyType: 0
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
@@ -1185,6 +1186,24 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 160, y: 20}
   m_EdgeRadius: 0
+--- !u!114 &1879020932
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4190137228542012388}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 598f9fad12c87b344a04ac34365bb1e1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Button: {fileID: 4190137228542012386}
+  None: {r: 1, g: 1, b: 1, a: 1}
+  Success: {r: 0, g: 1, b: 0, a: 1}
+  Warning: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
+  Error: {r: 1, g: 0, b: 0, a: 1}
+  Info: {r: 0, g: 0, b: 1, a: 1}
 --- !u!1 &4190137228646593806
 GameObject:
   m_ObjectHideFlags: 0

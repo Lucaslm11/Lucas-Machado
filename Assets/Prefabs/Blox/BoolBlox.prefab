@@ -313,6 +313,7 @@ GameObject:
   - component: {fileID: 8808213969118747364}
   - component: {fileID: 8808213969118747365}
   - component: {fileID: 6207513234597924842}
+  - component: {fileID: 1541397567}
   m_Layer: 5
   m_Name: BoolBlox
   m_TagString: Untagged
@@ -399,9 +400,9 @@ MonoBehaviour:
   m_Transition: 1
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
-    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_HighlightedColor: {r: 1, g: 1, b: 1, a: 1}
     m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
-    m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_SelectedColor: {r: 1, g: 1, b: 1, a: 1}
     m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
@@ -482,6 +483,24 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   VarNameField: {fileID: 6271380379398442718}
   ValueField: {fileID: 8252641788520483982}
+--- !u!114 &1541397567
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6271380378565364463}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 598f9fad12c87b344a04ac34365bb1e1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Button: {fileID: 6271380378565364461}
+  None: {r: 1, g: 1, b: 1, a: 1}
+  Success: {r: 0, g: 1, b: 0, a: 1}
+  Warning: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
+  Error: {r: 1, g: 0, b: 0, a: 1}
+  Info: {r: 0, g: 0, b: 1, a: 1}
 --- !u!1 &6271380378633725996
 GameObject:
   m_ObjectHideFlags: 0

@@ -162,11 +162,11 @@ public abstract class ABlox : MonoBehaviour, IBeginDragHandler, IDragHandler, IE
                 //checks if second object top is bellow this object center
                 if (secondObjBBox.top.y < thisObjectPosition.y)
                 {
-                    if (ValidateNestToBottom(secondObject) && MathHelper.IsNearby(secondObjBBox.left.x, thisBBox.left.x, thisObjectWidth / 4))
+                    if (!secondObjectBlox.IsParam &&  ValidateNestToBottom(secondObject) && MathHelper.IsNearby(secondObjBBox.left.x, thisBBox.left.x, thisObjectWidth / 4))
                     {
                         AddToBottom(secondObjectBlox);
                     }
-                    else if (ValidateNestToBottomIdented(secondObject) && MathHelper.IsNearby(secondObjBBox.left.x, thisBBox.bottom.x, thisObjectWidth / 4))
+                    else if (!secondObjectBlox.IsParam && ValidateNestToBottomIdented(secondObject) && MathHelper.IsNearby(secondObjBBox.left.x, thisBBox.bottom.x, thisObjectWidth / 4))
                     {
                         AddToBottomIdented(secondObjectBlox);
                     }
