@@ -55,7 +55,7 @@ public class StringBlox : ABlox, IBloxVariable, ICompilableBlox
         {
             errors.Add(new BloxValidationError()
             {
-                ErrorMessage = BloxValidationErrorMessages.STRING_BLOX_NO_NAME,
+                ErrorMessage = BloxValidationErrorMessages.STRING_BLOX_NO_VALUE,
                 TargetBlox = this
             });
         }

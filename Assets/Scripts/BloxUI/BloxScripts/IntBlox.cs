@@ -70,7 +70,7 @@ public class IntBlox : ABlox, IBloxVariable, ICompilableBlox
         if (BloxParams.Count == 0 && string.IsNullOrWhiteSpace(GetValue())){
             errors.Add(new BloxValidationError()
             {
-                ErrorMessage = BloxValidationErrorMessages.INT_BLOX_NO_NAME,
+                ErrorMessage = BloxValidationErrorMessages.INT_BLOX_NO_VALUE,
                 TargetBlox = this
             });
         }

@@ -65,9 +65,21 @@ public class BloxTerminal : MonoBehaviour
 
     public void Play()
     {
-        // Root blox does not have a parent, so Root node also does not
-        RootBlox.ToNodes(null); // Compiles the bloxes bellow root to nodes
-        RootNode rootNode = RootBlox.rootNode;
-        rootNode.Execute();
+        //First validates
+        List<BloxValidationError> validationErrors = RootBlox.Validate();
+        
+        //If has errors
+        if (validationErrors != null && validationErrors.Count > 0)
+        {
+            //Puts errors in error popup
+            ErrorPopup.LoadErrors(validationErrors);
+        }
+        else
+        {
+            // Root blox does not have a parent, so Root node also does not
+            RootBlox.ToNodes(null); // Compiles the bloxes bellow root to nodes
+            RootNode rootNode = RootBlox.rootNode;
+            rootNode.Execute();
+        }
     }
 }

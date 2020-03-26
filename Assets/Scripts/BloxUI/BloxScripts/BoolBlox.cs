@@ -76,7 +76,7 @@ public class BoolBlox : ABlox, IBloxVariable, ICompilableBlox
         {
             errors.Add(new BloxValidationError()
             {
-                ErrorMessage = BloxValidationErrorMessages.BOOL_BLOX_NO_NAME,
+                ErrorMessage = BloxValidationErrorMessages.BOOL_BLOX_NO_VALUE,
                 TargetBlox = this
             });
         }

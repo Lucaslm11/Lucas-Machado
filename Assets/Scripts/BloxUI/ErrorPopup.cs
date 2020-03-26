@@ -32,11 +32,15 @@ public class ErrorPopup : MonoBehaviour
         foreach(BloxValidationError error in errorList)
         {
             float templateY = templateRectTrf.localPosition.y;
-            float newY = templateY + i * (templateRectTrf.rect.height + errorMessageVerticalSpacing);
+            float newY = templateY - i * (templateRectTrf.rect.height + errorMessageVerticalSpacing);
             ErrorMessage newMessage = Instantiate(ErrorMessageTemplate, templateRectTrf.parent);
+            Vector3 newPosition = newMessage.transform.localPosition;
+            newPosition.y = newY;
+            newMessage.transform.localPosition = newPosition;
             newMessage.SetErrorMessage(error);
             newMessage.gameObject.SetActive(true);
             i++;
         }
     }
+     
 }
