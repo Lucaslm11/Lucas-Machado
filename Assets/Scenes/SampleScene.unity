@@ -203,7 +203,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 355960207}
   m_Direction: 2
   m_Value: 1
-  m_Size: 0.10071053
+  m_Size: 0.10071054
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -550,8 +550,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 142638967}
   m_HandleRect: {fileID: 142638966}
   m_Direction: 0
-  m_Value: 1
-  m_Size: 0.99999994
+  m_Value: 0
+  m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -1339,7 +1339,7 @@ MonoBehaviour:
   m_UiScaleMode: 1
   m_ReferencePixelsPerUnit: 100
   m_ScaleFactor: 1
-  m_ReferenceResolution: {x: 800, y: 600}
+  m_ReferenceResolution: {x: 1024, y: 576}
   m_ScreenMatchMode: 0
   m_MatchWidthOrHeight: 0
   m_PhysicalUnit: 3
@@ -2844,7 +2844,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 1524599287}
   m_Direction: 2
   m_Value: 1
-  m_Size: 0.10636666
+  m_Size: 0.10636667
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -3259,7 +3259,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 295341989}
   m_Direction: 2
   m_Value: 1
-  m_Size: 0.32419997
+  m_Size: 0.3242
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -4027,36 +4027,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: RootBlox
-      objectReference: {fileID: 0}
-    - target: {fileID: 2972679803004229755, guid: c657a0f42b4480445954474e0195fa6e,
-        type: 3}
-      propertyPath: m_Colors.m_HighlightedColor.r
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2972679803004229755, guid: c657a0f42b4480445954474e0195fa6e,
-        type: 3}
-      propertyPath: m_Colors.m_HighlightedColor.g
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2972679803004229755, guid: c657a0f42b4480445954474e0195fa6e,
-        type: 3}
-      propertyPath: m_Colors.m_HighlightedColor.b
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2972679803004229755, guid: c657a0f42b4480445954474e0195fa6e,
-        type: 3}
-      propertyPath: m_Colors.m_SelectedColor.r
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2972679803004229755, guid: c657a0f42b4480445954474e0195fa6e,
-        type: 3}
-      propertyPath: m_Colors.m_SelectedColor.g
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2972679803004229755, guid: c657a0f42b4480445954474e0195fa6e,
-        type: 3}
-      propertyPath: m_Colors.m_SelectedColor.b
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c657a0f42b4480445954474e0195fa6e, type: 3}
