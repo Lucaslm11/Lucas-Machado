@@ -11,6 +11,17 @@ using static GameObjectHelper;
 /// </summary>
 public abstract class ABlox : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
 {
+    public enum NestingType
+    {
+        NONE,
+        SIDE,
+        BOTTOM,
+        BOTTOM_IDENTED
+    }
+
+    // Saves a list of bloxes that are highlighted
+    List<HighlightableButton> hightlightedBloxes = new List<HighlightableButton>();
+
     //Indicates if the blox will be only intended to be used as a PARAM
     protected virtual bool IsParam { get { return false; } }
 
@@ -75,6 +86,9 @@ public abstract class ABlox : MonoBehaviour, IBeginDragHandler, IDragHandler, IE
         IsBeingDragged = true;
         bloxTransform.position = eventData.position;
 
+
+        // If this blox has child bloxes and params, sets their positions in 
+        // order to drag them also
         RootBlox rootBlox = GetRootBlox();
         if (rootBlox != null)
         {
@@ -85,12 +99,50 @@ public abstract class ABlox : MonoBehaviour, IBeginDragHandler, IDragHandler, IE
             // Those bloxes nesting is temporarily disabled 
             SetChildBloxesPositionOnScreen(this, bloxVerticalSpacing, identSpacing, paramSpacing, false);
         }
+
+        // Verifies if there are collided objects, and if
+        // this object can be potentially nested to those
+        if (collidedObjects.Count > 0)
+        {
+            // Although we are saving all the simultaneous collisions 
+            // We only want this object to nest with the highest ones
+            float maxY = collidedObjects.Max(c => c.transform.position.y);
+            List<GameObject> highestObjects = collidedObjects.Where(c => c.transform.position.y == maxY).Select(a => a.gameObject).ToList();
+            ResetHightlight();
+            foreach (GameObject collidedObject in highestObjects)
+            {
+                //If the collided object is a blox, checks if this is nestable to it, and hightlights if it is
+                if (GameObjectHelper.HasComponent<ABlox>(collidedObject))
+                {
+                    NestingType nestingType = collidedObject.GetComponent<ABlox>().DetermineNestingType(this.gameObject);
+                    if (nestingType != NestingType.NONE && GameObjectHelper.HasComponent<HighlightableButton>(collidedObject.gameObject))
+                    {
+                        HighlightableButton hB = collidedObject.gameObject.GetComponent<HighlightableButton>();
+                        hB.HighlightButton(HighlightableButton.ButtonHighlight.Info);
+                        hightlightedBloxes.Add(hB);
+                    }
+                }
+
+            }
+
+        }
+    }
+
+    /// <summary>
+    /// Grabs the list of the highlighted object, and resets it
+    /// </summary>
+    private void ResetHightlight()
+    {
+        hightlightedBloxes.ForEach(h => { h.HighlightButton(HighlightableButton.ButtonHighlight.None); });
+        hightlightedBloxes = new List<HighlightableButton>();
     }
 
     public virtual void OnEndDrag(PointerEventData eventData)
     {
         IsBeingDragged = false;
         print("End dragging");
+
+        ResetHightlight();
 
         if (collidedObjects.Count > 0)
         {
@@ -108,7 +160,7 @@ public abstract class ABlox : MonoBehaviour, IBeginDragHandler, IDragHandler, IE
                     ABlox blox = collidedObject.GetComponent<ABlox>();
                     blox.NestObject(this.gameObject);
                 }
-                //If the collied object is the trashbin, destroys it
+                //If the collied object is the trashbin, destroys this blox
                 else if (GameObjectHelper.HasComponent<Trashbin>(collidedObject))
                 {
                     RemoveFromParent(this);
@@ -127,16 +179,70 @@ public abstract class ABlox : MonoBehaviour, IBeginDragHandler, IDragHandler, IE
     {
         print(gameObject.name + " collided with " + collision.name);
         if (GameObjectHelper.HasComponent<ABlox>(collision.gameObject) || GameObjectHelper.HasComponent<Trashbin>(collision.gameObject))
+        {
             collidedObjects.Add(collision);
+ 
+        }
     }
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-        collidedObjects.Remove(collision);
+        ResetHightlight();
+        collidedObjects.Remove(collision); 
     }
     #endregion
 
     #region Nesting Handling
+
+    /// <summary>
+    /// Checks if object passed can be nested to this one, and returns nesting type
+    /// </summary>
+    /// <param name="secondObject"></param>
+    /// <returns></returns>
+    public NestingType DetermineNestingType(GameObject secondObject)
+    {
+        NestingType nestingType = NestingType.NONE;
+        RootBlox rootBlox = GetRootBlox();
+        if (rootBlox != null && NestingActive)
+        {
+            if (secondObject.GetComponent<ABlox>() != null && secondObject != null && ValidateNesting(secondObject))
+            {
+                ABlox secondObjectBlox = secondObject.GetComponent<ABlox>();
+                Vector2 thisObjectPosition = this.gameObject.transform.position;
+                BoundingBox2D thisBBox = GameObjectHelper.getBoundingBoxInWorld(this.gameObject);
+                BoundingBox2D secondObjBBox = GameObjectHelper.getBoundingBoxInWorld(secondObject);
+
+                float thisObjectWidth = GameObjectHelper.getWidthFromBBox(thisBBox);
+                float thisObjectHeight = GameObjectHelper.getHeightFromBBox(thisBBox);
+
+                //checks if second object top is bellow this object center
+                if (secondObjBBox.top.y < thisObjectPosition.y)
+                {
+                    if (!secondObjectBlox.IsParam && ValidateNestToBottom(secondObject) && MathHelper.IsNearby(secondObjBBox.left.x, thisBBox.left.x, thisObjectWidth / 4))
+                    {
+                        nestingType = NestingType.BOTTOM;
+                    }
+                    else if (!secondObjectBlox.IsParam && ValidateNestToBottomIdented(secondObject) && MathHelper.IsNearby(secondObjBBox.left.x, thisBBox.bottom.x, thisObjectWidth / 4))
+                    {
+                        nestingType = NestingType.BOTTOM_IDENTED;
+                    }
+
+                }
+                else //if it is above
+                {
+                    // Checks if the left parth of the second object is near the right part of the first, and verifies if they are kind of aligned
+                    if (ValidateNestToTheSide(secondObject) && MathHelper.IsNearby(secondObjBBox.left.y, thisBBox.right.y, thisObjectHeight / 4)
+                    && MathHelper.IsNearby(secondObjBBox.left.x, thisBBox.right.x, thisObjectWidth / 4))
+                    {
+                        // Nest side to side 
+                        nestingType = NestingType.SIDE;
+                    }
+                }
+
+            }
+        }
+        return nestingType;
+    }
 
     public void NestObject(GameObject secondObject)
     {
@@ -162,7 +268,7 @@ public abstract class ABlox : MonoBehaviour, IBeginDragHandler, IDragHandler, IE
                 //checks if second object top is bellow this object center
                 if (secondObjBBox.top.y < thisObjectPosition.y)
                 {
-                    if (!secondObjectBlox.IsParam &&  ValidateNestToBottom(secondObject) && MathHelper.IsNearby(secondObjBBox.left.x, thisBBox.left.x, thisObjectWidth / 4))
+                    if (!secondObjectBlox.IsParam && ValidateNestToBottom(secondObject) && MathHelper.IsNearby(secondObjBBox.left.x, thisBBox.left.x, thisObjectWidth / 4))
                     {
                         AddToBottom(secondObjectBlox);
                     }
@@ -577,7 +683,7 @@ public abstract class ABlox : MonoBehaviour, IBeginDragHandler, IDragHandler, IE
         {
             if (GameObjectHelper.CanBeCastedAs<ICompilableBlox>(child))
             {
-               errors.AddRange( ((ICompilableBlox)child).Validate());
+                errors.AddRange(((ICompilableBlox)child).Validate());
             }
 
         }
