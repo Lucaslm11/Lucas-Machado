@@ -47,7 +47,7 @@ public class CodeNode : ICodeNode
         //Parent node default is null. Don't do a new on this one, or will enter in infinite recursion
         ParentNode = null; 
         Parameters = new List<ICodeNode>();
-        NodeName = UnityEditor.GUID.Generate().ToString();
+        NodeName = System.Guid.NewGuid().ToString();
     }
 
     public object Execute()

@@ -8,7 +8,8 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>10.0.20506</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <RootNamespace></RootNamespace>
+    <RootNamespace>
+    </RootNamespace>
     <ProjectGuid>{078285B2-F754-D98F-460C-015E1EC32FFD}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
@@ -84,6 +85,7 @@
     <Compile Include="Assets\Scripts\BloxUI\BloxScripts\OperatorBlox.cs" />
     <Compile Include="Assets\Scripts\BloxUI\BloxScripts\RootBlox.cs" />
     <Compile Include="Assets\Scripts\BloxUI\BloxScripts\StringBlox.cs" />
+    <Compile Include="Assets\Scripts\BloxUI\BloxScripts\WalkForwardBlox.cs" />
     <Compile Include="Assets\Scripts\BloxUI\BloxTerminal.cs" />
     <Compile Include="Assets\Scripts\BloxUI\DisplayErrorsButton.cs" />
     <Compile Include="Assets\Scripts\BloxUI\ErrorMessage.cs" />
@@ -153,7 +155,6 @@
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\VertexShakeB.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\VertexZoom.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\WarpTextExample.cs" />
-    <Compile Include="Assets\WalkForwardBlox.cs" />
     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMPro.cginc" />
     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_SDF-Mobile Overlay.shader" />
     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_Bitmap.shader" />

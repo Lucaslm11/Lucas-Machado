@@ -1,6 +1,8 @@
 ﻿using Assets.Scripts.Terminal.Nodes;
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -65,28 +67,43 @@ public class BloxTerminal : MonoBehaviour
 
     public void Play()
     {
-        //First validates
-        List<BloxValidationError> validationErrors = RootBlox.Validate();
-        
-        //If has errors
-        if (validationErrors != null && validationErrors.Count > 0)
-        {
-            //Puts errors in error popup
-            ErrorPopup.LoadErrors(validationErrors);
-        }
-        else
-        {
-            ErrorPopup.CleanErrors();
-            // Root blox does not have a parent, so Root node also does not
-            RootBlox.ToNodes(null); // Compiles the bloxes bellow root to nodes
-            RootNode rootNode = RootBlox.rootNode;
+        // Some nodes will have to wait for actions to execute
+        // But this function (Play) is called by an event,
+        // and that will stop every event execution. So we run the code runner async
+        Task play = new Task(() => PlayTasks());
+        play.Start();
+    }
 
-            // TODO: Pode haver situações de erro.
-            //      1º Definir erros esperados (por exemplo, o boneco cai ao chão? Lança uma exception própria)
-            //      3º Proteger isto contra erros como divisão por zero
-            //      2º Erros genéricos (bugs): loggar
+    public void PlayTasks()
+    {
+        try
+        {
+            //First validates
+            List<BloxValidationError> validationErrors = RootBlox.Validate();
 
-            rootNode.Execute();
+            //If has errors
+            if (validationErrors != null && validationErrors.Count > 0)
+            {
+                //Puts errors in error popup
+                ErrorPopup.LoadErrors(validationErrors);
+            }
+            else
+            {
+                ErrorPopup.CleanErrors();
+                // Root blox does not have a parent, so Root node also does not
+                RootBlox.ToNodes(null); // Compiles the bloxes bellow root to nodes
+                RootNode rootNode = RootBlox.rootNode;
+
+                // TODO: Pode haver situações de erro.
+                //      1º Definir erros esperados (por exemplo, o boneco cai ao chão? Lança uma exception própria)
+                //      3º Proteger isto contra erros como divisão por zero
+                //      2º Erros genéricos (bugs): loggar
+
+                rootNode.Execute();
+            }
+        }catch (Exception ex)
+        {
+
         }
     }
 }

@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Assets.Scripts.Terminal.Nodes.Functions
 {
-    public class ActionExecutorNode : BooleanFunctionNode
+    public class ActionExecutorNode : VoidFunctionNode
     {
         Func<bool> WaitWhileCondition;
         Action TaskToExecute;
@@ -28,7 +28,7 @@ namespace Assets.Scripts.Terminal.Nodes.Functions
         public override void Function()
         {
             TaskToExecute();
-            TaskHelper.WaitWhile(WaitWhileCondition).Wait();
+            TaskHelper.WaitWhile(WaitWhileCondition,25, 5000).Wait();
         }
 
     }

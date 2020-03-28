@@ -202,8 +202,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 355960208}
   m_HandleRect: {fileID: 355960207}
   m_Direction: 2
-  m_Value: 1
-  m_Size: 0.10071054
+  m_Value: 0.9999818
+  m_Size: 0.10071055
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -358,10 +358,9 @@ MonoBehaviour:
     PlotWidth: 6
     PlotHeight: 6
     CharacterSpeed: 50
-    CharacterStartPointInPlot: {x: 0, y: 1, z: 1}
+    CharacterStartPointInPlot: {x: 0, y: 0, z: 0}
     CharacterInitialOrientation: 0
-    SpecialCoordinates:
-    - {x: 0, y: 1, z: 1}
+    SpecialCoordinates: []
     MandatoryBloxes: []
     ExpectedBloxes: []
     MandatorySteps: []
@@ -938,7 +937,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -0.00012833643, y: -0.00000533065}
+  m_AnchoredPosition: {x: -0.00070698565, y: -0.00004036127}
   m_SizeDelta: {x: 0, y: 300}
   m_Pivot: {x: 0, y: 1}
 --- !u!1 &638478980
@@ -974,7 +973,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -0.00004720618, y: 0}
+  m_AnchoredPosition: {x: -0.00029492352, y: 0.01586914}
   m_SizeDelta: {x: 0, y: 971.1}
   m_Pivot: {x: 0, y: 1}
 --- !u!1 &672565574
@@ -3033,7 +3032,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1524599288}
   m_HandleRect: {fileID: 1524599287}
   m_Direction: 2
-  m_Value: 1
+  m_Value: 1.0000002
   m_Size: 0.13138333
   m_NumberOfSteps: 0
   m_OnValueChanged:
@@ -3209,7 +3208,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0.00004469764, y: -0.000039597715}
+  m_AnchoredPosition: {x: 0.00030662623, y: -0.00054865086}
   m_SizeDelta: {x: 199.9, y: 3000}
   m_Pivot: {x: 0, y: 1}
 --- !u!1 &1725086260
@@ -3466,7 +3465,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 295341990}
   m_HandleRect: {fileID: 295341989}
   m_Direction: 2
-  m_Value: 1
+  m_Value: 1.0000002
   m_Size: 0.4945
   m_NumberOfSteps: 0
   m_OnValueChanged:
@@ -3589,7 +3588,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1365720323}
   m_HandleRect: {fileID: 1365720322}
   m_Direction: 0
-  m_Value: -0.0000003053284
+  m_Value: -0.000001526642
   m_Size: 0.6851472
   m_NumberOfSteps: 0
   m_OnValueChanged:
@@ -4697,6 +4696,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 622079107}
     m_Modifications:
+    - target: {fileID: 1748908516837357257, guid: abff86bc0cec3a542a9f581a397fcaaf,
+        type: 3}
+      propertyPath: character
+      value: 
+      objectReference: {fileID: 2092788081}
     - target: {fileID: 2981180596421934314, guid: abff86bc0cec3a542a9f581a397fcaaf,
         type: 3}
       propertyPath: m_LocalPosition.x
