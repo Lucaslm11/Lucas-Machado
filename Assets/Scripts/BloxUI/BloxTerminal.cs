@@ -80,6 +80,12 @@ public class BloxTerminal : MonoBehaviour
             // Root blox does not have a parent, so Root node also does not
             RootBlox.ToNodes(null); // Compiles the bloxes bellow root to nodes
             RootNode rootNode = RootBlox.rootNode;
+
+            // TODO: Pode haver situações de erro.
+            //      1º Definir erros esperados (por exemplo, o boneco cai ao chão? Lança uma exception própria)
+            //      3º Proteger isto contra erros como divisão por zero
+            //      2º Erros genéricos (bugs): loggar
+
             rootNode.Execute();
         }
     }

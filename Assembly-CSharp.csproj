@@ -8,8 +8,7 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>10.0.20506</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <RootNamespace>
-    </RootNamespace>
+    <RootNamespace></RootNamespace>
     <ProjectGuid>{078285B2-F754-D98F-460C-015E1EC32FFD}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
@@ -89,10 +88,12 @@
     <Compile Include="Assets\Scripts\BloxUI\ErrorMessage.cs" />
     <Compile Include="Assets\Scripts\BloxUI\ErrorPopup.cs" />
     <Compile Include="Assets\Scripts\BloxUI\HighlightableButton.cs" />
-    <Compile Include="Assets\Scripts\BloxUI\Level\Evaluator.cs" />
-    <Compile Include="Assets\Scripts\BloxUI\Level\ExpectedBlox.cs" />
-    <Compile Include="Assets\Scripts\BloxUI\Level\LevelDescriptor.cs" />
     <Compile Include="Assets\Scripts\BloxUI\Trashbin.cs" />
+    <Compile Include="Assets\Scripts\Level\Evaluator.cs" />
+    <Compile Include="Assets\Scripts\Level\ExpectedBlox.cs" />
+    <Compile Include="Assets\Scripts\Level\LevelDescriptor.cs" />
+    <Compile Include="Assets\Scripts\Level\NewEditorScript1.cs" />
+    <Compile Include="Assets\Scripts\Level\ObjectiveStep.cs" />
     <Compile Include="Assets\Scripts\Terminal\Nodes\CodeNode.cs" />
     <Compile Include="Assets\Scripts\Terminal\Nodes\ForNode.cs" />
     <Compile Include="Assets\Scripts\Terminal\Nodes\FunctionTypes\BooleanFunctionNode.cs" />

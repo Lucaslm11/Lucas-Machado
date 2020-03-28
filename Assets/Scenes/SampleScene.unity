@@ -150,10 +150,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3d7de80e51b72f844980204a1bb88dff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MaximumBloxExpected: 0
-  ExpectedBloxesInLevel:
-  - {fileID: 0}
-  - {fileID: 0}
+  LevelConfiguration:
   - {fileID: 0}
 --- !u!4 &200412398
 Transform:
