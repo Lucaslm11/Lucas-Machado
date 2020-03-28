@@ -4,8 +4,8 @@ using System.Collections.Generic;
 
 /// <summary>
 /// This class helps to describe a level.
-/// Each level will have a terrain plot (similar to LightBot), described by a 2.5D scene,
-/// that will consist in group of cubes. Each cube has a discrete coordinate inside this plot.
+/// Each level will have a terrain/tile plot (similar to LightBot), described by a 2.5D scene,
+/// that will consist in group of cubes/tiles. Each cube has a discrete coordinate inside this plot.
 ///   
 /// 2 _ _ _ (2,2)
 ///  |_|_|_|
@@ -28,14 +28,12 @@ public class LevelDescriptor
         EAST,
         WEST
     }
+
     /// <summary>
-    /// Defines the Character starting point
+    /// Defines the first tile in plot, from which others will be drawn
     /// </summary>
-    [SerializeField] public Vector3Int CharacterStartPointInPlot;
-    /// <summary>
-    /// Defines the initial orientation of the character
-    /// </summary>
-    [SerializeField] public CharacterOrientation CharacterInitialOrientation;
+    [SerializeField] public PlotTile FirstTile;
+
     /// <summary>
     /// Defines the plot width
     /// </summary>
@@ -44,6 +42,17 @@ public class LevelDescriptor
     /// Defines the plot height
     /// </summary>
     [SerializeField] public int PlotHeight;
+
+
+
+    /// <summary>
+    /// Defines the Character starting point
+    /// </summary>
+    [SerializeField] public Vector3Int CharacterStartPointInPlot;
+    /// <summary>
+    /// Defines the initial orientation of the character
+    /// </summary>
+    [SerializeField] public CharacterOrientation CharacterInitialOrientation;
 
     /// <summary>
     /// Overrides a coordinate height. The PlotWidth and PlotHeight fields will be used
