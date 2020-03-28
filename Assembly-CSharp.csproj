@@ -67,9 +67,6 @@
     <Compile Include="Assets\Cube Robot\Scripts\EngineEffect.cs" />
     <Compile Include="Assets\Cube Robot\demo\Scripts\Camerademo.cs" />
     <Compile Include="Assets\Cube Robot\demo\Scripts\CubeRobotdemo.cs" />
-    <Compile Include="Assets\Helpers\GameObjectHelper.cs" />
-    <Compile Include="Assets\Helpers\ListHelper.cs" />
-    <Compile Include="Assets\Helpers\MathHelper.cs" />
     <Compile Include="Assets\Resources\Text\BloxValidationErrorMessages.cs" />
     <Compile Include="Assets\Scripts\BloxUI\BloxBag.cs" />
     <Compile Include="Assets\Scripts\BloxUI\BloxComponentScripts\FieldSwitcher.cs" />
@@ -93,6 +90,10 @@
     <Compile Include="Assets\Scripts\BloxUI\ErrorPopup.cs" />
     <Compile Include="Assets\Scripts\BloxUI\HighlightableButton.cs" />
     <Compile Include="Assets\Scripts\BloxUI\Trashbin.cs" />
+    <Compile Include="Assets\Scripts\Helpers\GameObjectHelper.cs" />
+    <Compile Include="Assets\Scripts\Helpers\ListHelper.cs" />
+    <Compile Include="Assets\Scripts\Helpers\MathHelper.cs" />
+    <Compile Include="Assets\Scripts\Level\CubotController.cs" />
     <Compile Include="Assets\Scripts\Level\Evaluator.cs" />
     <Compile Include="Assets\Scripts\Level\ExpectedBlox.cs" />
     <Compile Include="Assets\Scripts\Level\LevelDescriptor.cs" />

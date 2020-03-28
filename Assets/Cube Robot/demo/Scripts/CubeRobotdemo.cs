@@ -19,10 +19,8 @@ public class CubeRobotdemo : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
         rb = GetComponent<Rigidbody>();
-        force = new Vector3(0, 0, 0);
-        
+        force = new Vector3(0, 0, 0);   
     }
 
     

@@ -19,15 +19,20 @@ using System.Collections.Generic;
 
 //  TODO: REMOVE THE PUBLIC STATEMENTS, AND MAKE GET FUNCTIONS
 [System.Serializable]
-public class LevelDescriptor 
+public class LevelDescriptor
 {
     public enum CharacterOrientation
     {
-        NORTH,
-        SOUTH,
-        EAST,
-        WEST
+        NORTH = 0, // Z positive. RotY is 0
+        SOUTH = 180, // Z negative. RotY is 180 degrees
+        EAST = 90,  // X positive. RotY is 90 degrees
+        WEST = -90   // X negative. RotY is -90 degrees
     }
+
+    /// <summary>
+    /// Character controller object. We are assuming that the default orientation is to North (pointing to Z positive)
+    /// </summary>
+    [SerializeField] public CubotController Character;
 
     /// <summary>
     /// Defines the first tile in plot, from which others will be drawn
