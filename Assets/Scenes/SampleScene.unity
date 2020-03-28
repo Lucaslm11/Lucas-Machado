@@ -156,7 +156,7 @@ MonoBehaviour:
     PlotWidth: 6
     PlotHeight: 6
     CharacterStartPointInPlot: {x: 0, y: 0, z: 0}
-    CharacterInitialOrientation: -90
+    CharacterInitialOrientation: 0
     SpecialCoordinates: []
     MandatoryBloxes:
     - Blox: {fileID: 0}

@@ -95,7 +95,10 @@
     <Compile Include="Assets\Scripts\Helpers\MathHelper.cs" />
     <Compile Include="Assets\Scripts\Level\CubotController.cs" />
     <Compile Include="Assets\Scripts\Level\Evaluator.cs" />
+    <Compile Include="Assets\Scripts\Level\Exceptions\HoleAheadException.cs" />
+    <Compile Include="Assets\Scripts\Level\Exceptions\ObstacleAheadException.cs" />
     <Compile Include="Assets\Scripts\Level\ExpectedBlox.cs" />
+    <Compile Include="Assets\Scripts\Level\LevelConfigurator.cs" />
     <Compile Include="Assets\Scripts\Level\LevelDescriptor.cs" />
     <Compile Include="Assets\Scripts\Level\ObjectiveStep.cs" />
     <Compile Include="Assets\Scripts\Level\PlotTile.cs" />

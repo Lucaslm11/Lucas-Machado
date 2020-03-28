@@ -28,6 +28,7 @@ public class Evaluator : MonoBehaviour
         startTime = DateTime.Now;
         BuildTilePlot();
         SetCharacter();
+        LevelConfiguration.Character.MoveForward();
     }
 
     // Update is called once per frame
@@ -85,23 +86,9 @@ public class Evaluator : MonoBehaviour
     }
 
     public void SetCharacter()
-    {
+    {               
         CubotController cubot = LevelConfiguration.Character;
-        Vector3 cubotExtents = cubot.GetComponent<Renderer>().bounds.extents;
-        Vector3Int cubotPlotInitialPosition = LevelConfiguration.CharacterStartPointInPlot;
-        float rotY = (int)LevelConfiguration.CharacterInitialOrientation;
-        PlotTile initialPlotTile = tilesInScene.Where(t => t.PlotPosition == cubotPlotInitialPosition).First();
-        Vector3 initialPlotTileExtents = initialPlotTile.GetComponent<Renderer>().bounds.extents;
-
-        //Cubot must be over an initial plot tile, so we are going to position it
-        Vector3 initialPosition = initialPlotTile.transform.position;
-        initialPosition.y += cubotExtents.y + initialPlotTileExtents.y;
-
-        Vector3 cubotInitialRotation = new Vector3(0, rotY, 0);
-
-        cubot.transform.position = initialPosition;
-        cubot.transform.rotation = Quaternion.Euler(cubotInitialRotation);
-
+        cubot.SetInitalPosition(LevelConfiguration,tilesInScene);
     }
 
 }

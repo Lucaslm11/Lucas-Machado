@@ -23,10 +23,22 @@ public class LevelDescriptor
 {
     public enum CharacterOrientation
     {
-        NORTH = 0, // Z positive. RotY is 0
-        SOUTH = 180, // Z negative. RotY is 180 degrees
-        EAST = 90,  // X positive. RotY is 90 degrees
-        WEST = -90   // X negative. RotY is -90 degrees
+        /// <summary>
+        /// Z positive. RotY is 0
+        /// </summary>
+        NORTH = 0, 
+        /// <summary>
+        /// Z negative. RotY is 180 degrees
+        /// </summary>
+        SOUTH = 180,
+        /// <summary>
+        /// X positive. RotY is 90 degrees
+        /// </summary>
+        EAST = 90,
+        /// <summary>
+        /// X negative. RotY is -90 degrees
+        /// </summary>
+        WEST = -90   
     }
 
     /// <summary>
