@@ -155,30 +155,14 @@ MonoBehaviour:
     FirstTile: {fileID: 869009534}
     PlotWidth: 6
     PlotHeight: 6
-    CharacterStartPointInPlot: {x: 0, y: 0, z: 0}
+    CharacterSpeed: 100
+    CharacterStartPointInPlot: {x: 0, y: 1, z: 1}
     CharacterInitialOrientation: 0
-    SpecialCoordinates: []
-    MandatoryBloxes:
-    - Blox: {fileID: 0}
-      MinimumQuantity: 0
-    - Blox: {fileID: 0}
-      MinimumQuantity: 0
-    - Blox: {fileID: 0}
-      MinimumQuantity: 0
-    ExpectedBloxes:
-    - Blox: {fileID: 0}
-      MinimumQuantity: 0
-    - Blox: {fileID: 0}
-      MinimumQuantity: 0
-    - Blox: {fileID: 0}
-      MinimumQuantity: 0
-    MandatorySteps:
-    - CoordinateInPlot: {x: 0, y: 0, z: 0}
-      SpecialAction: 0
-    - CoordinateInPlot: {x: 0, y: 0, z: 0}
-      SpecialAction: 0
-    - CoordinateInPlot: {x: 0, y: 0, z: 0}
-      SpecialAction: 0
+    SpecialCoordinates:
+    - {x: 0, y: 1, z: 1}
+    MandatoryBloxes: []
+    ExpectedBloxes: []
+    MandatorySteps: []
     MaxBloxExpected: 0
     MaxTimeInMinutes: 0
     MaxAttempts: 0
@@ -302,6 +286,7 @@ GameObject:
   - component: {fileID: 869009531}
   - component: {fileID: 869009530}
   - component: {fileID: 869009534}
+  - component: {fileID: 869009535}
   m_Layer: 0
   m_Name: PlotTile
   m_TagString: Untagged
@@ -317,7 +302,7 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 869009529}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
@@ -395,6 +380,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ceb7b8391f43e554ca721e8cf9446594, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!54 &869009535
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 869009529}
+  serializedVersion: 2
+  m_Mass: 0.0000001
+  m_Drag: 0
+  m_AngularDrag: 0
+  m_UseGravity: 0
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1 &963194225
 GameObject:
   m_ObjectHideFlags: 0
@@ -446,7 +447,7 @@ Camera:
     height: 1
   near clip plane: 0.3
   far clip plane: 1000
-  field of view: 60
+  field of view: 36.4
   orthographic: 0
   orthographic size: 5
   m_Depth: -1
@@ -573,7 +574,7 @@ CapsuleCollider:
   m_GameObject: {fileID: 2092788076}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   m_Radius: 0.5
   m_Height: 2
   m_Direction: 1

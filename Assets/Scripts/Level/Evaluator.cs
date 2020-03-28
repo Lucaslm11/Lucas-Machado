@@ -28,7 +28,7 @@ public class Evaluator : MonoBehaviour
         startTime = DateTime.Now;
         BuildTilePlot();
         SetCharacter();
-        LevelConfiguration.Character.MoveForward();
+        //LevelConfiguration.Character.ClimbDown();
     }
 
     // Update is called once per frame
@@ -88,7 +88,7 @@ public class Evaluator : MonoBehaviour
     public void SetCharacter()
     {               
         CubotController cubot = LevelConfiguration.Character;
-        cubot.SetInitalPosition(LevelConfiguration,tilesInScene);
+        cubot.SetUp(LevelConfiguration,tilesInScene);
     }
 
 }

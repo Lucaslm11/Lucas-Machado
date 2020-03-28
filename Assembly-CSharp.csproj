@@ -96,6 +96,9 @@
     <Compile Include="Assets\Scripts\Level\CubotController.cs" />
     <Compile Include="Assets\Scripts\Level\Evaluator.cs" />
     <Compile Include="Assets\Scripts\Level\Exceptions\HoleAheadException.cs" />
+    <Compile Include="Assets\Scripts\Level\Exceptions\NoHoleAheadException.cs" />
+    <Compile Include="Assets\Scripts\Level\Exceptions\NoObstacleAheadException.cs" />
+    <Compile Include="Assets\Scripts\Level\Exceptions\NoTileAheadException.cs" />
     <Compile Include="Assets\Scripts\Level\Exceptions\ObstacleAheadException.cs" />
     <Compile Include="Assets\Scripts\Level\ExpectedBlox.cs" />
     <Compile Include="Assets\Scripts\Level\LevelConfigurator.cs" />

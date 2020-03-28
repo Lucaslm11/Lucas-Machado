@@ -60,6 +60,7 @@ public class LevelDescriptor
     /// </summary>
     [SerializeField] public int PlotHeight;
 
+    [SerializeField] public float CharacterSpeed;
 
 
     /// <summary>
