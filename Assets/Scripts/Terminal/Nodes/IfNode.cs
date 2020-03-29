@@ -16,7 +16,7 @@ namespace Assets.Scripts.Terminal.Nodes
 
         public override bool CanHaveChildren { get { return true; } }
 
-        public IfNode(BooleanNode condition)
+        public IfNode(HighlightableButton highlightableBlox, BooleanNode condition):base(highlightableBlox)
         {
             Condition = condition;
         }

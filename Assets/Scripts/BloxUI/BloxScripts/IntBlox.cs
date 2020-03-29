@@ -84,8 +84,9 @@ public class IntBlox : ABlox, IBloxVariable, ICompilableBlox
     public void ToNodes(ICodeNode parentNode)
     {
         RootNode rootNode = parentNode.GetRootNode();
+        HighlightableButton highlightableButton = (GameObjectHelper.HasComponent<HighlightableButton>(this.gameObject)) ? this.GetComponent<HighlightableButton>() : null;
         //Checks if this blox has a param if it has creates an ArithmeticOperationNode instead of an Integer node
-        if(this.BloxParams.Count > 0)
+        if (this.BloxParams.Count > 0)
         {
             ArithmeticOperatorBlox arithOpBlox = BloxParams[0].GetComponent<ArithmeticOperatorBlox>();
             ArithmeticOperationNode arithOpNode = arithOpBlox.CreateNode(rootNode);
@@ -94,7 +95,7 @@ public class IntBlox : ABlox, IBloxVariable, ICompilableBlox
         }
         else
         {
-            IntegerNode intNode = new IntegerNode(GetValueAsInt());
+            IntegerNode intNode = new IntegerNode(highlightableButton, GetValueAsInt());
             intNode.NodeName = this.GetName();
             parentNode.AddChildNode(intNode);
         }

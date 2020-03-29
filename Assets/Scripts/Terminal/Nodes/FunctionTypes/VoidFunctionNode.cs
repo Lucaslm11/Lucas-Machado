@@ -9,7 +9,7 @@ namespace Assets.Scripts.Terminal.Nodes.FunctionTypes
 {
     public class VoidFunctionNode : CodeNode
     {
-        public VoidFunctionNode( ) { 
+        public VoidFunctionNode(HighlightableButton highlightableBlox ):base(highlightableBlox) { 
              
         }
 

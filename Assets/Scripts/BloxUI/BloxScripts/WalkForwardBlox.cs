@@ -15,7 +15,8 @@ public class WalkForwardBlox : ABlox, ICompilableBlox
     
     public void ToNodes(ICodeNode parentNode)
     {
-        ActionExecutorNode node = new ActionExecutorNode(character.MoveForward, IsCharacterExecutingAction);
+        HighlightableButton highlightableButton = (GameObjectHelper.HasComponent<HighlightableButton>(this.gameObject)) ? this.GetComponent<HighlightableButton>() : null;
+        ActionExecutorNode node = new ActionExecutorNode(highlightableButton, character.MoveForward, IsCharacterExecutingAction);
         parentNode.AddChildNode(node);
     }
 

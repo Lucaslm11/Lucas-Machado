@@ -21,7 +21,8 @@ public class StringBlox : ABlox, IBloxVariable, ICompilableBlox
 
     public void ToNodes(ICodeNode parentNode)
     {
-        StringNode stringNode = new StringNode(GetValue());
+        HighlightableButton highlightableButton = (GameObjectHelper.HasComponent<HighlightableButton>(this.gameObject)) ? this.GetComponent<HighlightableButton>() : null;
+        StringNode stringNode = new StringNode(highlightableButton, GetValue());
         stringNode.NodeName = GetName();
         parentNode.AddChildNode(parentNode);
     }

@@ -112,6 +112,7 @@ public class OperatorBlox : ABlox
     /// <returns></returns>
     protected IntegerNode FieldToNode(FieldChoice field, RootNode rootNode)
     {
+        HighlightableButton highlightableButton = (GameObjectHelper.HasComponent<HighlightableButton>(this.gameObject)) ? this.GetComponent<HighlightableButton>() : null;
         IntegerNode fieldNode = null;
         // If it is a variable, the variable has already been created
         // so we are going to search for it
@@ -132,7 +133,7 @@ public class OperatorBlox : ABlox
         else
         {
             int value = int.Parse(field.value);
-            fieldNode = new IntegerNode(value);
+            fieldNode = new IntegerNode(null, value);
         }
         return fieldNode;
     }

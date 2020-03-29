@@ -31,6 +31,7 @@ public class BoolBlox : ABlox, IBloxVariable, ICompilableBlox
     public void ToNodes(ICodeNode parentNode)
     {
         RootNode rootNode = parentNode.GetRootNode();
+        HighlightableButton highlightableButton = (GameObjectHelper.HasComponent<HighlightableButton>(this.gameObject)) ? this.GetComponent<HighlightableButton>() : null;
         //Checks if this blox has a param if it has creates an LogicalOperationNode instead of an BOOLeger node
         if (this.BloxParams.Count > 0)
         {
@@ -41,7 +42,7 @@ public class BoolBlox : ABlox, IBloxVariable, ICompilableBlox
         }
         else
         {
-            BooleanNode boolNode = new BooleanNode(GetValueAsBoolean());
+            BooleanNode boolNode = new BooleanNode(highlightableButton, GetValueAsBoolean());
             boolNode.NodeName = this.GetName();
             parentNode.AddChildNode(boolNode);
         }

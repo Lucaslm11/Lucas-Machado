@@ -50,11 +50,12 @@ public class LogicalOperatorBlox : OperatorBlox, ICompilableBlox
 
     public LogicalOperationNode CreateNode(RootNode rootNode)
     {
+        HighlightableButton highlightableButton = (GameObjectHelper.HasComponent<HighlightableButton>(this.gameObject)) ? this.GetComponent<HighlightableButton>() : null;
         IntegerNode field1 = GetField1Node(rootNode);
         IntegerNode field2 = GetField2Node(rootNode);
         // Converts the Logical operator choosen to the proper enum
         LogicalOperationNode.LogicalOperation operation = GetOperation(GetOperator());
-        LogicalOperationNode logicOpNode = new LogicalOperationNode(field1, field2, operation);
+        LogicalOperationNode logicOpNode = new LogicalOperationNode(highlightableButton, field1, field2, operation);
         return logicOpNode;
     }
 

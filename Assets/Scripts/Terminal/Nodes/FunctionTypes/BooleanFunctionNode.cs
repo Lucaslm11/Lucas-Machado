@@ -9,7 +9,7 @@ namespace Assets.Scripts.Terminal.Nodes.FunctionTypes
 {
     public class BooleanFunctionNode : BooleanNode
     {
-        public BooleanFunctionNode(bool value = false):base(value) { 
+        public BooleanFunctionNode(HighlightableButton highlightableBlox, bool value = false):base(highlightableBlox,value) { 
              
         }
 

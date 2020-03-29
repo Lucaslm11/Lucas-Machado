@@ -37,9 +37,10 @@ public class RootBlox : ABlox, ICompilableBlox
     public void ToNodes(ICodeNode parentNode)
     {
         //Root blox is not supposed to have a parent, so parentNode is assumed as being null
-        
+
+        HighlightableButton highlightableButton = (GameObjectHelper.HasComponent<HighlightableButton>(this.gameObject)) ? this.GetComponent<HighlightableButton>() : null;
         //Creates the instance of this node, that will be saved in RootBlox
-        rootNode = new RootNode();
+        rootNode = new RootNode(highlightableButton);
         //Compiles the children
         CompileChildrenToNodes(rootNode);
     }

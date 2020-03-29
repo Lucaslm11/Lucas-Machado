@@ -94,7 +94,7 @@ public class IfBlox : ABlox, ICompilableBlox
     {
         RootNode rootNode = parentNode.GetRootNode();
         IfNode ifNode = null;
-
+        HighlightableButton highlightableButton = (GameObjectHelper.HasComponent<HighlightableButton>(this.gameObject)) ? this.GetComponent<HighlightableButton>() : null;
         // IfNode can receive either a bool variable (chosen in dropdown) or a LogicalOperatorBlox as param
         // If it has received a param (LogicalOperatorBlox), creates a LogicalOperationNode
         // and instantiates ifNode with it
@@ -102,7 +102,7 @@ public class IfBlox : ABlox, ICompilableBlox
         { 
             LogicalOperatorBlox blox = BloxParams[0].GetComponent<LogicalOperatorBlox>();
             LogicalOperationNode logicOpNode = blox.CreateNode(rootNode);
-            ifNode = new IfNode(logicOpNode);
+            ifNode = new IfNode(highlightableButton,logicOpNode);
         }
         // If a variable was chosen, will search for an existing BooleanNode with that same name
         else
@@ -113,7 +113,7 @@ public class IfBlox : ABlox, ICompilableBlox
             if(foundNode!= null && GameObjectHelper.CanBeCastedAs<BooleanNode>(foundNode))
             {
                 BooleanNode boolNode = (BooleanNode)foundNode;
-                ifNode = new IfNode(boolNode);
+                ifNode = new IfNode(highlightableButton,boolNode);
             }
             else
             {

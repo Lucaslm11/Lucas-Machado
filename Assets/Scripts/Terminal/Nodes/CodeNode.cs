@@ -5,6 +5,7 @@ using Assets.Scripts.Terminal.Nodes;
 
 public class CodeNode : ICodeNode
 {
+    private HighlightableButton HighlightableBlox;
     public string NodeName { get; set; }
     public virtual bool CanHaveChildren { get { return false; } }
     /// <summary>
@@ -40,14 +41,15 @@ public class CodeNode : ICodeNode
     public List<ICodeNode> Parameters { get; set; }
     List<object> ICodeNode.Parameters { get => throw new System.NotImplementedException(); set => throw new System.NotImplementedException(); }
 
-    public CodeNode()
+    public CodeNode(HighlightableButton highlightableBlox)
     {
         ChildNodes = new List<ICodeNode>();
         NodesInScope = new List<ICodeNode>();
         //Parent node default is null. Don't do a new on this one, or will enter in infinite recursion
-        ParentNode = null; 
+        ParentNode = null;
         Parameters = new List<ICodeNode>();
         NodeName = System.Guid.NewGuid().ToString();
+        HighlightableBlox = highlightableBlox;
     }
 
     public object Execute()
@@ -119,7 +121,7 @@ public class CodeNode : ICodeNode
             ChildNodes.ForEach(child =>
             {
                 AddChildNode(child);
-            }); 
+            });
         }
     }
 
@@ -135,10 +137,20 @@ public class CodeNode : ICodeNode
 
     public virtual void OnBeforeExecuteAction()
     {
+        if (HighlightableBlox != null)
+        {
+            TaskHelper.WaitWhile(HighlightableBlox.HightlightChangeInProgress, 25, 1000).Wait();
+            HighlightableBlox.HighlightButton(HighlightableButton.ButtonHighlight.Info);
+        }
     }
 
     public virtual void OnAfterExecuteAction()
     {
+        if (HighlightableBlox != null)
+        {
+            TaskHelper.WaitWhile(HighlightableBlox.HightlightChangeInProgress, 25, 1000).Wait();
+            HighlightableBlox.HighlightButton(HighlightableButton.ButtonHighlight.None);
+        }
     }
 
 
@@ -148,7 +160,7 @@ public class CodeNode : ICodeNode
             return this;
         else
         {
-            foreach(ICodeNode codeNode in ChildNodes)
+            foreach (ICodeNode codeNode in ChildNodes)
             {
                 ICodeNode foundNode = codeNode.SearchChildByName(NodeName);
                 if (foundNode != null)
@@ -159,7 +171,7 @@ public class CodeNode : ICodeNode
         return null;
     }
 
- 
+
     public RootNode GetRootNode()
     {
         if (GameObjectHelper.CanBeCastedAs<RootNode>(this))

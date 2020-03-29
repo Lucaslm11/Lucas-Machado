@@ -14,7 +14,7 @@ namespace Assets.Scripts.Terminal.Nodes
         public int Min { get; set; }
         public int Max { get; set; }
 
-        public ForNode(IntegerNode counter, int min, int max)
+        public ForNode(HighlightableButton highlightableBlox, IntegerNode counter, int min, int max) : base(highlightableBlox)
         {
             Counter = counter;
             Min = min;

@@ -11,7 +11,7 @@ namespace Assets.Scripts.Terminal.Nodes.Types
         
         public int Value { get; set; }
         public override object ReturnValue { get { return Value; } set { } }
-        public IntegerNode(int value=0)
+        public IntegerNode(HighlightableButton highlightableBlox,int value=0):base(highlightableBlox)
         {
             Value = value;
         }

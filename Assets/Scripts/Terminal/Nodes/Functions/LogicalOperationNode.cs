@@ -24,7 +24,7 @@ namespace Assets.Scripts.Terminal.Nodes.Functions
         LogicalOperation Operation { get; set; }
 
 
-        public LogicalOperationNode(IntegerNode val1, IntegerNode val2, LogicalOperation operation)
+        public LogicalOperationNode(HighlightableButton highlightableBlox, IntegerNode val1, IntegerNode val2, LogicalOperation operation) : base(highlightableBlox)
         {
             Val1 = val1;
             Val2 = val2;

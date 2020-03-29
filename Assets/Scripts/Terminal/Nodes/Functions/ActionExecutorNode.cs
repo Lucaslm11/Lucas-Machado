@@ -19,7 +19,7 @@ namespace Assets.Scripts.Terminal.Nodes.Functions
         /// </summary>
         /// /// <param name="taskToExecute"> A task that is called to execute </param>
         /// <param name="waitWhileCondition"> A function that is called to check if it is executed </param>
-        public ActionExecutorNode(Action taskToExecute,Func<bool> waitWhileCondition)
+        public ActionExecutorNode(HighlightableButton highlightableBlox, Action taskToExecute,Func<bool> waitWhileCondition) : base(highlightableBlox)
         {
             TaskToExecute = taskToExecute;
             WaitWhileCondition = waitWhileCondition;

@@ -11,6 +11,8 @@ namespace Assets.Scripts.Terminal.Nodes
         private bool execute = true;
         public override bool CanHaveChildren { get { return true; } }
 
+        public RootNode(HighlightableButton highlightableBlox) : base(highlightableBlox) { }
+
         public override bool OnBeforeChildNodesExecuteAction()
         {
             bool executeThisTime = execute;

@@ -51,11 +51,12 @@ public class ArithmeticOperatorBlox : OperatorBlox, ICompilableBlox
 
     public ArithmeticOperationNode CreateNode(RootNode rootNode)
     {
+        HighlightableButton highlightableButton = (GameObjectHelper.HasComponent<HighlightableButton>(this.gameObject)) ? this.GetComponent<HighlightableButton>() : null;
         IntegerNode field1 = GetField1Node(rootNode);
         IntegerNode field2 = GetField2Node(rootNode);
         // Converts the arithmetic operator choosen to the proper enum
         ArithmeticOperationNode.ArithmeticOperation operation = GetOperation(GetOperator());
-        ArithmeticOperationNode arithOpNode = new ArithmeticOperationNode(field1, field2, operation);
+        ArithmeticOperationNode arithOpNode = new ArithmeticOperationNode(highlightableButton, field1, field2, operation);
         return arithOpNode;
     }
 

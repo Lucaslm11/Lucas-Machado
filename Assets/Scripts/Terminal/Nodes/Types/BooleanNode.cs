@@ -10,7 +10,7 @@ namespace Assets.Scripts.Terminal.Nodes.Types
     {
         public bool Value { get; set; }
         public override object ReturnValue { get { return Value; } set { } }
-        public BooleanNode(bool value)
+        public BooleanNode(HighlightableButton highlightableBlox,bool value):base(highlightableBlox)
         {
             Value = value; 
         }

@@ -9,6 +9,8 @@ using UnityEngine.UI;
 /// </summary>
 public class HighlightableButton : MonoBehaviour
 {
+    ButtonHighlight currentHighlight;
+    bool hightlightChanged = false;
     Dictionary<ButtonHighlight, Color> ColorDictionary;
     public enum ButtonHighlight
     {
@@ -41,20 +43,32 @@ public class HighlightableButton : MonoBehaviour
         ColorDictionary[ButtonHighlight.Error] = Error;
         ColorDictionary[ButtonHighlight.Info] = Info;
 
+        currentHighlight = ButtonHighlight.None;
         //HighlightButton(ButtonHighlight.None);
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+       // This is a workaround for the hightlighting to work from the node execution
+       // that occurs in a parallel job
+       if(hightlightChanged)
+        {
+            ColorBlock cb = Button.colors;
+            cb.normalColor = ColorDictionary[currentHighlight];
+            Button.colors = cb;
+            hightlightChanged = false;
+        }
     }
 
     public void HighlightButton(ButtonHighlight bh)
     {
-        ColorBlock cb = Button.colors;
-        cb.normalColor = ColorDictionary[bh];
-        Button.colors = cb;
-        
+        currentHighlight = bh;
+        hightlightChanged = true;
+    }
+
+    public bool HightlightChangeInProgress()
+    {
+        return hightlightChanged;
     }
 }

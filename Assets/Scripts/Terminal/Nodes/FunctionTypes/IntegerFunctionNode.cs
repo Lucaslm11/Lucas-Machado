@@ -9,7 +9,7 @@ namespace Assets.Scripts.Terminal.Nodes.FunctionTypes
 {
     public class IntegerFunctionNode : IntegerNode
     {
-        public IntegerFunctionNode( ) { 
+        public IntegerFunctionNode(HighlightableButton highlightableBlox ):base(highlightableBlox) { 
              
         }
 

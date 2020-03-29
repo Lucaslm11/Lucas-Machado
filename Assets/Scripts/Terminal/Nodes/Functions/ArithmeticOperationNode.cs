@@ -24,7 +24,7 @@ namespace Assets.Scripts.Terminal.Nodes.Functions
         ArithmeticOperation Operation { get; set; }
 
 
-        public ArithmeticOperationNode(IntegerNode val1, IntegerNode val2, ArithmeticOperation operation)
+        public ArithmeticOperationNode(HighlightableButton highlightableBlox, IntegerNode val1, IntegerNode val2, ArithmeticOperation operation):base(highlightableBlox)
         {
             Val1 = val1;
             Val2 = val2;

@@ -10,7 +10,7 @@ namespace Assets.Scripts.Terminal.Nodes.Types
     {
         public String Value { get; set; }
         public override object ReturnValue { get { return Value; } set { } }
-        public StringNode(string value)
+        public StringNode(HighlightableButton highlightableBlox,string value):base(highlightableBlox)
         {
             Value = value; 
         }

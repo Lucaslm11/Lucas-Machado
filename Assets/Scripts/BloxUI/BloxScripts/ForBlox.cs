@@ -84,14 +84,16 @@ public class ForBlox : ABlox, IBloxVariable, ICompilableBlox
 
     public void ToNodes(ICodeNode parentNode)
     {
+        HighlightableButton highlightableButton = (GameObjectHelper.HasComponent<HighlightableButton>(this.gameObject)) ? this.GetComponent<HighlightableButton>() : null;
         //Creates an integer node for the counter
-        IntegerNode counter = new IntegerNode(int.Parse(GetValue()));
+        //This won't correspond to an integer blox.
+        IntegerNode counter = new IntegerNode(null, int.Parse(GetValue()));
         counter.NodeName = this.GetName();
         //Adds it to parent
         parentNode.AddChildNode(counter);
 
         //Creates the for node
-        ForNode forNode = new ForNode(counter, int.Parse(FromField.text), int.Parse(ToField.text));
+        ForNode forNode = new ForNode(highlightableButton, counter, int.Parse(FromField.text), int.Parse(ToField.text));
         parentNode.AddChildNode(forNode);
 
         //This node has child nodes. Ensures that child nodes are created from child bloxes
