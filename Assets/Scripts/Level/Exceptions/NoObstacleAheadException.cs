@@ -6,9 +6,9 @@ using System;
 /// This exception is thrown when attempting to climb up
 /// to a tile that is not elevated
 /// </summary>
-public class NoObstacleAheadException : Exception
+public class NoObstacleAheadException : CodeBloxException
 {
-    public NoObstacleAheadException() : base()
+    public NoObstacleAheadException() : base(BloxValidationErrorMessages.NO_OBSTACLE_AHEAD)
     {
 
     }

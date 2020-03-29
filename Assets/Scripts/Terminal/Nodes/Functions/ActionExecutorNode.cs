@@ -27,8 +27,15 @@ namespace Assets.Scripts.Terminal.Nodes.Functions
 
         public override void Function()
         {
-            TaskToExecute();
-            TaskHelper.WaitWhile(WaitWhileCondition,25, 5000).Wait();
+            try
+            {
+                TaskToExecute();
+                TaskHelper.WaitWhile(WaitWhileCondition, 25, 5000).Wait();
+            }catch(CodeBloxException ex)
+            {
+                ex.blox = this.NodeBlox;
+                throw ex;
+            }
         }
 
     }

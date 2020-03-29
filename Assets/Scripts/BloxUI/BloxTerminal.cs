@@ -104,12 +104,13 @@ public class BloxTerminal : MonoBehaviour
     {
         try
         {
- 
                 rootNode.Execute();
-            
-        }catch (Exception ex)
+        }catch (CodeBloxException cbEx)
         {
-
+            BloxValidationError error;
+            error.ErrorMessage = cbEx.Message;
+            error.TargetBlox = cbEx.blox;
+            ErrorPopup.LoadErrors(new List<BloxValidationError> {error });
         }
     }
 }

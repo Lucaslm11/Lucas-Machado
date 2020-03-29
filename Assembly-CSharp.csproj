@@ -97,6 +97,8 @@
     <Compile Include="Assets\Scripts\Helpers\TaskHelper.cs" />
     <Compile Include="Assets\Scripts\Level\CubotController.cs" />
     <Compile Include="Assets\Scripts\Level\Evaluator.cs" />
+    <Compile Include="Assets\Scripts\Level\Exceptions\CodeBloxException.cs" />
+    <Compile Include="Assets\Scripts\Level\Exceptions\DivisionByZeroException.cs" />
     <Compile Include="Assets\Scripts\Level\Exceptions\HoleAheadException.cs" />
     <Compile Include="Assets\Scripts\Level\Exceptions\NoHoleAheadException.cs" />
     <Compile Include="Assets\Scripts\Level\Exceptions\NoObstacleAheadException.cs" />

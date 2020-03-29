@@ -45,7 +45,15 @@ namespace Assets.Scripts.Terminal.Nodes.Functions
                     Value = Val1 * Val2;
                     break;
                 case ArithmeticOperation.DIVIDE:
-                    Value = Val1 / Val2;
+                    try
+                    {
+                        Value = Val1 / Val2;
+                    }catch(DivideByZeroException ex)
+                    {
+                        DivisionByZeroException exx = new DivisionByZeroException();
+                        exx.blox = this.NodeBlox;
+                        throw exx;
+                    }
                     break;
             }
         }

@@ -5,6 +5,7 @@ using Assets.Scripts.Terminal.Nodes;
 
 public class CodeNode : ICodeNode
 {
+    public ABlox NodeBlox { get; }
     private HighlightableButton HighlightableBlox;
     public string NodeName { get; set; }
     public virtual bool CanHaveChildren { get { return false; } }
@@ -50,6 +51,8 @@ public class CodeNode : ICodeNode
         Parameters = new List<ICodeNode>();
         NodeName = System.Guid.NewGuid().ToString();
         HighlightableBlox = highlightableBlox;
+        if (HighlightableBlox != null)
+            NodeBlox = HighlightableBlox.GetComponent<ABlox>();
     }
 
     public object Execute()

@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class BloxValidationErrorMessages
+public static class BloxValidationErrorMessages
 {
 
     public const string INT_BLOX_NO_VALUE = "O bloco INT é de preenchimento obrigatório";
@@ -21,4 +21,11 @@ public class BloxValidationErrorMessages
     public const string OPERATOR_BLOX_NO_VALUE = "O bloco de operador não possui todos os valores preenchidos";
 
     public const string BLOX_REPEATED_NAME = "Já existe no mesmo scope um bloco com o mesmo nome";
+
+    public const string OBSTACLE_AHEAD = "Não é possível mover em frente pois existe um obstáculo.";
+    public const string NO_OBSTACLE_AHEAD = "Não é possível subir para um obstáculo inexistente.";
+    public const string HOLE_AHEAD_EXCEPTION = "Não é possível andar em frente para um buraco.";
+    public const string NO_HOLE_AHEAD_EXCEPTION = "Não é possível descer para um Tile que não se encontra em nível inferior.";
+    public const string NO_TILE_AHEAD_EXCEPTION = "Não é possível mover para um Tile inexistente.";
+    public const string DIVISION_BY_ZERO_EXCEPTION = "Não é possível dividir por zero.";
 }
