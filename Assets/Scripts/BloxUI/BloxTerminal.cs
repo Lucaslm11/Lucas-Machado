@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 /// <summary>
 /// TODO: Add methods for compile, verify erros
@@ -14,11 +15,11 @@ public class BloxTerminal : MonoBehaviour
 {
     [SerializeField] RootBlox RootBlox;
     [SerializeField] ErrorPopup ErrorPopup;
+    [SerializeField] Button PlayButton;
     private const string ContentComponentName = "Viewport/Content";
     // Start is called before the first frame update
     void Start()
     {
-
     }
 
     // Update is called once per frame

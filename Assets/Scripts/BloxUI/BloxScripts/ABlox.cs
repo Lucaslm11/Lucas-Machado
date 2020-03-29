@@ -45,9 +45,16 @@ public abstract class ABlox : MonoBehaviour, IBeginDragHandler, IDragHandler, IE
     private RectTransform bloxTransform;
 
     #region start and update
-    protected virtual void Start()
+    void Start()
     {
         InsideBloxBag = CheckIfInsideBloxBag();
+        OnStart();
+    }
+
+    //Classes that use ABlox as base, shall use OnStart instead of Start()
+    protected virtual void OnStart()
+    {
+
     }
 
     bool CheckIfInsideBloxBag()

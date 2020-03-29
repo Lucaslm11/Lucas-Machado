@@ -1,11 +1,29 @@
 ﻿using Assets.Scripts.Terminal.Nodes.Functions;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class WalkForwardBlox : ABlox, ICompilableBlox
+public class ControlCharacterBlox : ABlox, ICompilableBlox
 {
+    Dictionary<CharacterAction, Action> actionMap;
+    public enum CharacterAction
+    {
+        MOVE_FORWARD,
+        CLIMB_UP,
+        CLIMB_DOWN
+    }
+
+    [SerializeField] CharacterAction bloxAction;
     [SerializeField] CubotController character;
+
+    protected override void OnStart()
+    {
+        actionMap = new Dictionary<CharacterAction, Action>();
+        actionMap[CharacterAction.MOVE_FORWARD] = character.MoveForward;
+        actionMap[CharacterAction.CLIMB_UP] = character.ClimbUp;
+        actionMap[CharacterAction.CLIMB_DOWN] = character.ClimbDown;
+    }
 
     // Update is called once per frame
     void Update()
@@ -16,7 +34,7 @@ public class WalkForwardBlox : ABlox, ICompilableBlox
     public void ToNodes(ICodeNode parentNode)
     {
         HighlightableButton highlightableButton = (GameObjectHelper.HasComponent<HighlightableButton>(this.gameObject)) ? this.GetComponent<HighlightableButton>() : null;
-        ActionExecutorNode node = new ActionExecutorNode(highlightableButton, character.MoveForward, IsCharacterExecutingAction);
+        ActionExecutorNode node = new ActionExecutorNode(highlightableButton, actionMap[bloxAction], IsCharacterExecutingAction);
         parentNode.AddChildNode(node);
     }
 
