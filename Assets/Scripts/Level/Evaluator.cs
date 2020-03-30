@@ -28,7 +28,6 @@ public class Evaluator : MonoBehaviour
         startTime = DateTime.Now;
         BuildTilePlot();
         SetCharacter();
-        //LevelConfiguration.Character.ClimbDown();
     }
 
     // Update is called once per frame

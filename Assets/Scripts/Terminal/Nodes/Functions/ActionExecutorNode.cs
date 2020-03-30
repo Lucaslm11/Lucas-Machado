@@ -30,7 +30,7 @@ namespace Assets.Scripts.Terminal.Nodes.Functions
             try
             {
                 TaskToExecute();
-                TaskHelper.WaitWhile(WaitWhileCondition, 25, 5000).Wait();
+                TaskHelper.WaitWhile(WaitWhileCondition, 25, 10000).Wait();
             }catch(CodeBloxException ex)
             {
                 ex.blox = this.NodeBlox;

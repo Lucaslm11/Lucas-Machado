@@ -7,19 +7,31 @@ using System;
 
 public class CubotController : MonoBehaviour
 {
+    const float ROTATION_AMOUNT = 90;
+    Dictionary<int, CharacterOrientation> ClockwiseMovementMap = new Dictionary<int, CharacterOrientation>();
     enum MovementType
     {
         NONE,
         FORWARD,
         CLIMB_UP,
-        CLIMB_DOWN
+        CLIMB_DOWN,
+        ROTATE
     }
 
-    struct MovementDestination
+    enum CW_CCW
+    {
+        CW = 1,
+        CCW = -1
+    }
+
+    class MovementDestination
     {
         // The phases will be executed in order. The last one shall always be NONE
-        public List<MovementType> movementPhases;
-        public PlotTile destinyTile;
+        public List<MovementType> movementPhases { get; set; }
+        public PlotTile destinyTile { get; set; }
+        public CW_CCW rotOrientation { get; set; }
+        public float? initialYRotation { get; set; }
+        public CharacterOrientation characterDestinyOrientation { get; set; }
     }
     public float Speed { get; set; }
     public bool ExecutingAction { get; set; }
@@ -36,13 +48,21 @@ public class CubotController : MonoBehaviour
     void Start()
     {
         ResetMovement();
-
+        ClockwiseMovementMap[0] = CharacterOrientation.NORTH;
+        ClockwiseMovementMap[1] = CharacterOrientation.EAST;
+        ClockwiseMovementMap[2] = CharacterOrientation.SOUTH;
+        ClockwiseMovementMap[3] = CharacterOrientation.WEST;
     }
 
     private void ResetMovement()
     {
+        destination = new MovementDestination();
         destination.destinyTile = null;
-        destination.movementPhases = new List<MovementType>() { MovementType.NONE };
+        destination.movementPhases = null;
+        destination.rotOrientation = CW_CCW.CW;
+        destination.characterDestinyOrientation = CurrentOrientation;
+        destination.initialYRotation = null;
+        
         ExecutingAction = false;
     }
 
@@ -53,47 +73,76 @@ public class CubotController : MonoBehaviour
         try
         {
             float speed = Speed;
-            MovementType nextMove = destination.movementPhases[0];
-
-            if (nextMove == MovementType.NONE)
+            if (destination.movementPhases != null && destination.movementPhases.Count > 0)
             {
-                print("No movement");
+                MovementType nextMove = destination.movementPhases[0];
 
-                // destinyTile is not null, when other actions were executed before
-                // so at this point, bot is at another tile
-                if (destination.destinyTile != null)
+                if (nextMove == MovementType.NONE)
                 {
-                    CurrentTile = destination.destinyTile;
+                    print("No movement");
+
+                    // destinyTile is not null, when other actions were executed before
+                    // so at this point, bot is at another tile
+                    if (destination.destinyTile != null)
+                    {
+                        CurrentTile = destination.destinyTile;
+                    }
+
+                    ResetMovement();
+                }
+                else
+                {
+                    if (nextMove == MovementType.ROTATE)
+                    {
+                        destination.initialYRotation = destination.initialYRotation.HasValue ? destination.initialYRotation.Value : transform.rotation.eulerAngles.y;
+
+                        ExecutingAction = true;
+                        float step = Time.deltaTime * speed;
+                        float destinyYRotation = destination.initialYRotation.Value + (int)destination.rotOrientation * ROTATION_AMOUNT;
+                        Vector3 destinyRotation = transform.rotation.eulerAngles;
+                        destinyRotation.y = destinyYRotation;
+                        Quaternion destinyQuat = Quaternion.Euler(destinyRotation);
+
+                        transform.rotation = Quaternion.RotateTowards(transform.rotation, destinyQuat, step);
+
+                        float angle = Quaternion.Angle(transform.rotation, destinyQuat);
+
+                        if(Mathf.Abs(angle) < 0.01f)
+                        {
+                            destination.movementPhases.RemoveAt(0);
+                            this.CurrentOrientation = destination.characterDestinyOrientation;
+                        }
+
+                    }
+                    else
+                    {
+                        print("Going to move");
+                        ExecutingAction = true;
+                        Vector3 tileExtents = destination.destinyTile.GetComponent<Renderer>().bounds.extents;
+                        Vector3 cubotExtents = this.GetComponent<Renderer>().bounds.extents;
+                        Vector3 destinyPosition = new Vector3();
+                        switch (nextMove)
+                        {
+                            case MovementType.FORWARD:
+                                destinyPosition = destination.destinyTile.transform.position;
+                                destinyPosition.y = this.transform.position.y; //We are moving the character over a Tile, and not to the center of the tile
+                                break;
+                            case MovementType.CLIMB_UP: //Climb up phase consist only in elevating the character. It is supposed to call a forward after this
+                            case MovementType.CLIMB_DOWN: //Climb down phase consist only in landing the character. It is supposed to have a forward call before
+                                destinyPosition = this.transform.position;
+                                destinyPosition.y = destination.destinyTile.transform.position.y + tileExtents.y + cubotExtents.y;
+                                break;
+                        }
+                        float step = speed * Time.deltaTime; // calculate distance to move
+                        transform.position = Vector3.MoveTowards(transform.position, destinyPosition, step);
+
+                        if (Vector3.Distance(transform.position, destinyPosition) < 0.1f)
+                        {
+                            destination.movementPhases.RemoveAt(0);
+                        }
+                    }
                 }
 
-                ResetMovement();
-            }
-            else
-            {
-                print("Going to move");
-                ExecutingAction = true;
-                Vector3 tileExtents = destination.destinyTile.GetComponent<Renderer>().bounds.extents;
-                Vector3 cubotExtents = this.GetComponent<Renderer>().bounds.extents;
-                Vector3 destinyPosition = new Vector3();
-                switch (nextMove)
-                {
-                    case MovementType.FORWARD:
-                        destinyPosition = destination.destinyTile.transform.position;
-                        destinyPosition.y = this.transform.position.y; //We are moving the character over a Tile, and not to the center of the tile
-                        break;
-                    case MovementType.CLIMB_UP: //Climb up phase consist only in elevating the character. It is supposed to call a forward after this
-                    case MovementType.CLIMB_DOWN: //Climb down phase consist only in landing the character. It is supposed to have a forward call before
-                        destinyPosition = this.transform.position;
-                        destinyPosition.y = destination.destinyTile.transform.position.y + tileExtents.y + cubotExtents.y;
-                        break;
-                }
-                float step = speed * Time.deltaTime; // calculate distance to move
-                transform.position = Vector3.MoveTowards(transform.position, destinyPosition, step);
-
-                if (Vector3.Distance(transform.position, destinyPosition) < 0.1f)
-                {
-                    destination.movementPhases.RemoveAt(0);
-                }
             }
         }
         catch (Exception ex)
@@ -196,6 +245,27 @@ public class CubotController : MonoBehaviour
             throw ex;
         }
     }
+
+    public void TurnRight()
+    { 
+        destination.rotOrientation = CW_CCW.CW;
+        int currentOrientationOrder = ClockwiseMovementMap.Where(a => a.Value == this.CurrentOrientation).First().Key;
+        destination.characterDestinyOrientation = ClockwiseMovementMap[currentOrientationOrder + 1 > ClockwiseMovementMap.Count-1 ? 0 : currentOrientationOrder + 1];
+        
+        destination.movementPhases = new List<MovementType>() { MovementType.ROTATE, MovementType.NONE };
+        ExecutingAction = true;
+    }
+
+    public void TurnLeft()
+    {
+        destination.rotOrientation = CW_CCW.CCW;
+        int currentOrientationOrder = ClockwiseMovementMap.Where(a => a.Value == this.CurrentOrientation).First().Key;
+        destination.characterDestinyOrientation = ClockwiseMovementMap[currentOrientationOrder - 1 < 0 ? ClockwiseMovementMap.Count-1 : currentOrientationOrder -1];
+        
+        destination.movementPhases = new List<MovementType>() { MovementType.ROTATE, MovementType.NONE };
+        ExecutingAction = true;
+    }
+
 
 
     /// <summary>

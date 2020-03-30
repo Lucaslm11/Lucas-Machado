@@ -11,7 +11,9 @@ public class ControlCharacterBlox : ABlox, ICompilableBlox
     {
         MOVE_FORWARD,
         CLIMB_UP,
-        CLIMB_DOWN
+        CLIMB_DOWN,
+        TURN_RIGHT,
+        TURN_LEFT
     }
 
     [SerializeField] CharacterAction bloxAction;
@@ -23,6 +25,8 @@ public class ControlCharacterBlox : ABlox, ICompilableBlox
         actionMap[CharacterAction.MOVE_FORWARD] = character.MoveForward;
         actionMap[CharacterAction.CLIMB_UP] = character.ClimbUp;
         actionMap[CharacterAction.CLIMB_DOWN] = character.ClimbDown;
+        actionMap[CharacterAction.TURN_RIGHT] = character.TurnRight;
+        actionMap[CharacterAction.TURN_LEFT] = character.TurnLeft;
     }
 
     // Update is called once per frame

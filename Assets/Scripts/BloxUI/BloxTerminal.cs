@@ -113,5 +113,9 @@ public class BloxTerminal : MonoBehaviour
             error.TargetBlox = cbEx.blox;
             ErrorPopup.LoadErrors(new List<BloxValidationError> {error });
         }
+        catch (Exception ex)
+        {
+
+        }
     }
 }
