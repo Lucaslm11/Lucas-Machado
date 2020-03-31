@@ -96,7 +96,6 @@
     <Compile Include="Assets\Scripts\Helpers\MathHelper.cs" />
     <Compile Include="Assets\Scripts\Helpers\TaskHelper.cs" />
     <Compile Include="Assets\Scripts\Level\CubotController.cs" />
-    <Compile Include="Assets\Scripts\Level\Evaluator.cs" />
     <Compile Include="Assets\Scripts\Level\Exceptions\CodeBloxException.cs" />
     <Compile Include="Assets\Scripts\Level\Exceptions\DivisionByZeroException.cs" />
     <Compile Include="Assets\Scripts\Level\Exceptions\HoleAheadException.cs" />
@@ -106,6 +105,7 @@
     <Compile Include="Assets\Scripts\Level\Exceptions\ObstacleAheadException.cs" />
     <Compile Include="Assets\Scripts\Level\ExpectedBlox.cs" />
     <Compile Include="Assets\Scripts\Level\LevelDescriptor.cs" />
+    <Compile Include="Assets\Scripts\Level\LevelHandler.cs" />
     <Compile Include="Assets\Scripts\Level\ObjectiveStep.cs" />
     <Compile Include="Assets\Scripts\Level\PlotTile.cs" />
     <Compile Include="Assets\Scripts\Terminal\Nodes\CodeNode.cs" />

@@ -14,7 +14,7 @@ using static LevelDescriptor;
 ///     3 - Use the expected bloxes
 ///     4 - Complete the in game objective
 /// </summary>
-public class Evaluator : MonoBehaviour
+public class LevelHandler : MonoBehaviour
 {
     private DateTime startTime;
     private List<PlotTile> tilesInScene = new List<PlotTile>();
@@ -89,6 +89,8 @@ public class Evaluator : MonoBehaviour
         CubotController cubot = LevelConfiguration.Character;
         cubot.SetUp(LevelConfiguration,tilesInScene);
     }
+
+
 
 }
 
