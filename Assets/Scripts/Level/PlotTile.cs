@@ -32,4 +32,10 @@ public class PlotTile : MonoBehaviour
         Stepped = true;
         SpecialActionExecuted = executeSpecialAction;
     }
+
+    public void Reset()
+    {
+        Stepped = false;
+        SpecialActionExecuted = false;
+    }
 }

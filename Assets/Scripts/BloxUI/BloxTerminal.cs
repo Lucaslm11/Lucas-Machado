@@ -105,7 +105,9 @@ public class BloxTerminal : MonoBehaviour
     {
         try
         {
-                rootNode.Execute();
+            rootNode.Execute();
+
+            // TODO: LAUNCH THE EVALUATION HERE. ALSO MAKE THE CUBOT CONTROLLER ESTABLISH STEPS!
         }catch (CodeBloxException cbEx)
         {
             BloxValidationError error;
@@ -117,5 +119,13 @@ public class BloxTerminal : MonoBehaviour
         {
 
         }
+    }
+
+    /// <summary>
+    /// This does not count bloxes but lines of "code". We are not counting the params and the rootblox here!
+    /// </summary>
+    public int CountCodeLines()
+    {
+        return this.RootBlox.GetChildBloxListInVerticalOrder().Count;
     }
 }

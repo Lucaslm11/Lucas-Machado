@@ -101,9 +101,9 @@ public class LevelDescriptor
     //       They will only define the maximum for evaluation purposes
 
     /// <summary>
-    /// Defines the expected maximum bloxes
+    /// Defines the expected maximum code lines (we are not including params on this count!)
     /// </summary>
-    [SerializeField] public int MaxBloxExpected;
+    [SerializeField] public int MaxCodeLinesExpected;
 
     /// <summary>
     /// Defines the expected maximum time
@@ -121,5 +121,13 @@ public class LevelDescriptor
     [SerializeField] public int MinimumStarsForSuccess;
 
 
+    public void Configure()
+    {
+        // The lists with ExpectedBlox class receive a Blox as a configuration parameter
+        // but we will only need its type, and since they can get destroyed later, because they are game objects
+        // we save their type
 
+        ExpectedBloxes.ForEach(item => item.BloxType = item.Blox.GetType());
+        MandatoryBloxes.ForEach(item => item.BloxType = item.Blox.GetType());
+    }
 }

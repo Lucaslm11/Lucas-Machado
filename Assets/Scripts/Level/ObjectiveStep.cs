@@ -14,12 +14,12 @@ public class ObjectiveStep
     /// <summary>
     /// Cube in which the character is supposed to step into
     /// </summary>
-    [SerializeField] Vector3Int CoordinateInPlot;
+    [SerializeField] public Vector3Int CoordinateInPlot;
 
     /// <summary>
     /// Is the character supposed to do a special action
     /// </summary>
-    [SerializeField] bool SpecialAction;
+    [SerializeField] public bool SpecialAction;
 
     
 }

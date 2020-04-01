@@ -529,7 +529,7 @@ public abstract class ABlox : MonoBehaviour, IBeginDragHandler, IDragHandler, IE
     /// Call this method from root blox to have the whole list
     /// </summary>
     /// <returns></returns>
-    protected List<BloxIdent> GetChildBloxListInVerticalOrder(int ident = 1)
+    public List<BloxIdent> GetChildBloxListInVerticalOrder(int ident = 1)
     {
         List<BloxIdent> bloxList = new List<BloxIdent>();
         foreach (ABlox child in ChildBloxes)
@@ -545,7 +545,24 @@ public abstract class ABlox : MonoBehaviour, IBeginDragHandler, IDragHandler, IE
         return bloxList;
     }
 
+    /// <summary>
+    /// Gets all the bloxes bellow this one, not matter if they are child or param
+    /// This list won't express parental relations.
+    /// </summary>
+    /// <returns></returns>
+    public List<ABlox> GetAllBloxesBellow()
+    {
+        List<ABlox> bloxList = new List<ABlox>();
+        foreach(ABlox child in ChildBloxes)
+        {
+            bloxList.Add(child);
+            child.BloxParams.ForEach(p => bloxList.Add(p));
+            bloxList.AddRange(child.GetAllBloxesBellow());
+        }
+        return bloxList;
+    }
 
+    
     /// <summary>
     /// From the current blox, gets all the bloxes in scope, in vertical order
     /// The first one in list will be the closest to this one, and the last the root

@@ -12,5 +12,6 @@ using UnityEngine;
 public class ExpectedBlox 
 {
     public ABlox Blox;
+    public Type BloxType;
     public int MinimumQuantity;
 }
