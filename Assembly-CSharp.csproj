@@ -90,6 +90,8 @@
     <Compile Include="Assets\Scripts\BloxUI\ErrorMessage.cs" />
     <Compile Include="Assets\Scripts\BloxUI\ErrorPopup.cs" />
     <Compile Include="Assets\Scripts\BloxUI\HighlightableButton.cs" />
+    <Compile Include="Assets\Scripts\BloxUI\ObjectivePanel.cs" />
+    <Compile Include="Assets\Scripts\BloxUI\SquareTile.cs" />
     <Compile Include="Assets\Scripts\BloxUI\Trashbin.cs" />
     <Compile Include="Assets\Scripts\Helpers\GameObjectHelper.cs" />
     <Compile Include="Assets\Scripts\Helpers\ListHelper.cs" />

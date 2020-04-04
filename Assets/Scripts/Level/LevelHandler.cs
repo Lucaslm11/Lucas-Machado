@@ -17,6 +17,7 @@ using static LevelDescriptor;
 public class LevelHandler : MonoBehaviour
 {
     [SerializeField] LevelDescriptor LevelConfiguration;
+    [SerializeField] ObjectivePanel ObjectivePanel;
 
     public struct ObjectiveCheck
     {
@@ -75,6 +76,7 @@ public class LevelHandler : MonoBehaviour
     {
         startTime = DateTime.Now;
         BuildTilePlot();
+        this.ObjectivePanel.LoadSquareTiles(LevelConfiguration);
         SetCharacter();
         numberOfAttempts = 0;
     }
@@ -103,7 +105,7 @@ public class LevelHandler : MonoBehaviour
         // This is to facilitate the configuration of the level, turning it more readable
 
         //tilesInScene.Add(tile);
-        for (int plotY = 0; plotY < LevelConfiguration.PlotHeight; plotY++) //iterates through lines (y)
+        for (int plotY = 0; plotY < LevelConfiguration.PlotLength; plotY++) //iterates through lines (y)
         {
             for (int plotX = 0; plotX < LevelConfiguration.PlotWidth; plotX++) //iterates through columns (x)
             {

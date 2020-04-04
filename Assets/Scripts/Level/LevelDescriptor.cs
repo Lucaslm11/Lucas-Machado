@@ -58,7 +58,7 @@ public class LevelDescriptor
     /// <summary>
     /// Defines the plot height
     /// </summary>
-    [SerializeField] public uint PlotHeight;
+    [SerializeField] public uint PlotLength;
 
     [SerializeField] public float CharacterSpeed;
 
