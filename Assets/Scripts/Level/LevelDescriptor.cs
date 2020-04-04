@@ -54,11 +54,11 @@ public class LevelDescriptor
     /// <summary>
     /// Defines the plot width
     /// </summary>
-    [SerializeField] public int PlotWidth;
+    [SerializeField] public uint PlotWidth;
     /// <summary>
     /// Defines the plot height
     /// </summary>
-    [SerializeField] public int PlotHeight;
+    [SerializeField] public uint PlotHeight;
 
     [SerializeField] public float CharacterSpeed;
 
@@ -103,22 +103,22 @@ public class LevelDescriptor
     /// <summary>
     /// Defines the expected maximum code lines (we are not including params on this count!)
     /// </summary>
-    [SerializeField] public int MaxCodeLinesExpected;
+    [SerializeField] public uint MaxCodeLinesExpected;
 
     /// <summary>
     /// Defines the expected maximum time
     /// </summary>
-    [SerializeField] public int MaxTimeInMinutes;
+    [SerializeField] public uint MaxTimeInMinutes;
 
     /// <summary>
     /// Defines the expected maximum attempts
     /// </summary>
-    [SerializeField] public int MaxAttempts;
+    [SerializeField] public uint MaxAttempts;
 
     /// <summary>
     /// Defines the minimum stars for success
     /// </summary>
-    [SerializeField] public int MinimumStarsForSuccess;
+    [SerializeField] public uint MinimumStarsForSuccess=1;
 
 
     public void Configure()

@@ -16,11 +16,14 @@ using static LevelDescriptor;
 /// </summary>
 public class LevelHandler : MonoBehaviour
 {
+    [SerializeField] LevelDescriptor LevelConfiguration;
+
     public struct ObjectiveCheck
     {
         public bool mandatorySteps;   // Did the correct steps
         public bool mandatoryBloxes;  // Used the mandatory bloxes
 
+        public int wrongSteps;
         public double exceededMinutes;         // Extra time used. 
         public int exceededAttempts;     // Attempts not exceeded
         public int exceededLines;        // Used maximum lines
@@ -30,6 +33,7 @@ public class LevelHandler : MonoBehaviour
 
     public class Evaluation
     {
+
         const int MAX_SCORE = 5;
         public int Score { get; }
         public int Stars { get; set; }
@@ -45,8 +49,8 @@ public class LevelHandler : MonoBehaviour
             discount -= CalcDiscount(ObjectiveCheck.exceededAttempts);
             discount -= CalcDiscount(ObjectiveCheck.exceededLines);
             discount -= 1-ObjectiveCheck.optionalBloxesUsedPercentage;
-
-            double score = MAX_SCORE - discount;
+            
+            double score = MAX_SCORE + discount;
 
             Score = Convert.ToInt32(score * 1000);
             Stars = Convert.ToInt32(Math.Floor(score));
@@ -57,7 +61,7 @@ public class LevelHandler : MonoBehaviour
         // If x < 0 returns 0
         private double CalcDiscount(double x)
         {
-            return x < 0 ? 0 : 1-1/(x+1);
+            return x < 0 || double.IsNaN(x) ? 0 : 1-1/(x+1);
         }
 
     }
@@ -65,11 +69,7 @@ public class LevelHandler : MonoBehaviour
     int numberOfAttempts = 0;
     private DateTime startTime;
     private List<PlotTile> tilesInScene = new List<PlotTile>();
-
-    [SerializeField] RootBlox rootBlox;
-    [SerializeField] LevelDescriptor LevelConfiguration;
-
-
+    
     // Start is called before the first frame update
     void Start()
     {
@@ -139,8 +139,9 @@ public class LevelHandler : MonoBehaviour
         if (tilesInScene != null)
             tilesInScene.ForEach(tile => { tile.Reset(); });
     }
+    #endregion
 
-    public Evaluation EvaluateLevel()
+    public Evaluation EvaluateLevel(RootBlox rootBlox)
     {
         ObjectiveCheck check;
         int stars = 0;
@@ -155,12 +156,12 @@ public class LevelHandler : MonoBehaviour
         // 1. Time evaluation
         DateTime expectedEndTime = startTime.AddMinutes(LevelConfiguration.MaxTimeInMinutes);
         check.exceededMinutes = (DateTime.Now - expectedEndTime).TotalMinutes;
-
+        
         // 2. Number of attempts
-        check.exceededAttempts = numberOfAttempts - LevelConfiguration.MaxAttempts;
+        check.exceededAttempts = numberOfAttempts - (int)LevelConfiguration.MaxAttempts;
 
         // 3. Use a number of code lines lesser than the maximum
-        check.exceededLines = rootBlox.GetChildBloxListInVerticalOrder().Count - LevelConfiguration.MaxCodeLinesExpected; 
+        check.exceededLines = rootBlox.GetChildBloxListInVerticalOrder().Count - (int)LevelConfiguration.MaxCodeLinesExpected; 
 
         // 4. Right steps. This is a mandatory object, so level shall fail when not accomplished
         // 4.1 Get all the mandatory steps that were executed, with the special action included
@@ -182,6 +183,7 @@ public class LevelHandler : MonoBehaviour
 
         bool notExpectedStepsExist = queryNotExpectedSteps.Count() > 0;
 
+        check.wrongSteps = queryNotExpectedSteps.Count();
         check.mandatorySteps = !notExpectedStepsExist && allTheMandatoryStepsDone;
 
 
@@ -195,14 +197,19 @@ public class LevelHandler : MonoBehaviour
         
         List<ExpectedBlox> expectedOptionalBloxesUsed = LevelConfiguration.ExpectedBloxes.Where(mb => usedBloxTypeCount.Exists(b => b.Item1 == mb.BloxType && b.Item2 >= mb.MinimumQuantity)).ToList();
 
-        check.optionalBloxesUsedPercentage = expectedOptionalBloxesUsed.Count * 1f / LevelConfiguration.ExpectedBloxes.Count;
+        check.optionalBloxesUsedPercentage = LevelConfiguration.ExpectedBloxes.Count == 0 ? 1 : expectedOptionalBloxesUsed.Count * 1f / LevelConfiguration.ExpectedBloxes.Count;
+
+
 
         return new Evaluation(check);
     }
 
+    public void incrementAttempts()
+    {
+        numberOfAttempts++;
+    }
 
 
-    #endregion
 
     #region Character handling
     public void SetCharacter()

@@ -86,6 +86,7 @@ public class CubotController : MonoBehaviour
                     if (destination.destinyTile != null)
                     {
                         CurrentTile = destination.destinyTile;
+                        CurrentTile.Step(); // Marks the tile as stepped
                     }
 
                     ResetMovement();
@@ -137,7 +138,7 @@ public class CubotController : MonoBehaviour
                         transform.position = Vector3.MoveTowards(transform.position, destinyPosition, step);
 
                         if (Vector3.Distance(transform.position, destinyPosition) < 0.1f)
-                        {
+                        {                            
                             destination.movementPhases.RemoveAt(0);
                         }
                     }

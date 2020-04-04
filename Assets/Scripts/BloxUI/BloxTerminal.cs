@@ -13,9 +13,13 @@ using UnityEngine.UI;
 /// </summary>
 public class BloxTerminal : MonoBehaviour
 {
+    [SerializeField] LevelHandler LevelHandler;
     [SerializeField] RootBlox RootBlox;
     [SerializeField] ErrorPopup ErrorPopup;
-    [SerializeField] Button PlayButton;
+
+    private bool evaluationUpdated = false;
+    private LevelHandler.Evaluation evaluation;
+
     private const string ContentComponentName = "Viewport/Content";
     // Start is called before the first frame update
     void Start()
@@ -25,7 +29,17 @@ public class BloxTerminal : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (evaluationUpdated)
+        {
+            if (!evaluation.Success)
+            {
+                // Resets the level
+                this.LevelHandler.ResetTilePlotState();
+                this.LevelHandler.SetCharacter();
+            }
 
+            evaluationUpdated = false;
+        }
     }
 
 
@@ -105,9 +119,16 @@ public class BloxTerminal : MonoBehaviour
     {
         try
         {
+            this.LevelHandler.incrementAttempts();
             rootNode.Execute();
 
-            // TODO: LAUNCH THE EVALUATION HERE. ALSO MAKE THE CUBOT CONTROLLER ESTABLISH STEPS!
+            evaluation = this.LevelHandler.EvaluateLevel(RootBlox);
+
+            // We are going to do the rest of the evaluation logic in the update method
+            // because this method is being called async, and Monobehaviour methods
+            // can only be called on the main thread
+            evaluationUpdated = true;
+
         }catch (CodeBloxException cbEx)
         {
             BloxValidationError error;
