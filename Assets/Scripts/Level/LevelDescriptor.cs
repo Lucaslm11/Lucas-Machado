@@ -26,7 +26,7 @@ public class LevelDescriptor
         /// <summary>
         /// Z positive. RotY is 0
         /// </summary>
-        NORTH = 0, 
+        NORTH = 0,
         /// <summary>
         /// Z negative. RotY is 180 degrees
         /// </summary>
@@ -38,7 +38,7 @@ public class LevelDescriptor
         /// <summary>
         /// X negative. RotY is -90 degrees
         /// </summary>
-        WEST = -90   
+        WEST = -90
     }
 
     /// <summary>
@@ -84,12 +84,13 @@ public class LevelDescriptor
     /// This is only for type check. Defines which bloxes are mandatory for use
     /// </summary>
     [SerializeField] public List<ExpectedBlox> MandatoryBloxes;
+    [SerializeField] public SpecialActionBlox SpecialActionBlox;
 
     /// <summary>
     /// This is only for type check. Defines which bloxes are expected to be used
     /// but are not mandatory
     /// </summary>
-    [SerializeField] public List<ExpectedBlox> ExpectedBloxes;
+    [SerializeField] public List<ExpectedBlox> OptionalExpectedBloxes;
 
     /// <summary>
     /// Describes the cubes in plot the player must step into
@@ -118,7 +119,7 @@ public class LevelDescriptor
     /// <summary>
     /// Defines the minimum stars for success
     /// </summary>
-    [SerializeField] public uint MinimumStarsForSuccess=1;
+    [SerializeField] public uint MinimumStarsForSuccess = 1;
 
 
     public void Configure()
@@ -126,8 +127,10 @@ public class LevelDescriptor
         // The lists with ExpectedBlox class receive a Blox as a configuration parameter
         // but we will only need its type, and since they can get destroyed later, because they are game objects
         // we save their type
+        if (OptionalExpectedBloxes != null)
+            OptionalExpectedBloxes.ForEach(item => item.BloxType = item.Blox.GetType());
 
-        ExpectedBloxes.ForEach(item => item.BloxType = item.Blox.GetType());
-        MandatoryBloxes.ForEach(item => item.BloxType = item.Blox.GetType());
+        if (MandatoryBloxes != null)
+            MandatoryBloxes.ForEach(item => item.BloxType = item.Blox.GetType());
     }
 }

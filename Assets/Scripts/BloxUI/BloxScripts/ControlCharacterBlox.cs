@@ -13,7 +13,8 @@ public class ControlCharacterBlox : ABlox, ICompilableBlox
         CLIMB_UP,
         CLIMB_DOWN,
         TURN_RIGHT,
-        TURN_LEFT
+        TURN_LEFT,
+        SPECIAL_ACTION
     }
 
     [SerializeField] CharacterAction bloxAction;
@@ -27,6 +28,7 @@ public class ControlCharacterBlox : ABlox, ICompilableBlox
         actionMap[CharacterAction.CLIMB_DOWN] = character.ClimbDown;
         actionMap[CharacterAction.TURN_RIGHT] = character.TurnRight;
         actionMap[CharacterAction.TURN_LEFT] = character.TurnLeft;
+        actionMap[CharacterAction.SPECIAL_ACTION] = SpecialAction;
     }
 
     // Update is called once per frame
@@ -51,6 +53,11 @@ public class ControlCharacterBlox : ABlox, ICompilableBlox
     private bool IsCharacterExecutingAction()
     {
         return character.ExecutingAction;
+    }
+
+    protected virtual void SpecialAction()
+    {
+
     }
 
 

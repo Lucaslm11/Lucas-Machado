@@ -74,9 +74,11 @@ public class LevelHandler : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        LevelConfiguration.Configure();
         startTime = DateTime.Now;
         BuildTilePlot();
         this.ObjectivePanel.LoadSquareTiles(LevelConfiguration);
+        this.ObjectivePanel.LoadTexts(LevelConfiguration);
         SetCharacter();
         numberOfAttempts = 0;
     }
@@ -197,9 +199,9 @@ public class LevelHandler : MonoBehaviour
         check.mandatoryBloxes = mandatoryBloxesUsed.Count == LevelConfiguration.MandatoryBloxes.Count();
 
         
-        List<ExpectedBlox> expectedOptionalBloxesUsed = LevelConfiguration.ExpectedBloxes.Where(mb => usedBloxTypeCount.Exists(b => b.Item1 == mb.BloxType && b.Item2 >= mb.MinimumQuantity)).ToList();
+        List<ExpectedBlox> expectedOptionalBloxesUsed = LevelConfiguration.OptionalExpectedBloxes.Where(mb => usedBloxTypeCount.Exists(b => b.Item1 == mb.BloxType && b.Item2 >= mb.MinimumQuantity)).ToList();
 
-        check.optionalBloxesUsedPercentage = LevelConfiguration.ExpectedBloxes.Count == 0 ? 1 : expectedOptionalBloxesUsed.Count * 1f / LevelConfiguration.ExpectedBloxes.Count;
+        check.optionalBloxesUsedPercentage = LevelConfiguration.OptionalExpectedBloxes.Count == 0 ? 1 : expectedOptionalBloxesUsed.Count * 1f / LevelConfiguration.OptionalExpectedBloxes.Count;
 
 
 
