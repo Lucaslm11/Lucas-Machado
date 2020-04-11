@@ -20,6 +20,7 @@ public class BloxTerminal : MonoBehaviour
     [SerializeField] LevelSuccessPanel SuccessPanel;
 
     private bool evaluationUpdated = false;
+    private bool triggerErrorPopupDisplay = false;
     private LevelHandler.Evaluation evaluation;
 
     private const string ContentComponentName = "Viewport/Content";
@@ -52,6 +53,12 @@ public class BloxTerminal : MonoBehaviour
             this.LevelHandler.SetCharacter();
 
             evaluationUpdated = false;
+        }
+        if (triggerErrorPopupDisplay)
+        {
+            // Since error popup is disabled by default, the view triggering has to be handled here
+            ErrorPopup.SetDisplayState(true);
+            triggerErrorPopupDisplay = false;
         }
     }
 
@@ -103,6 +110,7 @@ public class BloxTerminal : MonoBehaviour
         {
             //Puts errors in error popup
             ErrorPopup.LoadErrors(validationErrors);
+            triggerErrorPopupDisplay = true;
         }
         else
         {
@@ -148,6 +156,8 @@ public class BloxTerminal : MonoBehaviour
             error.ErrorMessage = cbEx.Message;
             error.TargetBlox = cbEx.blox;
             ErrorPopup.LoadErrors(new List<BloxValidationError> {error });
+            triggerErrorPopupDisplay = true;
+            //ErrorPopup.SetDisplayState(true);
         }
         catch (Exception ex)
         {

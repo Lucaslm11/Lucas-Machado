@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class ErrorPopup : MonoBehaviour
 {
+    private bool DisplayWindow = false;
     private bool ErrorListUpdated = false;
     private List<BloxValidationError> ErrorList;
     [SerializeField] ErrorMessage ErrorMessageTemplate;
@@ -45,7 +46,7 @@ public class ErrorPopup : MonoBehaviour
     }
 
     /// <summary>
-    /// Loads errors into popup
+    /// Loads errors into popup and triggers its opening
     /// </summary>
     /// <param name="errorList"></param>
     public void LoadErrors(List<BloxValidationError> errorList)
@@ -66,4 +67,17 @@ public class ErrorPopup : MonoBehaviour
 
     }
 
+
+
+    public void SwitchDisplayState()
+    {
+        DisplayWindow = !DisplayWindow;
+        this.gameObject.SetActive(DisplayWindow);
+    }
+
+    public void SetDisplayState(bool display)
+    {
+        DisplayWindow = display;
+        this.gameObject.SetActive(DisplayWindow);
+    }
 }

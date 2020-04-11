@@ -90,7 +90,6 @@
     <Compile Include="Assets\Scripts\BloxUI\BloxScripts\SpecialActionBlox.cs" />
     <Compile Include="Assets\Scripts\BloxUI\BloxScripts\StringBlox.cs" />
     <Compile Include="Assets\Scripts\BloxUI\BloxTerminal.cs" />
-    <Compile Include="Assets\Scripts\BloxUI\DisplayErrorsButton.cs" />
     <Compile Include="Assets\Scripts\BloxUI\ErrorMessage.cs" />
     <Compile Include="Assets\Scripts\BloxUI\ErrorPopup.cs" />
     <Compile Include="Assets\Scripts\BloxUI\HighlightableButton.cs" />
