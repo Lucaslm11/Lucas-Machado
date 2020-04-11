@@ -26,41 +26,61 @@ public class LevelHandler : MonoBehaviour
 
         public int wrongSteps;
         public double exceededMinutes;         // Extra time used. 
+        public double maxMinutesExpected;          
         public int exceededAttempts;     // Attempts not exceeded
+        public int maxAttemptsExpected;     // Attempts not exceeded
         public int exceededLines;        // Used maximum lines
+        public int maxLinesExpected;        // Used maximum lines
 
         public float optionalBloxesUsedPercentage;    // Used the optional bloxes
+        public float numberOfOptionalBloxesUsed;    // Used the optional bloxes
+        public float maxOptionalBloxesExpected;    // Used the optional bloxes
     }
 
     public class Evaluation
     {
 
-        const int MAX_SCORE = 5;
+        public const int MAX_SCORE = 5000;
+        public const int SCORE_PER_STAR = 1000;
         public int Score { get; }
         public int Stars { get; set; }
         public bool Success { get; }
         public ObjectiveCheck ObjectiveCheck { get; }
+
+        public int timeDiscount { get; }
+        public int optionalBloxDiscount { get; }
+        public int linesDiscount { get; }
+        public int attemptsDiscount { get; }
+
         public Evaluation(ObjectiveCheck objectiveCheck)
         {
             this.ObjectiveCheck = objectiveCheck;
             Success = objectiveCheck.mandatorySteps && objectiveCheck.mandatoryBloxes;
 
-            double discount = 0;
-            discount -= CalcDiscount(ObjectiveCheck.exceededMinutes);
-            discount -= CalcDiscount(ObjectiveCheck.exceededAttempts);
-            discount -= CalcDiscount(ObjectiveCheck.exceededLines);
-            discount -= 1-ObjectiveCheck.optionalBloxesUsedPercentage;
-            
-            double score = MAX_SCORE + discount;
+            //double discount = 0;
 
-            Score = Convert.ToInt32(score * 1000);
-            Stars = Convert.ToInt32(Math.Floor(score));
+            timeDiscount = Convert.ToInt32(Math.Floor(CalcDiscount(ObjectiveCheck.exceededMinutes)* SCORE_PER_STAR));
+            linesDiscount = Convert.ToInt32(Math.Floor(CalcDiscount(ObjectiveCheck.exceededLines) * SCORE_PER_STAR));
+            attemptsDiscount = Convert.ToInt32(Math.Floor(CalcDiscount(ObjectiveCheck.exceededAttempts) * SCORE_PER_STAR));
+            optionalBloxDiscount = Convert.ToInt32(Math.Floor((1 - ObjectiveCheck.optionalBloxesUsedPercentage) * SCORE_PER_STAR));
+
+            Score = MAX_SCORE - timeDiscount - linesDiscount - attemptsDiscount - optionalBloxDiscount;
+            Stars = Convert.ToInt32(Math.Floor(Score*1.0f/ SCORE_PER_STAR));
+            //discount -= CalcDiscount(ObjectiveCheck.exceededMinutes);
+            //discount -= CalcDiscount(ObjectiveCheck.exceededAttempts);
+            //discount -= CalcDiscount(ObjectiveCheck.exceededLines);
+            //discount -= 1-ObjectiveCheck.optionalBloxesUsedPercentage;
+            
+            //double score = MAX_SCORE + discount;
+
+            //Score = Convert.ToInt32(score * 1000);
+            //Stars = Convert.ToInt32(Math.Floor(score));
 
         }
 
         // Computes (1-1/(x+1)) in the domain of [0,+inf[
         // If x < 0 returns 0
-        private double CalcDiscount(double x)
+        public double CalcDiscount(double x)
         {
             return x < 0 || double.IsNaN(x) ? 0 : 1-1/(x+1);
         }
@@ -196,17 +216,28 @@ public class LevelHandler : MonoBehaviour
         // 5. This list contains the distinct blox types, and their count
         List<Tuple<Type, int>> usedBloxTypeCount = rootBlox.GetAllBloxesBellow().GroupBy(b => b.GetType()).Select(g => new Tuple<Type, int>(g.First().GetType(), g.Count())).ToList();
 
-        List<ExpectedBlox> mandatoryBloxesUsed = LevelConfiguration.MandatoryBloxes.Where(mb => usedBloxTypeCount.Exists(b => b.Item1 == mb.BloxType && b.Item2 >= mb.MinimumQuantity)).ToList();
+        List<ExpectedBlox> mandatoryBloxesFullyUsed = LevelConfiguration.MandatoryBloxes.Where(mb => usedBloxTypeCount.Exists(b => b.Item1 == mb.BloxType && b.Item2 >= mb.MinimumQuantity)).ToList();
 
-        check.mandatoryBloxes = mandatoryBloxesUsed.Count == LevelConfiguration.MandatoryBloxes.Count();
+        check.mandatoryBloxes = mandatoryBloxesFullyUsed.Count == LevelConfiguration.MandatoryBloxes.Count();
 
         
-        List<ExpectedBlox> expectedOptionalBloxesUsed = LevelConfiguration.OptionalExpectedBloxes.Where(mb => usedBloxTypeCount.Exists(b => b.Item1 == mb.BloxType && b.Item2 >= mb.MinimumQuantity)).ToList();
+        List<ExpectedBlox> expectedOptionalBloxesUsed = LevelConfiguration.OptionalExpectedBloxes.Where(mb => usedBloxTypeCount.Exists(b => b.Item1 == mb.BloxType)).ToList();
+        int numberOfOptionalBloxesUsed = usedBloxTypeCount
+                                            // Gets all the used bloxes that are of the type of one expected to be used
+                                            .Where(b => LevelConfiguration.OptionalExpectedBloxes.Exists(mb => mb.BloxType == b.Item1))
+                                            // Gets the amount used. If the amount used is bigger than the minimum expected, uses the later value
+                                            // If it is expected to use 2 bloxes of Int, and 1 of If, we don't want to classify a full use of option bloxes
+                                            // if the user put 3 Int bloxes
+                                            .Select(b => Math.Min(b.Item2, LevelConfiguration.OptionalExpectedBloxes.First(o => o.BloxType == b.Item1).MinimumQuantity)).Sum();
+        
 
-        check.optionalBloxesUsedPercentage = LevelConfiguration.OptionalExpectedBloxes.Count == 0 ? 1 : expectedOptionalBloxesUsed.Count * 1f / LevelConfiguration.OptionalExpectedBloxes.Count;
+        check.optionalBloxesUsedPercentage = LevelConfiguration.OptionalExpectedBloxes.Count == 0 ? 1 : numberOfOptionalBloxesUsed * 1f / LevelConfiguration.OptionalExpectedBloxes.Select(o => o.MinimumQuantity).Sum();
 
-
-
+        check.maxAttemptsExpected = Convert.ToInt32(LevelConfiguration.MaxAttempts);
+        check.maxLinesExpected = Convert.ToInt32(LevelConfiguration.MaxCodeLinesExpected);
+        check.maxMinutesExpected = Convert.ToInt32(LevelConfiguration.MaxTimeInMinutes);
+        check.maxOptionalBloxesExpected = Convert.ToInt32(LevelConfiguration.OptionalExpectedBloxes.Select(o=>o.MinimumQuantity).Sum());
+        check.numberOfOptionalBloxesUsed = numberOfOptionalBloxesUsed;
         return new Evaluation(check);
     }
 
@@ -309,7 +340,6 @@ public class LevelHandler : MonoBehaviour
 
 
     #endregion
-
 
 }
 

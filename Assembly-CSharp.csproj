@@ -68,6 +68,7 @@
     <Compile Include="Assets\Cube Robot\demo\Scripts\Camerademo.cs" />
     <Compile Include="Assets\Cube Robot\demo\Scripts\CubeRobotdemo.cs" />
     <Compile Include="Assets\Resources\Text\BloxValidationErrorMessages.cs" />
+    <Compile Include="Assets\Resources\Text\LevelCompletionMessages.cs" />
     <Compile Include="Assets\Resources\Text\ObjectivePanelMessages.cs" />
     <Compile Include="Assets\Scripts\BloxUI\BloxBag.cs" />
     <Compile Include="Assets\Scripts\BloxUI\BloxComponentScripts\FieldSwitcher.cs" />
@@ -93,6 +94,8 @@
     <Compile Include="Assets\Scripts\BloxUI\ErrorMessage.cs" />
     <Compile Include="Assets\Scripts\BloxUI\ErrorPopup.cs" />
     <Compile Include="Assets\Scripts\BloxUI\HighlightableButton.cs" />
+    <Compile Include="Assets\Scripts\BloxUI\LevelFailurePanel.cs" />
+    <Compile Include="Assets\Scripts\BloxUI\LevelSuccessPanel.cs" />
     <Compile Include="Assets\Scripts\BloxUI\ObjectivePanel.cs" />
     <Compile Include="Assets\Scripts\BloxUI\SquareTile.cs" />
     <Compile Include="Assets\Scripts\BloxUI\Trashbin.cs" />

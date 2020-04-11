@@ -16,6 +16,8 @@ public class BloxTerminal : MonoBehaviour
     [SerializeField] LevelHandler LevelHandler;
     [SerializeField] RootBlox RootBlox;
     [SerializeField] ErrorPopup ErrorPopup;
+    [SerializeField] LevelFailurePanel FailurePanel;
+    [SerializeField] LevelSuccessPanel SuccessPanel;
 
     private bool evaluationUpdated = false;
     private LevelHandler.Evaluation evaluation;
@@ -24,6 +26,7 @@ public class BloxTerminal : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        FailurePanel.gameObject.SetActive(false);
     }
 
     // Update is called once per frame
@@ -32,11 +35,21 @@ public class BloxTerminal : MonoBehaviour
         if (evaluationUpdated)
         {
             if (!evaluation.Success)
-            {
-                // Resets the level
-                this.LevelHandler.ResetTilePlotState();
-                this.LevelHandler.SetCharacter();
+           {
+
+                FailurePanel.SetFailure(evaluation);
+                FailurePanel.gameObject.SetActive(true);
+                //evaluation.ObjectiveCheck.
             }
+            else
+            {
+                SuccessPanel.SetSuccess(evaluation);
+                SuccessPanel.gameObject.SetActive(true);
+            }
+
+            // Resets the level
+            this.LevelHandler.ResetTilePlotState();
+            this.LevelHandler.SetCharacter();
 
             evaluationUpdated = false;
         }
