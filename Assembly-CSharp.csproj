@@ -73,6 +73,7 @@
     <Compile Include="Assets\Scripts\BloxUI\BloxComponentScripts\FieldSwitcher.cs" />
     <Compile Include="Assets\Scripts\BloxUI\BloxComponentScripts\FilterChar.cs" />
     <Compile Include="Assets\Scripts\BloxUI\BloxComponentScripts\TrueFalseTextSwitcher.cs" />
+    <Compile Include="Assets\Scripts\BloxUI\BloxHelpPanel.cs" />
     <Compile Include="Assets\Scripts\BloxUI\BloxScripts\ABlox.cs" />
     <Compile Include="Assets\Scripts\BloxUI\BloxScripts\ArithmeticOperatorBlox.cs" />
     <Compile Include="Assets\Scripts\BloxUI\BloxScripts\BoolBlox.cs" />
@@ -126,6 +127,7 @@
     <Compile Include="Assets\Scripts\Level\LevelHandler.cs" />
     <Compile Include="Assets\Scripts\Level\ObjectiveStep.cs" />
     <Compile Include="Assets\Scripts\Level\PlotTile.cs" />
+    <Compile Include="Assets\Scripts\Level\SynthesizedSolution.cs" />
     <Compile Include="Assets\Scripts\Test.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark01.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark01_UGUI.cs" />

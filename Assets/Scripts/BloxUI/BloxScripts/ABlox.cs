@@ -9,8 +9,18 @@ using static GameObjectHelper;
 /// <summary>
 /// Based on https://docs.unity3d.com/2018.1/Documentation/ScriptReference/EventSystems.IDragHandler.html
 /// </summary>
-public abstract class ABlox : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
+public abstract class ABlox : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler, IPointerDownHandler
 {
+    public static ABlox LastClickedBlox { get; private set; }
+    /// <summary>
+    /// Contains the text to be shown in the BloxHelpPanel
+    /// </summary>
+    [SerializeField] public String HelpText;
+    /// <summary>
+    /// Contains the image to be shown in the BloxHelpPanel
+    /// </summary>
+    [SerializeField] public Texture HelpExampleTexture; 
+
     public enum NestingType
     {
         NONE,
@@ -54,7 +64,7 @@ public abstract class ABlox : MonoBehaviour, IBeginDragHandler, IDragHandler, IE
     //Classes that use ABlox as base, shall use OnStart instead of Start()
     protected virtual void OnStart()
     {
-
+        
     }
 
     bool CheckIfInsideBloxBag()
@@ -71,6 +81,15 @@ public abstract class ABlox : MonoBehaviour, IBeginDragHandler, IDragHandler, IE
 
     #endregion
 
+    #region
+
+
+    public void OnPointerDown(PointerEventData eventData)
+    {
+        ABlox.LastClickedBlox = this;
+    }
+
+    #endregion
 
     #region Dragging events
     public void OnBeginDrag(PointerEventData eventData)
@@ -713,6 +732,7 @@ public abstract class ABlox : MonoBehaviour, IBeginDragHandler, IDragHandler, IE
         }
         return errors;
     }
+
 
     #endregion
 }

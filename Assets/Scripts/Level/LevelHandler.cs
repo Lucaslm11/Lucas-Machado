@@ -145,6 +145,8 @@ public class LevelHandler : MonoBehaviour
     }
     #endregion
 
+
+    #region Hints and evaluation
     public Evaluation EvaluateLevel(RootBlox rootBlox)
     {
         ObjectiveCheck check;
@@ -214,6 +216,89 @@ public class LevelHandler : MonoBehaviour
     }
 
 
+    /// <summary>
+    /// What Hint looks for:
+    /// Gets the placed bloxes
+    /// looks at the bloxes that are expected to be placed
+    /// 
+    /// looks for the expected patterns:
+    /// Horizontal line
+    /// Vertical line
+    /// Olhar para o que se faz no final de cada padrão: virar à esquerda,ou à direita?
+    /// 
+    /// </summary>
+    public void LoadHint(RootBlox rootBlox)
+    {
+
+        // 1. Check for mandatory bloxes not used
+        List<Tuple<Type, int>> usedBloxTypeCount = rootBlox.GetAllBloxesBellow().GroupBy(b => b.GetType()).Select(g => new Tuple<Type, int>(g.First().GetType(), g.Count())).ToList();
+
+        List<ExpectedBlox> mandatoryBloxesNotUsed = LevelConfiguration.MandatoryBloxes.Where(mb => !usedBloxTypeCount.Exists(b => b.Item1 == mb.BloxType && b.Item2 >= mb.MinimumQuantity)).ToList();
+
+        // 1. Check for optional bloxes not used
+        List<ExpectedBlox> expectedOptionalBloxesNotUsed = LevelConfiguration.OptionalExpectedBloxes.Where(mb => !usedBloxTypeCount.Exists(b => b.Item1 == mb.BloxType && b.Item2 >= mb.MinimumQuantity)).ToList();
+
+
+
+
+    }
+
+    /// <summary>
+    /// We are assuming this function is called after a success execution
+    /// 
+    /// Basically we have to read 
+    /// -Straight lines (either up or down)
+    /// -Turns
+    /// -If a straight lines does not lead either to a left or a right, consider like the previous ones
+    /// 
+    /// - how an user dealed with climb up and climb down?
+    /// 
+    /// We have to check how the user implemented those patterns
+    /// 
+    /// For example, making three lines with the same size, may have a Turn left or right based on if iteration equals a concrete number
+    /// or if an iteration number is a multiple of some number
+    /// 
+    /// 
+    /// Other example,  making four lines, two of the same size, and two not of the same size. The user could have three for cycles, one for the first
+    /// two lines, and the others for the remaining lines. Or the user could have a bunch of walks and turns. Or the user could have one big cycle, 
+    /// with a bunch of if's for each turn.
+    /// 
+    /// 
+    /// When we implement the AI we need to look at the closest patterns and get the synthesized solution
+    /// 
+    /// Maybe we just start reading patterns in "for" levels and check how the user solved them?
+    /// 
+    /// -Sequences of Walks and Climbs
+    /// -Cycles -> how many? one for each, or one for every?
+    /// -
+    /// 
+    /// To read same lines we go to mandatory steps and check sequences of the same X and same Y, and same count
+    /// 
+    /// </summary>
+    public void ReadPatterns()
+    {
+        //LevelConfiguration.MandatorySteps.GroupBy(step => step.CoordinateInPlot.y).Select(step => new { count = step.Count(), });
+
+        //First we read line sequences
+        ObjectiveStep previousStep = null;
+        int lineSizeCount = 0;
+        bool followingX = false;
+        foreach(ObjectiveStep step in LevelConfiguration.MandatorySteps)
+        {
+            if(previousStep == null)
+            {
+                previousStep = step;
+                lineSizeCount += 1;
+            }
+            else
+            {
+                followingX = step.CoordinateInPlot.x == previousStep.CoordinateInPlot.x;
+            }
+        }
+
+    }
+
+    #endregion
 
     #region Character handling
     public void SetCharacter()
