@@ -75,7 +75,7 @@ public class BloxTerminal : MonoBehaviour
 
         //if it is a blox and is child in content, put it on parent
         if (isBloxAndIsBeingDragged)
-            collision.gameObject.transform.parent = this.transform.parent;
+            collision.gameObject.transform.SetParent(this.transform.parent);
     }
 
 

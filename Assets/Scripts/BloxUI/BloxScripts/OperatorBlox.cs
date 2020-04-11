@@ -158,4 +158,10 @@ public class OperatorBlox : ABlox
     }
     #endregion
 
+    public override bool ValidateNestToBottom(GameObject objectToNest)
+    {
+        return false;
+    }
+
+
 }

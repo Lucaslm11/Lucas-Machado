@@ -174,6 +174,7 @@ public abstract class ABlox : MonoBehaviour, IBeginDragHandler, IDragHandler, IE
         {
             // Although we are saving all the simultaneous collisions 
             // We only want this object to nest with the highest ones
+            
             float maxY = collidedObjects.Max(c => c.transform.position.y);
             List<GameObject> highestObjects = collidedObjects.Where(c => c.transform.position.y == maxY).Select(a => a.gameObject).ToList();
 
@@ -204,9 +205,11 @@ public abstract class ABlox : MonoBehaviour, IBeginDragHandler, IDragHandler, IE
     private void OnTriggerEnter2D(Collider2D collision)
     {
         print(gameObject.name + " collided with " + collision.name);
-        if (GameObjectHelper.HasComponent<ABlox>(collision.gameObject) || GameObjectHelper.HasComponent<Trashbin>(collision.gameObject))
-        {
-            collidedObjects.Add(collision);
+        // We are only going to add to the list of collided objects, bloxes that are not params
+        // and trashbin
+        if ((GameObjectHelper.HasComponent<ABlox>(collision.gameObject) && !collision.gameObject.GetComponent<ABlox>().IsParam) || GameObjectHelper.HasComponent<Trashbin>(collision.gameObject))
+        { 
+                collidedObjects.Add(collision);
  
         }
     }
@@ -297,10 +300,12 @@ public abstract class ABlox : MonoBehaviour, IBeginDragHandler, IDragHandler, IE
                     if (!secondObjectBlox.IsParam && ValidateNestToBottom(secondObject) && MathHelper.IsNearby(secondObjBBox.left.x, thisBBox.left.x, thisObjectWidth / 4))
                     {
                         AddToBottom(secondObjectBlox);
+                        OnNestToBottom();
                     }
                     else if (!secondObjectBlox.IsParam && ValidateNestToBottomIdented(secondObject) && MathHelper.IsNearby(secondObjBBox.left.x, thisBBox.bottom.x, thisObjectWidth / 4))
                     {
-                        AddToBottomIdented(secondObjectBlox);
+                        AddToBottomIdented(secondObjectBlox); 
+                        OnNestToBottomIdented();
                     }
 
                 }
@@ -312,9 +317,10 @@ public abstract class ABlox : MonoBehaviour, IBeginDragHandler, IDragHandler, IE
                     {
                         // Nest side to side 
                         AddParam(secondObjectBlox);
+                        OnNestToSide();
                     }
                 }
-
+                OnNest();
                 SetAllBloxesPositionsOnScreen();
             }
         }
@@ -364,6 +370,10 @@ public abstract class ABlox : MonoBehaviour, IBeginDragHandler, IDragHandler, IE
         return false;
     }
 
+    public virtual void OnNest() { }
+    public virtual void OnNestToBottom() { }
+    public virtual void OnNestToBottomIdented() { }
+    public virtual void OnNestToSide() { }
 
     public void SetAllBloxesPositionsOnScreen()
     {
@@ -496,10 +506,19 @@ public abstract class ABlox : MonoBehaviour, IBeginDragHandler, IDragHandler, IE
         ABlox originalParent = blox.ParentBlox;
         if (originalParent != null)
         {
+            originalParent.OnBeforeChildRemove(blox);
             originalParent.ChildBloxes.Remove(blox);
             originalParent.BloxParams.Remove(blox);
         }
         blox.ParentBlox = null;
+    }
+
+    /// <summary>
+    /// This method is called when a blox is going to be eliminated from parent
+    /// </summary>
+    public virtual void OnBeforeChildRemove(ABlox blox)
+    {
+
     }
     #endregion
 

@@ -45,6 +45,21 @@ public class IfBlox : ABlox, ICompilableBlox
         return GameObjectHelper.HasComponent<LogicalOperatorBlox>(objectToNest) && BloxParams.Count == 0; //Only allows one
     }
 
+    public override void OnNestToSide()
+    {
+        booleanVariablesDropdown.interactable = false;
+    }
+
+    /// <summary>
+    /// This method is called when a child is going to be removed. 
+    /// </summary>
+    /// <param name="blox"></param>
+    public override void OnBeforeChildRemove(ABlox blox)
+    {
+        if (this.BloxParams.Contains(blox))
+            booleanVariablesDropdown.interactable = true;
+    }
+
     private void UpdateVariableList()
     {
         List<IBloxVariable> varList = GetVariablesInBloxScope(this).Where(v => v.GetType() == VariableType.BOOL).ToList();

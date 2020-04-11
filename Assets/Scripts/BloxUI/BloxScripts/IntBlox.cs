@@ -100,4 +100,16 @@ public class IntBlox : ABlox, IBloxVariable, ICompilableBlox
             parentNode.AddChildNode(intNode);
         }
     }
+
+
+    public override void OnNestToSide()
+    {
+        ValueField.gameObject.SetActive(false);
+    }
+
+    public override void OnBeforeChildRemove(ABlox blox)
+    {
+        if (this.BloxParams.Contains(blox))
+            ValueField.gameObject.SetActive(true);
+    }
 }

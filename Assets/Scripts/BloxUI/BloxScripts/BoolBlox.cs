@@ -98,4 +98,16 @@ public class BoolBlox : ABlox, IBloxVariable, ICompilableBlox
     {
         return VariableType.BOOL;
     }
+
+
+    public override void OnNestToSide()
+    {
+        ValueField.gameObject.SetActive(false);
+    }
+
+    public override void OnBeforeChildRemove(ABlox blox)
+    {
+        if (this.BloxParams.Contains(blox))
+            ValueField.gameObject.SetActive(true);
+    }
 }
