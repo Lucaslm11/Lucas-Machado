@@ -63,6 +63,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\CloseButton.cs" />
     <Compile Include="Assets\Cube Robot\Scripts\CubeRobot.cs" />
     <Compile Include="Assets\Cube Robot\Scripts\EngineEffect.cs" />
     <Compile Include="Assets\Cube Robot\demo\Scripts\Camerademo.cs" />
