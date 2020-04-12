@@ -30,7 +30,7 @@ public abstract class ABlox : MonoBehaviour, IBeginDragHandler, IDragHandler, IE
     }
 
     // Saves a list of bloxes that are highlighted
-    List<HighlightableButton> hightlightedBloxes = new List<HighlightableButton>();
+    List<HighlightableButton> hightlightableBloxes = new List<HighlightableButton>();
 
     //Indicates if the blox will be only intended to be used as a PARAM
     protected virtual bool IsParam { get { return false; } }
@@ -145,7 +145,7 @@ public abstract class ABlox : MonoBehaviour, IBeginDragHandler, IDragHandler, IE
                     {
                         HighlightableButton hB = collidedObject.gameObject.GetComponent<HighlightableButton>();
                         hB.HighlightButton(HighlightableButton.ButtonHighlight.Info);
-                        hightlightedBloxes.Add(hB);
+                        hightlightableBloxes.Add(hB);
                     }
                 }
 
@@ -159,8 +159,8 @@ public abstract class ABlox : MonoBehaviour, IBeginDragHandler, IDragHandler, IE
     /// </summary>
     private void ResetHightlight()
     {
-        hightlightedBloxes.ForEach(h => { h.HighlightButton(HighlightableButton.ButtonHighlight.None); });
-        hightlightedBloxes = new List<HighlightableButton>();
+        hightlightableBloxes.ForEach(h => { h.HighlightButton(HighlightableButton.ButtonHighlight.None); });
+        hightlightableBloxes = new List<HighlightableButton>();
     }
 
     public virtual void OnEndDrag(PointerEventData eventData)

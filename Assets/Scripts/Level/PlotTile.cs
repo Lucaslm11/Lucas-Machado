@@ -12,20 +12,10 @@ public class PlotTile : MonoBehaviour
     /// z - height displacement (corresponds to the Y axis in the world)
     /// </summary>
     public Vector3Int PlotPosition { get; set; }
-    public bool Stepped { get; set; }
+    public bool Stepped { get; private set; }
     public bool SpecialActionExecuted { get; set; }
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    // BEWARE: Start action was removed. That is because tile state can be set before it starts in game, which can cause problems
 
     public void Step(bool executeSpecialAction=false)
     {

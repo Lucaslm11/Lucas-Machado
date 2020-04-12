@@ -25,9 +25,9 @@ public class LevelFailurePanel : MonoBehaviour
         if (!evaluation.Success)
         {
             textBox.text += LevelCompletionMessages.MAIN_ERROR_TEXT;
-            if (evaluation.ObjectiveCheck.mandatoryBloxes)
+            if (!evaluation.ObjectiveCheck.mandatoryBloxes)
                 textBox.text += LevelCompletionMessages.ERROR_MANDATORY_BLOXES;
-            if (evaluation.ObjectiveCheck.mandatorySteps)
+            if (!evaluation.ObjectiveCheck.mandatorySteps)
                 textBox.text += LevelCompletionMessages.ERROR_MANDATORY_STEPS;
             if (evaluation.ObjectiveCheck.wrongSteps > 0)
                 textBox.text += string.Format(LevelCompletionMessages.WRONG_STEPS, evaluation.ObjectiveCheck.wrongSteps);

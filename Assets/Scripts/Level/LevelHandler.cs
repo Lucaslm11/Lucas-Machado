@@ -192,11 +192,12 @@ public class LevelHandler : MonoBehaviour
         // 4. Right steps. This is a mandatory object, so level shall fail when not accomplished
         // 4.1 Get all the mandatory steps that were executed, with the special action included
         // The final count should match the count of LevelConfiguration.MandatorySteps
-        var queryMandatoryStepsCompleted = from mandatoryStep in LevelConfiguration.MandatorySteps
-                                           join plotTile in tilesInScene on mandatoryStep.CoordinateInPlot equals plotTile.PlotPosition
-                                           where mandatoryStep != null && plotTile != null && plotTile.SpecialActionExecuted == mandatoryStep.SpecialAction && plotTile.Stepped
-                                           select plotTile;
+        //var queryMandatoryStepsCompleted = from mandatoryStep in LevelConfiguration.MandatorySteps
+        //                                   join plotTile in tilesInScene on mandatoryStep.CoordinateInPlot equals plotTile.PlotPosition
+        //                                   where mandatoryStep != null && plotTile != null && plotTile.SpecialActionExecuted == mandatoryStep.SpecialAction && plotTile.Stepped
+        //                                   select plotTile;
 
+        var queryMandatoryStepsCompleted  = LevelConfiguration.MandatorySteps.Where(ms => tilesInScene.Exists(t=>t.Stepped && t.SpecialActionExecuted == ms.SpecialAction && t.PlotPosition == ms.CoordinateInPlot));
 
         bool allTheMandatoryStepsDone = queryMandatoryStepsCompleted.Count() == LevelConfiguration.MandatorySteps.Count;
 
