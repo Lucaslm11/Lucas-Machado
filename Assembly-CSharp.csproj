@@ -63,7 +63,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\CloseButton.cs" />
     <Compile Include="Assets\Cube Robot\Scripts\CubeRobot.cs" />
     <Compile Include="Assets\Cube Robot\Scripts\EngineEffect.cs" />
     <Compile Include="Assets\Cube Robot\demo\Scripts\Camerademo.cs" />
@@ -81,6 +80,7 @@
     <Compile Include="Assets\Scripts\BloxUI\BloxScripts\BoolBlox.cs" />
     <Compile Include="Assets\Scripts\BloxUI\BloxScripts\ControlCharacterBlox.cs" />
     <Compile Include="Assets\Scripts\BloxUI\BloxScripts\ForBlox.cs" />
+    <Compile Include="Assets\Scripts\BloxUI\BloxScripts\HighlightableButton.cs" />
     <Compile Include="Assets\Scripts\BloxUI\BloxScripts\IfBlox.cs" />
     <Compile Include="Assets\Scripts\BloxUI\BloxScripts\IntBlox.cs" />
     <Compile Include="Assets\Scripts\BloxUI\BloxScripts\Interfaces\IBloxVariable.cs" />
@@ -93,12 +93,29 @@
     <Compile Include="Assets\Scripts\BloxUI\BloxTerminal.cs" />
     <Compile Include="Assets\Scripts\BloxUI\ErrorMessage.cs" />
     <Compile Include="Assets\Scripts\BloxUI\ErrorPopup.cs" />
-    <Compile Include="Assets\Scripts\BloxUI\HighlightableButton.cs" />
+    <Compile Include="Assets\Scripts\BloxUI\GenericActionButton.cs" />
+    <Compile Include="Assets\Scripts\BloxUI\Level\CubotController.cs" />
+    <Compile Include="Assets\Scripts\BloxUI\Level\Exceptions\CodeBloxException.cs" />
+    <Compile Include="Assets\Scripts\BloxUI\Level\Exceptions\DivisionByZeroException.cs" />
+    <Compile Include="Assets\Scripts\BloxUI\Level\Exceptions\HoleAheadException.cs" />
+    <Compile Include="Assets\Scripts\BloxUI\Level\Exceptions\NoHoleAheadException.cs" />
+    <Compile Include="Assets\Scripts\BloxUI\Level\Exceptions\NoObstacleAheadException.cs" />
+    <Compile Include="Assets\Scripts\BloxUI\Level\Exceptions\NoTileAheadException.cs" />
+    <Compile Include="Assets\Scripts\BloxUI\Level\Exceptions\ObstacleAheadException.cs" />
+    <Compile Include="Assets\Scripts\BloxUI\Level\ExpectedBlox.cs" />
+    <Compile Include="Assets\Scripts\BloxUI\Level\LevelDescriptor.cs" />
+    <Compile Include="Assets\Scripts\BloxUI\Level\LevelHandler.cs" />
+    <Compile Include="Assets\Scripts\BloxUI\Level\ObjectiveStep.cs" />
+    <Compile Include="Assets\Scripts\BloxUI\Level\PlotTile.cs" />
+    <Compile Include="Assets\Scripts\BloxUI\Level\SynthesizedSolution.cs" />
     <Compile Include="Assets\Scripts\BloxUI\LevelFailurePanel.cs" />
     <Compile Include="Assets\Scripts\BloxUI\LevelSuccessPanel.cs" />
     <Compile Include="Assets\Scripts\BloxUI\ObjectivePanel.cs" />
     <Compile Include="Assets\Scripts\BloxUI\SquareTile.cs" />
     <Compile Include="Assets\Scripts\BloxUI\Trashbin.cs" />
+    <Compile Include="Assets\Scripts\BloxUI\Tutorial\TutorialDescriptor.cs" />
+    <Compile Include="Assets\Scripts\BloxUI\Tutorial\TutorialLoader.cs" />
+    <Compile Include="Assets\Scripts\BloxUI\Tutorial\TutorialPanel.cs" />
     <Compile Include="Assets\Scripts\Helpers\GameObjectHelper.cs" />
     <Compile Include="Assets\Scripts\Helpers\ListHelper.cs" />
     <Compile Include="Assets\Scripts\Helpers\MathHelper.cs" />
@@ -117,20 +134,6 @@
     <Compile Include="Assets\Scripts\Interpreter\Nodes\Types\BooleanNode.cs" />
     <Compile Include="Assets\Scripts\Interpreter\Nodes\Types\IntegerNode.cs" />
     <Compile Include="Assets\Scripts\Interpreter\Nodes\Types\StringNode.cs" />
-    <Compile Include="Assets\Scripts\Level\CubotController.cs" />
-    <Compile Include="Assets\Scripts\Level\Exceptions\CodeBloxException.cs" />
-    <Compile Include="Assets\Scripts\Level\Exceptions\DivisionByZeroException.cs" />
-    <Compile Include="Assets\Scripts\Level\Exceptions\HoleAheadException.cs" />
-    <Compile Include="Assets\Scripts\Level\Exceptions\NoHoleAheadException.cs" />
-    <Compile Include="Assets\Scripts\Level\Exceptions\NoObstacleAheadException.cs" />
-    <Compile Include="Assets\Scripts\Level\Exceptions\NoTileAheadException.cs" />
-    <Compile Include="Assets\Scripts\Level\Exceptions\ObstacleAheadException.cs" />
-    <Compile Include="Assets\Scripts\Level\ExpectedBlox.cs" />
-    <Compile Include="Assets\Scripts\Level\LevelDescriptor.cs" />
-    <Compile Include="Assets\Scripts\Level\LevelHandler.cs" />
-    <Compile Include="Assets\Scripts\Level\ObjectiveStep.cs" />
-    <Compile Include="Assets\Scripts\Level\PlotTile.cs" />
-    <Compile Include="Assets\Scripts\Level\SynthesizedSolution.cs" />
     <Compile Include="Assets\Scripts\Test.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark01.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark01_UGUI.cs" />
