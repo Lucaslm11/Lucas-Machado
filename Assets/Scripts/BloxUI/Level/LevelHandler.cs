@@ -28,8 +28,10 @@ public class LevelHandler : MonoBehaviour
         public double exceededMinutes;         // Extra time used. 
         public double maxMinutesExpected;          
         public int exceededAttempts;     // Attempts not exceeded
+        public int numberOfAttempts;     // Attempts not exceeded
         public int maxAttemptsExpected;     // Attempts not exceeded
         public int exceededLines;        // Used maximum lines
+        public int usedLines;        // Used maximum lines
         public int maxLinesExpected;        // Used maximum lines
 
         public float optionalBloxesUsedPercentage;    // Used the optional bloxes
@@ -185,9 +187,10 @@ public class LevelHandler : MonoBehaviour
         
         // 2. Number of attempts
         check.exceededAttempts = numberOfAttempts - (int)LevelConfiguration.MaxAttempts;
-
+        check.numberOfAttempts = numberOfAttempts;
         // 3. Use a number of code lines lesser than the maximum
-        check.exceededLines = rootBlox.GetChildBloxListInVerticalOrder().Count - (int)LevelConfiguration.MaxCodeLinesExpected; 
+        check.exceededLines = rootBlox.GetChildBloxListInVerticalOrder().Count - (int)LevelConfiguration.MaxCodeLinesExpected;
+        check.usedLines = rootBlox.GetChildBloxListInVerticalOrder().Count;
 
         // 4. Right steps. This is a mandatory object, so level shall fail when not accomplished
         // 4.1 Get all the mandatory steps that were executed, with the special action included

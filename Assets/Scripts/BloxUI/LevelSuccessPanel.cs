@@ -29,8 +29,8 @@ public class LevelSuccessPanel : MonoBehaviour
             textBox.text += LevelCompletionMessages.MAIN_OBJECTIVES;
             textBox.text += string.Format(LevelCompletionMessages.OPTIONAL_BLOXES,evaluation.ObjectiveCheck.numberOfOptionalBloxesUsed, evaluation.ObjectiveCheck.maxOptionalBloxesExpected, Evaluation.SCORE_PER_STAR - evaluation.optionalBloxDiscount);
             textBox.text += string.Format(LevelCompletionMessages.TIME,Math.Max(Math.Round(evaluation.ObjectiveCheck.exceededMinutes,2), 0 ), Evaluation.SCORE_PER_STAR - evaluation.timeDiscount);
-            textBox.text += string.Format(LevelCompletionMessages.ATTEMPTS,evaluation.ObjectiveCheck.exceededAttempts, evaluation.ObjectiveCheck.maxAttemptsExpected, Evaluation.SCORE_PER_STAR - evaluation.attemptsDiscount);
-            textBox.text += string.Format(LevelCompletionMessages.LINES,evaluation.ObjectiveCheck.exceededLines, evaluation.ObjectiveCheck.maxLinesExpected, Evaluation.SCORE_PER_STAR - evaluation.linesDiscount);
+            textBox.text += string.Format(LevelCompletionMessages.ATTEMPTS,evaluation.ObjectiveCheck.numberOfAttempts, evaluation.ObjectiveCheck.maxAttemptsExpected, Evaluation.SCORE_PER_STAR - evaluation.attemptsDiscount);
+            textBox.text += string.Format(LevelCompletionMessages.LINES,evaluation.ObjectiveCheck.usedLines, evaluation.ObjectiveCheck.maxLinesExpected, Evaluation.SCORE_PER_STAR - evaluation.linesDiscount);
             textBox.text += string.Format(LevelCompletionMessages.SUM,evaluation.Score);
             textBox.text += string.Format(LevelCompletionMessages.STARS,evaluation.Stars);
 

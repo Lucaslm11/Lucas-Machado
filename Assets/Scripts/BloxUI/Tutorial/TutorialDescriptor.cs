@@ -7,6 +7,6 @@ using UnityEditor;
 [System.Serializable]
 public class TutorialDescriptor 
 {
-    [SerializeField] public string ExplanationText;
+    [SerializeField] [TextArea(3,30)]public string ExplanationText;
     //[SerializeField] public ExplanationText;
 }
