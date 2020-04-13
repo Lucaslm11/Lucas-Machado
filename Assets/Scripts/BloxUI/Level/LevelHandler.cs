@@ -18,6 +18,7 @@ public class LevelHandler : MonoBehaviour
 {
     [SerializeField] LevelDescriptor LevelConfiguration;
     [SerializeField] ObjectivePanel ObjectivePanel;
+    [SerializeField] Timer Clock;
 
     public struct ObjectiveCheck
     {
@@ -103,6 +104,8 @@ public class LevelHandler : MonoBehaviour
         this.ObjectivePanel.LoadTexts(LevelConfiguration);
         SetCharacter();
         numberOfAttempts = 0;
+
+        Clock.LoadTimer(LevelConfiguration.MaxTimeInMinutes);
     }
 
     // Update is called once per frame
