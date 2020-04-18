@@ -9,11 +9,10 @@ public class BloxHelpPanel : MonoBehaviour
     [SerializeField] RawImage Image;
 
     ABlox LastClickedBlox = null;
-    bool DisplayWindow = false;
     // Start is called before the first frame update
     void Start()
     {
-        this.gameObject.SetActive(false);
+
         Image.gameObject.SetActive(false);
     }
 
@@ -21,30 +20,21 @@ public class BloxHelpPanel : MonoBehaviour
     void Update()
     {
 
-        if (DisplayWindow)
+        if (ABlox.LastClickedBlox != LastClickedBlox)
         {
-            if (ABlox.LastClickedBlox != LastClickedBlox)
+            HelpText.text = ABlox.LastClickedBlox.HelpText;
+            if (ABlox.LastClickedBlox.HelpExampleTexture != null)
             {
-                HelpText.text = ABlox.LastClickedBlox.HelpText;
-                if (ABlox.LastClickedBlox.HelpExampleTexture != null)
-                { 
-                    Image.texture = ABlox.LastClickedBlox.HelpExampleTexture;
-                    Image.gameObject.SetActive(true);
-                }
-                else
-                {
-                    Image.gameObject.SetActive(false);
-                }
-                LastClickedBlox = ABlox.LastClickedBlox;
+                Image.texture = ABlox.LastClickedBlox.HelpExampleTexture;
+                Image.gameObject.SetActive(true);
             }
+            else
+            {
+                Image.gameObject.SetActive(false);
+            }
+            LastClickedBlox = ABlox.LastClickedBlox;
         }
-        
-    }
-
-    public void SwitchDisplayState()
-    {
-        DisplayWindow = !DisplayWindow;
-        this.gameObject.SetActive(DisplayWindow);
+         
     }
 
 }

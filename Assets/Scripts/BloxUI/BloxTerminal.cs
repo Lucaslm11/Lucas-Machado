@@ -58,7 +58,8 @@ public class BloxTerminal : MonoBehaviour
         if (triggerErrorPopupDisplay)
         {
             // Since error popup is disabled by default, the view triggering has to be handled here
-            ErrorPopup.SetDisplayState(true);
+            //ErrorPopup.SetDisplayState(true);
+            ErrorPopup.ForceDisplay();
             triggerErrorPopupDisplay = false;
             this.LevelHandler.SetCharacter();
             ResetBloxHighlightState();

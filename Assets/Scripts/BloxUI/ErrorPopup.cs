@@ -4,10 +4,11 @@ using UnityEngine;
 
 public class ErrorPopup : MonoBehaviour
 {
-    private bool DisplayWindow = false;
+    //private bool DisplayWindow = false;
     private bool ErrorListUpdated = false;
     private List<BloxValidationError> ErrorList;
     [SerializeField] ErrorMessage ErrorMessageTemplate;
+    [SerializeField] TabButton ErrorTabButton;
     List<ErrorMessage> ErrorMessagesOnScene = new List<ErrorMessage>();
     // Start is called before the first frame update
     void Start()
@@ -69,15 +70,20 @@ public class ErrorPopup : MonoBehaviour
 
 
 
-    public void SwitchDisplayState()
-    {
-        DisplayWindow = !DisplayWindow;
-        this.gameObject.SetActive(DisplayWindow);
-    }
+    //public void SwitchDisplayState()
+    //{
+    //    DisplayWindow = !DisplayWindow;
+    //    this.gameObject.SetActive(DisplayWindow);
+    //}
 
-    public void SetDisplayState(bool display)
-    {
-        DisplayWindow = display;
-        this.gameObject.SetActive(DisplayWindow);
+    //public void SetDisplayState(bool display)
+    //{
+    //    DisplayWindow = display;
+    //    this.gameObject.SetActive(DisplayWindow);
+    //}
+
+    public void ForceDisplay() {
+
+        ErrorTabButton.onClick.Invoke();
     }
 }
