@@ -8,7 +8,7 @@ using UnityEngine.UI;
 public class OutputPanel : MonoBehaviour
 {
     [SerializeField] Text LogText;
-    private SynchronizedCollection<string> MessageBuffer = new SynchronizedCollection<string>();
+    private List<string> MessageBuffer = new List<string>();
     private const string LOG_FORMAT = "@{0} => {1}\n";
  
     // Start is called before the first frame update
