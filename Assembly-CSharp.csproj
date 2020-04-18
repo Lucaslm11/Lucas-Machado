@@ -67,6 +67,7 @@
     <Compile Include="Assets\Cube Robot\Scripts\EngineEffect.cs" />
     <Compile Include="Assets\Cube Robot\demo\Scripts\Camerademo.cs" />
     <Compile Include="Assets\Cube Robot\demo\Scripts\CubeRobotdemo.cs" />
+    <Compile Include="Assets\OutputPanel.cs" />
     <Compile Include="Assets\Resources\Text\BloxValidationErrorMessages.cs" />
     <Compile Include="Assets\Resources\Text\LevelCompletionMessages.cs" />
     <Compile Include="Assets\Resources\Text\ObjectivePanelMessages.cs" />
