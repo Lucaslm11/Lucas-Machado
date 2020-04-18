@@ -53,6 +53,7 @@ public class BloxTerminal : MonoBehaviour
             this.LevelHandler.SetCharacter();
 
             evaluationUpdated = false;
+            ResetBloxHighlightState();
         }
         if (triggerErrorPopupDisplay)
         {
@@ -60,6 +61,7 @@ public class BloxTerminal : MonoBehaviour
             ErrorPopup.SetDisplayState(true);
             triggerErrorPopupDisplay = false;
             this.LevelHandler.SetCharacter();
+            ResetBloxHighlightState();
         }
     }
 
@@ -172,5 +174,19 @@ public class BloxTerminal : MonoBehaviour
     public int CountCodeLines()
     {
         return this.RootBlox.GetChildBloxListInVerticalOrder().Count;
+    }
+
+    // Resets the hightlight to none
+    private void ResetBloxHighlightState()
+    {
+        List<ABlox> allBloxes = this.RootBlox.GetAllBloxesBellow();
+        allBloxes.Add(this.RootBlox);
+        foreach(ABlox blox in allBloxes)
+        {
+            if (GameObjectHelper.HasComponent<HighlightableButton>(blox.gameObject))
+            {
+                blox.GetComponent<HighlightableButton>().HighlightButton(HighlightableButton.ButtonHighlight.None);
+            }
+        }
     }
 }

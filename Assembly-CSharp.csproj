@@ -112,6 +112,8 @@
     <Compile Include="Assets\Scripts\BloxUI\LevelSuccessPanel.cs" />
     <Compile Include="Assets\Scripts\BloxUI\ObjectivePanel.cs" />
     <Compile Include="Assets\Scripts\BloxUI\SquareTile.cs" />
+    <Compile Include="Assets\Scripts\BloxUI\TabButton.cs" />
+    <Compile Include="Assets\Scripts\BloxUI\TabManager.cs" />
     <Compile Include="Assets\Scripts\BloxUI\Trashbin.cs" />
     <Compile Include="Assets\Scripts\BloxUI\Tutorial\TutorialDescriptor.cs" />
     <Compile Include="Assets\Scripts\BloxUI\Tutorial\TutorialLoader.cs" />
