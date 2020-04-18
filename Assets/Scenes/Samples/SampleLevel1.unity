@@ -695,14 +695,15 @@ MonoBehaviour:
     CharacterSpeed: 50
     CharacterStartPointInPlot: {x: 2, y: 0, z: 0}
     CharacterInitialOrientation: 0
-    SpecialCoordinates: []
+    SpecialCoordinates:
+    - {x: 2, y: 1, z: 1}
     MandatoryBloxes:
     - Blox: {fileID: 850471584}
       MinimumQuantity: 2
     SpecialActionBlox: {fileID: 0}
     OptionalExpectedBloxes: []
     MandatorySteps:
-    - CoordinateInPlot: {x: 2, y: 0, z: 0}
+    - CoordinateInPlot: {x: 2, y: 1, z: 1}
       SpecialAction: 0
     MaxCodeLinesExpected: 2
     MaxTimeInMinutes: 10
@@ -5152,7 +5153,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: "Edite aqui a descri\xE7\xE3o do problema a ser resolvido "
+  m_Text: Siga o tutorial!
 --- !u!222 &1406115555
 CanvasRenderer:
   m_ObjectHideFlags: 0
