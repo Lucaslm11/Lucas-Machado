@@ -8,8 +8,7 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>10.0.20506</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <RootNamespace>
-    </RootNamespace>
+    <RootNamespace></RootNamespace>
     <ProjectGuid>{078285B2-F754-D98F-460C-015E1EC32FFD}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
@@ -56,19 +55,6 @@
     <Analyzer Include="C:\Program Files (x86)\Microsoft Visual Studio Tools for Unity\16.0\Analyzers\Microsoft.Unity.Analyzers.dll" />
   </ItemGroup>
   <ItemGroup>
-    <Reference Include="Elasticsearch.Net, Version=7.0.0.0, Culture=neutral, PublicKeyToken=96c599bbe3e70f5d, processorArchitecture=MSIL">
-      <HintPath>packages\Elasticsearch.Net.7.6.1\lib\net461\Elasticsearch.Net.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.CSharp" />
-    <Reference Include="Nest, Version=7.0.0.0, Culture=neutral, PublicKeyToken=96c599bbe3e70f5d, processorArchitecture=MSIL">
-      <HintPath>packages\NEST.7.6.1\lib\net461\Nest.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Buffers, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
-      <HintPath>packages\System.Buffers.4.5.0\lib\netstandard2.0\System.Buffers.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Diagnostics.DiagnosticSource, Version=4.0.3.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
-      <HintPath>packages\System.Diagnostics.DiagnosticSource.4.5.1\lib\net46\System.Diagnostics.DiagnosticSource.dll</HintPath>
-    </Reference>
     <Reference Include="UnityEngine">
       <HintPath>C:\Program Files\Unity\Hub\Editor\2019.3.6f1\Editor\Data\Managed/UnityEngine/UnityEngine.dll</HintPath>
     </Reference>
@@ -102,9 +88,11 @@
     <Compile Include="Assets\Scripts\BloxUI\BloxScripts\Interfaces\ICompilable.cs" />
     <Compile Include="Assets\Scripts\BloxUI\BloxScripts\LogicalOperatorBlox.cs" />
     <Compile Include="Assets\Scripts\BloxUI\BloxScripts\OperatorBlox.cs" />
+    <Compile Include="Assets\Scripts\BloxUI\BloxScripts\PrintLogBlox.cs" />
     <Compile Include="Assets\Scripts\BloxUI\BloxScripts\RootBlox.cs" />
     <Compile Include="Assets\Scripts\BloxUI\BloxScripts\SpecialActionBlox.cs" />
     <Compile Include="Assets\Scripts\BloxUI\BloxScripts\StringBlox.cs" />
+    <Compile Include="Assets\Scripts\BloxUI\BloxScripts\VariableChoiceBlox.cs" />
     <Compile Include="Assets\Scripts\BloxUI\BloxTerminal.cs" />
     <Compile Include="Assets\Scripts\BloxUI\ErrorMessage.cs" />
     <Compile Include="Assets\Scripts\BloxUI\ErrorPopup.cs" />
@@ -126,9 +114,11 @@
     <Compile Include="Assets\Scripts\BloxUI\LevelFailurePanel.cs" />
     <Compile Include="Assets\Scripts\BloxUI\LevelSuccessPanel.cs" />
     <Compile Include="Assets\Scripts\BloxUI\ObjectivePanel.cs" />
+    <Compile Include="Assets\Scripts\BloxUI\OutputPanel.cs" />
     <Compile Include="Assets\Scripts\BloxUI\SquareTile.cs" />
     <Compile Include="Assets\Scripts\BloxUI\TabButton.cs" />
     <Compile Include="Assets\Scripts\BloxUI\TabManager.cs" />
+    <Compile Include="Assets\Scripts\BloxUI\Timer.cs" />
     <Compile Include="Assets\Scripts\BloxUI\Trashbin.cs" />
     <Compile Include="Assets\Scripts\BloxUI\Tutorial\TutorialDescriptor.cs" />
     <Compile Include="Assets\Scripts\BloxUI\Tutorial\TutorialLoader.cs" />
@@ -145,11 +135,13 @@
     <Compile Include="Assets\Scripts\Interpreter\Nodes\Functions\ActionExecutorNode.cs" />
     <Compile Include="Assets\Scripts\Interpreter\Nodes\Functions\ArithmeticOperationNode.cs" />
     <Compile Include="Assets\Scripts\Interpreter\Nodes\Functions\LogicalOperationNode.cs" />
+    <Compile Include="Assets\Scripts\Interpreter\Nodes\Functions\OutputMessageNode.cs" />
     <Compile Include="Assets\Scripts\Interpreter\Nodes\ICodeNode.cs" />
     <Compile Include="Assets\Scripts\Interpreter\Nodes\IfNode.cs" />
     <Compile Include="Assets\Scripts\Interpreter\Nodes\RootNode.cs" />
     <Compile Include="Assets\Scripts\Interpreter\Nodes\Types\BooleanNode.cs" />
     <Compile Include="Assets\Scripts\Interpreter\Nodes\Types\IntegerNode.cs" />
+    <Compile Include="Assets\Scripts\Interpreter\Nodes\Types\ObjectNode.cs" />
     <Compile Include="Assets\Scripts\Interpreter\Nodes\Types\StringNode.cs" />
     <Compile Include="Assets\Scripts\Test.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark01.cs" />
@@ -209,7 +201,6 @@
     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_SDF-Mobile.shader" />
     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_Sprite.shader" />
     <None Include="Assets\TextMesh Pro\Examples &amp; Extras\Fonts\Bangers - OFL.txt" />
-    <None Include="packages.config" />
     <Reference Include="Unity.Timeline.Editor">
       <HintPath>C:/Users/abelt/Projects/Unity3DLearning/CodeBlox/Library/ScriptAssemblies/Unity.Timeline.Editor.dll</HintPath>
     </Reference>
