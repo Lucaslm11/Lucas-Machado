@@ -467,7 +467,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 159.13123, y: 29.440865}
+  m_Size: {x: 159.13123, y: 20}
   m_EdgeRadius: 0
 --- !u!114 &6207513234597924842
 MonoBehaviour:
@@ -481,6 +481,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3b36e0733bdf81d41a7bee68849fc685, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  HelpText: "O bloco BOOL representa uma vari\xE1vel que apenas cont\xE9m dois valores
+    possiveis. \"true\" (verdadeiro) ou \"false\" (falso).\nPoder\xE1 definir directamente
+    essa vari\xE1vel como verdadeira ou falsa. Alternativamente, poder\xE1 tamb\xE9m
+    acoplar o operador l\xF3gico lado a lado."
+  HelpExampleTexture: {fileID: 0}
   VarNameField: {fileID: 6271380379398442718}
   ValueField: {fileID: 8252641788520483982}
 --- !u!114 &1541397567

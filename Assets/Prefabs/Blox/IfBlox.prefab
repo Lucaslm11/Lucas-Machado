@@ -65,7 +65,7 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 10
+    m_FontSize: 8
     m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 0
@@ -390,7 +390,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 8.5, y: 0.000012735}
-  m_SizeDelta: {x: 63.44, y: 14.6}
+  m_SizeDelta: {x: 63.44, y: 15}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &8495205493879644532
 CanvasRenderer:
@@ -608,7 +608,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 6995701601642133582}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 6995701601642133580}
+        m_MethodName: ClickEvent
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &6995701601642133580
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -621,6 +632,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c00e8e3fd48ba43488afb9ac13b4d724, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  HelpText: "O bloco IF \xE9 uma express\xE3o condicional, que permite ou n\xE3o
+    executar um conjunto de blocos filhos. \n\xC9 por isso avaliada uma vari\xE1vel
+    booleana, e executar\xE1 os blocos filhos se a mesma contiver o valor \"true\".\nAlternativamente
+    pode ter acoplado ao seu lado um um operador l\xF3gico. Neste caso avaliar\xE1
+    o resultado deste.\n\n\n\n"
+  HelpExampleTexture: {fileID: 0}
   booleanVariablesDropdown: {fileID: 4316095292437131460}
 --- !u!61 &6995701601642133579
 BoxCollider2D:

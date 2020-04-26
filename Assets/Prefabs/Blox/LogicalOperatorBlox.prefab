@@ -112,7 +112,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: -55.605, y: 0}
-  m_SizeDelta: {x: 43.62, y: 19.04}
+  m_SizeDelta: {x: 43.62, y: 15}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &2710331334047701097
 CanvasRenderer:
@@ -553,7 +553,7 @@ RectTransform:
   m_GameObject: {fileID: 2710331334177397452}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1.2693403, y: 1.470783, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 2710331334241841478}
   - {fileID: 2710331335392077157}
@@ -564,7 +564,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: -1.9, y: 0.000011444}
-  m_SizeDelta: {x: 40.05, y: 16.07}
+  m_SizeDelta: {x: 40.05, y: 15}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &2710331334177397424
 CanvasRenderer:
@@ -727,10 +727,10 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 10
+    m_FontSize: 8
     m_FontStyle: 0
     m_BestFit: 0
-    m_MinSize: 1
+    m_MinSize: 0
     m_MaxSize: 40
     m_Alignment: 4
     m_AlignByGeometry: 0
@@ -1042,7 +1042,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: -44.7, y: 0.000017166}
-  m_SizeDelta: {x: 21.81, y: 19.04}
+  m_SizeDelta: {x: 21.81, y: 15}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &2710331334510740227
 CanvasRenderer:
@@ -1781,7 +1781,7 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 10
+    m_FontSize: 8
     m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 1
@@ -2220,7 +2220,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 50.50501, y: 0}
-  m_SizeDelta: {x: 43.62, y: 19.04}
+  m_SizeDelta: {x: 43.62, y: 15}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &2710331335306649183
 CanvasRenderer:
@@ -2357,7 +2357,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 39.6, y: 0.000017166}
-  m_SizeDelta: {x: 21.81, y: 19.04}
+  m_SizeDelta: {x: 21.81, y: 15}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &2710331335378367415
 CanvasRenderer:
@@ -3438,7 +3438,7 @@ RectTransform:
   m_GameObject: {fileID: 2710331335906283255}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.7878108, y: 0.67991006, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4086381366378267606}
   - {fileID: 2710331334047701094}
@@ -3579,7 +3579,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 160, y: 30}
+  m_Size: {x: 160, y: 20}
   m_EdgeRadius: 0
 --- !u!114 &8231688863707819754
 MonoBehaviour:
@@ -3593,6 +3593,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0172cb051d0916341b4e8f8448c2456a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  HelpText: "Este bloco constitui um operador l\xF3gico, que permite comparar dois
+    operandos num\xE9ricos.  \nO bot\xE3o \"+\" permite para cada operando alternar
+    entre uma introdu\xE7\xE3o num\xE9rica, e um selector de vari\xE1veis INT dispon\xEDveis.\nEste
+    bloco apenas poder\xE1 ser usado acoplado lado a lado com o IF ou com o BOOL. "
+  HelpExampleTexture: {fileID: 0}
   Value1Switcher: {fileID: 4086381366378267626}
   Value2Switcher: {fileID: 4086381365868769949}
 --- !u!114 &465553333
@@ -3874,7 +3879,7 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 10
+    m_FontSize: 8
     m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 1
@@ -4065,12 +4070,12 @@ PrefabInstance:
     - target: {fileID: 2101133522771785359, guid: 1cd5f5b656d21fc4083fda61302256ff,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 26.3
+      value: 25.9
       objectReference: {fileID: 0}
     - target: {fileID: 2101133522771785359, guid: 1cd5f5b656d21fc4083fda61302256ff,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 7.942215
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 2101133522771785359, guid: 1cd5f5b656d21fc4083fda61302256ff,
         type: 3}
@@ -4115,12 +4120,12 @@ PrefabInstance:
     - target: {fileID: 2101133522771785359, guid: 1cd5f5b656d21fc4083fda61302256ff,
         type: 3}
       propertyPath: m_LocalScale.x
-      value: 1.2693403
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2101133522771785359, guid: 1cd5f5b656d21fc4083fda61302256ff,
         type: 3}
       propertyPath: m_LocalScale.y
-      value: 1.4707828
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2101133522771785395, guid: 1cd5f5b656d21fc4083fda61302256ff,
         type: 3}
@@ -4222,12 +4227,12 @@ PrefabInstance:
     - target: {fileID: 2101133522771785359, guid: 1cd5f5b656d21fc4083fda61302256ff,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -31.073452
+      value: -30.6
       objectReference: {fileID: 0}
     - target: {fileID: 2101133522771785359, guid: 1cd5f5b656d21fc4083fda61302256ff,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 7.942215
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 2101133522771785359, guid: 1cd5f5b656d21fc4083fda61302256ff,
         type: 3}
@@ -4272,12 +4277,12 @@ PrefabInstance:
     - target: {fileID: 2101133522771785359, guid: 1cd5f5b656d21fc4083fda61302256ff,
         type: 3}
       propertyPath: m_LocalScale.x
-      value: 1.2693403
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2101133522771785359, guid: 1cd5f5b656d21fc4083fda61302256ff,
         type: 3}
       propertyPath: m_LocalScale.y
-      value: 1.4707828
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2101133522771785395, guid: 1cd5f5b656d21fc4083fda61302256ff,
         type: 3}

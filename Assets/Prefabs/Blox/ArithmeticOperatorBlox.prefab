@@ -255,7 +255,7 @@ RectTransform:
   m_GameObject: {fileID: 1009782854787628091}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1.2693403, y: 1.470783, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1009782855120459697}
   - {fileID: 1009782856249230226}
@@ -266,7 +266,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: -1.9, y: 0.000011444}
-  m_SizeDelta: {x: 40.05, y: 16.07}
+  m_SizeDelta: {x: 40.05, y: 15}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1009782854787628103
 CanvasRenderer:
@@ -564,7 +564,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: -55.605, y: 0}
-  m_SizeDelta: {x: 43.62, y: 19.04}
+  m_SizeDelta: {x: 43.62, y: 15}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1009782854909066910
 CanvasRenderer:
@@ -813,7 +813,7 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 10
+    m_FontSize: 8
     m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 1
@@ -1257,7 +1257,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: -44.7, y: 0.000017166}
-  m_SizeDelta: {x: 21.81, y: 19.04}
+  m_SizeDelta: {x: 21.81, y: 15}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1009782855388882420
 CanvasRenderer:
@@ -2220,7 +2220,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 50.50501, y: 0}
-  m_SizeDelta: {x: 43.62, y: 19.04}
+  m_SizeDelta: {x: 43.62, y: 15}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1009782856168536232
 CanvasRenderer:
@@ -2443,7 +2443,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 39.6, y: 0.000017166}
-  m_SizeDelta: {x: 21.81, y: 19.04}
+  m_SizeDelta: {x: 21.81, y: 15}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1009782856239682880
 CanvasRenderer:
@@ -3820,7 +3820,7 @@ RectTransform:
   m_GameObject: {fileID: 1009782856784390144}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.7878108, y: 0.67991006, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1381410907349116193}
   - {fileID: 1009782854909066897}
@@ -3961,7 +3961,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 160, y: 30}
+  m_Size: {x: 160, y: 20}
   m_EdgeRadius: 0
 --- !u!114 &1009782856784390158
 MonoBehaviour:
@@ -3975,6 +3975,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d75bba02586a9b240963e1b0c75af7f2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  HelpText: "Este bloco constitui um operador aritm\xE9tico. Permite por isso realizar
+    somas, multiplica\xE7\xF5es, divis\xF5es(*), subtrac\xE7\xF5es, entre dois operandos,
+    um \xE0 esquerda, outro \xE0 direita. \nO bot\xE3o \"+\" permite para cada operando
+    alternar entre uma introdu\xE7\xE3o num\xE9rica, e um selector de vari\xE1veis
+    INT dispon\xEDveis.\nEste bloco apenas poder\xE1 ser usado acoplado lado a lado
+    com o INT. \n\n(*) As divis\xF5es por zero d\xE3o origem a erros, que ser\xE3o
+    mostrados na tab de erros. Al\xE9m disso, o resultado da divis\xE3o devolve apenas
+    a componente inteira. Ex: 3/2, vai retornar 1"
+  HelpExampleTexture: {fileID: 0}
   Value1Switcher: {fileID: 1381410907349116189}
   Value2Switcher: {fileID: 1381410907187729514}
 --- !u!114 &650091931
@@ -4065,12 +4074,12 @@ PrefabInstance:
     - target: {fileID: 2101133522771785359, guid: 1cd5f5b656d21fc4083fda61302256ff,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 26.3
+      value: 26.1
       objectReference: {fileID: 0}
     - target: {fileID: 2101133522771785359, guid: 1cd5f5b656d21fc4083fda61302256ff,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 7.942215
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 2101133522771785359, guid: 1cd5f5b656d21fc4083fda61302256ff,
         type: 3}
@@ -4115,12 +4124,12 @@ PrefabInstance:
     - target: {fileID: 2101133522771785359, guid: 1cd5f5b656d21fc4083fda61302256ff,
         type: 3}
       propertyPath: m_LocalScale.x
-      value: 1.2693403
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2101133522771785359, guid: 1cd5f5b656d21fc4083fda61302256ff,
         type: 3}
       propertyPath: m_LocalScale.y
-      value: 1.4707828
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2101133522771785395, guid: 1cd5f5b656d21fc4083fda61302256ff,
         type: 3}
@@ -4222,12 +4231,12 @@ PrefabInstance:
     - target: {fileID: 2101133522771785359, guid: 1cd5f5b656d21fc4083fda61302256ff,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -31.073452
+      value: -31
       objectReference: {fileID: 0}
     - target: {fileID: 2101133522771785359, guid: 1cd5f5b656d21fc4083fda61302256ff,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 7.942215
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 2101133522771785359, guid: 1cd5f5b656d21fc4083fda61302256ff,
         type: 3}
@@ -4272,12 +4281,12 @@ PrefabInstance:
     - target: {fileID: 2101133522771785359, guid: 1cd5f5b656d21fc4083fda61302256ff,
         type: 3}
       propertyPath: m_LocalScale.x
-      value: 1.2693403
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2101133522771785359, guid: 1cd5f5b656d21fc4083fda61302256ff,
         type: 3}
       propertyPath: m_LocalScale.y
-      value: 1.4707828
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2101133522771785395, guid: 1cd5f5b656d21fc4083fda61302256ff,
         type: 3}

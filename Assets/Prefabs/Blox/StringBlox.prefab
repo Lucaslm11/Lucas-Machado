@@ -644,6 +644,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4e27751ab53a457468fc37164bb84c11, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  HelpText: "O bloco STRING representa uma vari\xE1vel que cont\xE9m texto."
+  HelpExampleTexture: {fileID: 0}
   VarNameField: {fileID: 7923020567214760605}
   ValueField: {fileID: 7923020566154589370}
 --- !u!114 &1483613558

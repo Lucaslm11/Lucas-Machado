@@ -507,7 +507,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 84987162595984641}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 0}
+        m_MethodName: 
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: 
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &3257620775438341647
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -520,6 +531,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d230be3cbec49c544a9e860989fbdc01, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  HelpText: "O bloco INT representa uma vari\xE1vel que pode conter valores num\xE9ricos(*).\nPoder\xE1
+    definir directamente essa vari\xE1vel com um n\xFAmero. Alternativamente, poder\xE1
+    tamb\xE9m acoplar o operador aritm\xE9tico lado a lado.\n\n(*) numa linguagem
+    de programa\xE7\xE3o comum, o int leva numeros inteiros positivos ou negativos.
+    No contexto deste jogo, apenas conter\xE1 n\xFAmeros positivos."
+  HelpExampleTexture: {fileID: 0}
   VarNameField: {fileID: 84987162308165939}
   ValueField: {fileID: 84987163366250260}
 --- !u!50 &3177442962876011785

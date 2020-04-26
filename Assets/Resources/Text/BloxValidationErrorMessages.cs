@@ -28,4 +28,10 @@ public static class BloxValidationErrorMessages
     public const string NO_HOLE_AHEAD_EXCEPTION = "Não é possível descer para um Tile que não se encontra em nível inferior.";
     public const string NO_TILE_AHEAD_EXCEPTION = "Não é possível mover para um Tile inexistente.";
     public const string DIVISION_BY_ZERO_EXCEPTION = "Não é possível dividir por zero.";
+
+
+    public const string VARIABLE_CHOICE_BLOX_NO_VALUE = "Não foi seleccionada uma variável.";
+    public const string PRINT_BLOX_NO_PARAMS = "O bloco PRINT não tem parâmetros associados.";
+
+
 }

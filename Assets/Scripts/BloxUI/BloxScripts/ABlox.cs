@@ -15,6 +15,7 @@ public abstract class ABlox : MonoBehaviour, IBeginDragHandler, IDragHandler, IE
     /// <summary>
     /// Contains the text to be shown in the BloxHelpPanel
     /// </summary>
+    [TextArea(3,30)]
     [SerializeField] public String HelpText;
     /// <summary>
     /// Contains the image to be shown in the BloxHelpPanel
@@ -35,7 +36,7 @@ public abstract class ABlox : MonoBehaviour, IBeginDragHandler, IDragHandler, IE
     //Indicates if the blox will be only intended to be used as a PARAM
     protected virtual bool IsParam { get { return false; } }
 
-    [NonSerialized] public bool InsideBloxBag = false;
+    //[NonSerialized] public bool InsideBloxBag = false;
     [NonSerialized] public bool IsBeingDragged = false;
     protected RootBlox rootBlox = null;
 
@@ -57,7 +58,7 @@ public abstract class ABlox : MonoBehaviour, IBeginDragHandler, IDragHandler, IE
     #region start and update
     void Start()
     {
-        InsideBloxBag = CheckIfInsideBloxBag();
+        //InsideBloxBag = CheckIfInsideBloxBag();
         OnStart();
     }
 
@@ -99,11 +100,11 @@ public abstract class ABlox : MonoBehaviour, IBeginDragHandler, IDragHandler, IE
         // When attempting to drag a Blox that is inside the blox bag, 
         // instead of just dragging we create a new instance and set
         // the current one as not inside
-        if (InsideBloxBag)
+        if (CheckIfInsideBloxBag())
         {
             ABlox newInstance = Instantiate(this, this.transform.parent);
             this.transform.SetParent(this.transform.parent.parent.parent.parent); //Content, then Viewport then BloxBag then Canvas
-            this.InsideBloxBag = false;
+            //this.InsideBloxBag = false;
         }
     }
 
@@ -749,6 +750,8 @@ public abstract class ABlox : MonoBehaviour, IBeginDragHandler, IDragHandler, IE
             }
 
         }
+
+
         return errors;
     }
 
